@@ -3,8 +3,8 @@ name: Check elixir-phoenix
 on:
   push:
     # Set this to the directory of the template
-    # paths:
-    # - elixir-phoenix
+    paths:
+    - elixir-phoenix
 
 jobs:
   check:

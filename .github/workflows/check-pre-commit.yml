@@ -3,8 +3,8 @@ name: Check pre-commit
 on:
   push:
     # Set this to the directory of the template
-    # paths:
-    # - pre-commit
+    paths:
+    - pre-commit
 
 jobs:
   check:

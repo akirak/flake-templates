@@ -3,8 +3,8 @@ name: Check minimal
 on:
   push:
     # Set this to the directory of the template
-    # paths:
-    # - minimal
+    paths:
+    - minimal
 
 jobs:
   check:
