@@ -1,9 +1,9 @@
 name: Generate lock files
 
 on:
-  push:
-    branches:
-    - master
+  schedule:
+    # Every week
+    - cron:  '0 14 * * 5'
 
 jobs:
   get_templates:
