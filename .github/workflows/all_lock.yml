@@ -1,4 +1,4 @@
-name: Check inputs
+name: Generate lock files
 
 on:
   push:
