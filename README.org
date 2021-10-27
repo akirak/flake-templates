@@ -15,7 +15,7 @@ nix flake init -t akirak/flake-templates#pre-commit
 #+end_src
 *** [[file:elixir-phoenix/flake.nix][elixir-phoenix]]
 A boilerplate for developing a web application using Elixir Phoenix.
-You won't use Nix to build Elixir applications, but you use Mix for your workflow.
+You won't use Nix to build Elixir applications, but you will use Mix for your workflow.
 
 #+begin_src sh
 nix flake init -t akirak/flake-templates#elixir-phoenix
