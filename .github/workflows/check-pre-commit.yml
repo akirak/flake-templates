@@ -1,13 +1,13 @@
-name: Build
+name: Check pre-commit
 
 on:
   push:
     # Set this to the directory of the template
     paths:
-    - minimal
+    - pre-commit
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -18,4 +18,5 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
     # Run any task to check your flake
-    - run: nix build
+    - working-directory: pre-commit
+      run: nix develop --command pre-commit --version
