@@ -1,13 +1,13 @@
-name: Build
+name: Check minimal
 
 on:
   push:
     # Set this to the directory of the template
-    paths:
-    - minimal
+    # paths:
+    # - minimal
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
