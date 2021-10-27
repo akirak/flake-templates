@@ -18,4 +18,5 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
     # Run any task to check your flake
-    - run: nix build
+    - working-directory: minimal
+      run: nix build '.#hello'
