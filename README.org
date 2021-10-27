@@ -1,0 +1,26 @@
+* Flake templates
+This is a collection of [[https://nixos.wiki/wiki/Flakes][Nix flake]] templates.
+** List of templates in this repository
+*** [[file:minimal/flake.nix][minimal]]
+A minimal project boilerplate with [[https://github.com/numtide/flake-utils][flake-utils]].
+
+#+begin_src sh
+nix flake init -t akirak/flake-templates#minimal
+#+end_src
+*** [[file:pre-commit/flake.nix][pre-commit]]
+A basic project boilerplate with [[https://github.com/cachix/pre-commit-hooks.nix][pre-commit-hooks.nix]] to run linters.
+
+#+begin_src sh
+nix flake init -t akirak/flake-templates#pre-commit
+#+end_src
+*** [[file:elixir-phoenix/flake.nix][elixir-phoenix]]
+A boilerplate for developing a web application using Elixir Phoenix.
+You won't use Nix to build Elixir applications, but you use Mix for your workflow.
+
+#+begin_src sh
+nix flake init -t akirak/flake-templates#elixir-phoenix
+#+end_src
+** Other template repositories
+- [[https://github.com/nixos/templates][NixOS]]
+- [[https://github.com/serokell/templates][serokell]]
+- [[https://github.com/johnae/nix-flake-templates][johnae]]
