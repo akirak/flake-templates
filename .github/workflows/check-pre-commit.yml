@@ -4,7 +4,7 @@ on:
   push:
     # Set this to the directory of the template
     paths:
-    - pre-commit
+    - pre-commit/**
 
 jobs:
   check:
