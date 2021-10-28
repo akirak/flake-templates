@@ -76,7 +76,7 @@
 
             inherit (self.checks.${system}.pre-commit-check) shellHook;
 
-            LC_CTYPE = "en_US.utf-8";
+            LANG = "C.UTF-8";
             ERL_AFLAGS = "-kernel shell_history enabled";
           };
         }
