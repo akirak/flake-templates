@@ -14,6 +14,9 @@ A basic project boilerplate with [[https://github.com/cachix/pre-commit-hooks.ni
 nix flake init -t akirak/flake-templates#pre-commit
 #+end_src
 *** [[file:elixir-phoenix/flake.nix][elixir-phoenix]]
+*This template is a work in progress.*
+At present, I have no experience in Phoenix in production.
+
 A boilerplate for developing a web application using Elixir Phoenix.
 You won't use Nix to build Elixir applications, but you will use Mix for your workflow.
 
