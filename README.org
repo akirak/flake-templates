@@ -2,23 +2,24 @@
 This is a collection of [[https://nixos.wiki/wiki/Flakes][Nix flake]] templates.
 ** List of templates in this repository
 *** [[file:minimal/flake.nix][minimal]]
-A minimal project boilerplate with [[https://github.com/numtide/flake-utils][flake-utils]].
+This is a minimal project boilerplate with [[https://github.com/numtide/flake-utils][flake-utils]].
 
 #+begin_src sh
 nix flake init -t akirak/flake-templates#minimal
 #+end_src
 *** [[file:pre-commit/flake.nix][pre-commit]]
-A basic project boilerplate with [[https://github.com/cachix/pre-commit-hooks.nix][pre-commit-hooks.nix]] to run linters.
+This is a basic project boilerplate with [[https://github.com/cachix/pre-commit-hooks.nix][pre-commit-hooks.nix]] to run linters.
 
 #+begin_src sh
 nix flake init -t akirak/flake-templates#pre-commit
 #+end_src
-*** [[file:elixir-phoenix/flake.nix][elixir-phoenix]]
-*This template is a work in progress.*
-At present, I have no experience in Phoenix in production.
+*** [[file:elixir-phoenix/flake.nix][elixir-phoenix]] (work in progress)
+*This is a work in progress.*
+At present, I have no experience with Phoenix in production.
 
-A boilerplate for developing a web application using Elixir Phoenix.
+This is a boilerplate for developing a web application using Elixir Phoenix.
 You won't use Nix to build Elixir applications, but you will use Mix for your workflow.
+You may be able to use [[https://github.com/serokell/mix-to-nix][serokell/mix-to-nix]] for building Elixir applications using Nix, but I haven't tried it out yet.
 
 #+begin_src sh
 nix flake init -t akirak/flake-templates#elixir-phoenix
