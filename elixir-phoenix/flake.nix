@@ -10,12 +10,8 @@
     inputs.nixpkgs.follows = "nixpkgs";
     inputs.flake-utils.follows = "flake-utils";
   };
-  inputs.gitignore = {
-    url = "github:hercules-ci/gitignore.nix";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
 
-  outputs = { self, nixpkgs, flake-utils, pre-commit-hooks, gitignore }:
+  outputs = { self, nixpkgs, flake-utils, pre-commit-hooks }:
     flake-utils.lib.eachSystem [
       # TODO: Configure your supported system here.
       "x86_64-linux"
@@ -28,8 +24,6 @@
           pkgs = import nixpkgs {
             inherit system;
           };
-
-          inherit (gitignore.lib) gitignoreSource;
 
           # Set the Erlang version
           erlangVersion = "erlangR24";
@@ -57,7 +51,7 @@
 
           checks = {
             pre-commit-check = pre-commit-hooks.lib.${system}.run {
-              src = gitignoreSource ./.;
+              src = ./.;
               hooks = {
                 nixpkgs-fmt.enable = true;
                 nix-linter.enable = true;
