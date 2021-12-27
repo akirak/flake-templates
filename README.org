@@ -13,6 +13,8 @@ This is a basic project boilerplate with [[https://github.com/cachix/pre-commit-
 #+begin_src sh
 nix flake init -t akirak/flake-templates#pre-commit
 #+end_src
+
+Alternatively, you can set up a pre-commit hook without adding a boilerplate by running =nix develop= as in [[https://github.com/akirak/git-hooks][akirak/git-hooks]].
 *** [[file:elixir-phoenix/flake.nix][elixir-phoenix]] (work in progress)
 *This is a work in progress.*
 At present, I have no experience with Phoenix in production.
