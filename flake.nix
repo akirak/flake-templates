@@ -4,6 +4,10 @@
   outputs = { ... }:
     {
       templates = {
+        meta = {
+          path = ./meta;
+          description = "Miscellaneous files for GitHub projects";
+        };
         minimal = {
           path = ./minimal;
           description = "Minimal boilerplate with flake-utils";

@@ -26,6 +26,8 @@ You may be able to use [[https://github.com/serokell/mix-to-nix][serokell/mix-to
 #+begin_src sh
 nix flake init -t akirak/flake-templates#elixir-phoenix
 #+end_src
+*** [[file:meta/][meta]]
+This is a common set of metadata files for GitHub projects, such as =.gitignore=, =dependabot.yml=, etc.
 ** Other template repositories
 - [[https://github.com/nixos/templates][NixOS]]
 - [[https://github.com/serokell/templates][serokell]]
