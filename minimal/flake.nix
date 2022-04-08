@@ -12,12 +12,13 @@
     flake-utils,
   }:
     flake-utils.lib.eachDefaultSystem
-    (system: rec {
-      packages = flake-utils.lib.flattenTree {
-        hello = nixpkgs.legacyPackages.${system}.hello;
+    (system: let
+      pkgs = import nixpkgs {
+        inherit system;
       };
-      # defaultPackage = packages.hello;
-      # apps.hello = flake-utils.lib.mkApp { drv = packages.hello; };
-      # defaultApp = apps.hello;
+    in {
+      packages = flake-utils.lib.flattenTree {
+        inherit (pkgs) hello;
+      };
     });
 }
