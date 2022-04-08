@@ -11,35 +11,33 @@
     inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    , pre-commit-hooks
-    }:
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+    pre-commit-hooks,
+  }:
     flake-utils.lib.eachDefaultSystem
-      (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in
-      rec {
-        packages = flake-utils.lib.flattenTree {
-          hello = pkgs.hello;
-        };
-        # defaultPackage = packages.hello;
-        # apps.hello = flake-utils.lib.mkApp { drv = packages.hello; };
-        # defaultApp = apps.hello;
-        checks = {
-          pre-commit-check = pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixpkgs-fmt.enable = true;
-              nix-linter.enable = true;
-            };
+    (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in rec {
+      packages = flake-utils.lib.flattenTree {
+        hello = pkgs.hello;
+      };
+      # defaultPackage = packages.hello;
+      # apps.hello = flake-utils.lib.mkApp { drv = packages.hello; };
+      # defaultApp = apps.hello;
+      checks = {
+        pre-commit-check = pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            nixpkgs-fmt.enable = true;
+            nix-linter.enable = true;
           };
         };
-        devShell = pkgs.mkShell {
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
-        };
-      });
+      };
+      devShell = pkgs.mkShell {
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
+      };
+    });
 }
