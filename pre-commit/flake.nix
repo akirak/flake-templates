@@ -24,9 +24,6 @@
       packages = flake-utils.lib.flattenTree {
         hello = pkgs.hello;
       };
-      # defaultPackage = packages.hello;
-      # apps.hello = flake-utils.lib.mkApp { drv = packages.hello; };
-      # defaultApp = apps.hello;
       checks = {
         pre-commit-check = pre-commit-hooks.lib.${system}.run {
           src = ./.;
@@ -36,7 +33,7 @@
           };
         };
       };
-      devShell = pkgs.mkShell {
+      devShells.default = pkgs.mkShell {
         inherit (self.checks.${system}.pre-commit-check) shellHook;
       };
     });

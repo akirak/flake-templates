@@ -60,7 +60,7 @@
             };
           };
         };
-        devShell = nixpkgs.legacyPackages.${system}.mkShell {
+        devShells.default = nixpkgs.legacyPackages.${system}.mkShell {
           buildInputs =
             [
               erlang
