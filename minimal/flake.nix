@@ -20,5 +20,10 @@
       packages = flake-utils.lib.flattenTree {
         inherit (pkgs) hello;
       };
+
+      # devShells.default = pkgs.mkShell {
+      #   buildInputs = [
+      #   ];
+      # };
     });
 }
