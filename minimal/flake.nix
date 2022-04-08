@@ -6,19 +6,24 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    }:
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+  }:
     flake-utils.lib.eachDefaultSystem
-      (system:
-      rec {
-        packages = flake-utils.lib.flattenTree {
-          hello = nixpkgs.legacyPackages.${system}.hello;
-        };
-        # defaultPackage = packages.hello;
-        # apps.hello = flake-utils.lib.mkApp { drv = packages.hello; };
-        # defaultApp = apps.hello;
-      });
+    (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+      };
+    in {
+      packages = flake-utils.lib.flattenTree {
+        inherit (pkgs) hello;
+      };
+
+      # devShells.default = pkgs.mkShell {
+      #   buildInputs = [
+      #   ];
+      # };
+    });
 }
