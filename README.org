@@ -15,6 +15,18 @@ nix flake init -t akirak/flake-templates#pre-commit
 #+end_src
 
 Alternatively, you can set up a pre-commit hook without adding a boilerplate by running =nix develop= as in [[https://github.com/akirak/git-hooks][akirak/git-hooks]].
+*** [[file:elixir/][elixir]]
+This is a simplified flake.nix for Elixir.
+
+#+begin_src sh
+nix flake init -t akirak/flake-templates#elixir
+#+end_src
+
+Once you enter the devShell, you can initialize a project by running =mix=:
+
+#+begin_src sh
+  mix new . --app hello
+#+end_src
 *** [[file:elixir-phoenix/flake.nix][elixir-phoenix]] (work in progress)
 *This is a work in progress.*
 At present, I have no experience with Phoenix in production.

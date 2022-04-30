@@ -25,6 +25,10 @@
           path = ./pre-commit;
           description = "Basic flake with pre-commit check";
         };
+        elixir = {
+          path = ./elixir;
+          description = "Simple Elixir project";
+        };
         elixir-phoenix = {
           path = ./elixir-phoenix;
           description = "Elixir Phoenix project where you use Mix";

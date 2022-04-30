@@ -1,0 +1,25 @@
+name: Check elixir
+
+on:
+  push:
+    # Set this to the directory of the template
+    paths:
+    - elixir/**
+
+jobs:
+  check:
+    strategy:
+      matrix:
+        platform:
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v17
+    # Run any task to check your flake
+    - working-directory: elixir
+      name: Check executables
+      run: |
+        nix develop --command mix help
+        nix develop --command elixir --version
