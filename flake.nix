@@ -1,7 +1,6 @@
 {
   description = "A collection of project templates";
 
-  inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
   outputs = {
