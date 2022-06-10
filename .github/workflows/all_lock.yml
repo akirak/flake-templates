@@ -23,6 +23,8 @@ jobs:
     strategy:
       matrix:
         template: ${{ fromJson(needs.get_templates.outputs.templates) }}
+        exclude:
+          - template: meta
     steps:
     - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v17
