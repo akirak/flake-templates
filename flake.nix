@@ -24,6 +24,10 @@
           path = ./pre-commit;
           description = "Basic flake with pre-commit check";
         };
+        node-typescript = {
+          path = ./node-typescript;
+          description = "Toolchain for TypeScript frontend projects";
+        };
         elixir = {
           path = ./elixir;
           description = "Simple Elixir project";
