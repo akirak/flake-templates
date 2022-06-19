@@ -19,6 +19,10 @@ Alternatively, you can set up a pre-commit hook without adding a boilerplate by 
 This is based on =minimal= but bundles opinionated settings for web development in TypeScript.
 You can add it to an existing code base to start coding without global dependencies.
 
+#+begin_src sh
+nix flake init -t github:akirak/flake-templates#node-typescript
+#+end_src
+
 It includes Node, pnpm, TypeScript, and typescript-language-server as =buildInputs= of the development shell.
 It also includes =.dir-locals.el= for Emacs. Eglot is preferred as the LSP client.
 You can tweak these settings after initialization, e.g. to use yarn instead of pnpm.
@@ -45,10 +49,14 @@ You won't use Nix to build Elixir applications, but you will use Mix for your wo
 You may be able to use [[https://github.com/serokell/mix-to-nix][serokell/mix-to-nix]] for building Elixir applications using Nix, but I haven't tried it out yet.
 
 #+begin_src sh
-nix flake init -t akirak/flake-templates#elixir-phoenix
+nix flake init -t github:akirak/flake-templates#elixir-phoenix
 #+end_src
 *** [[file:meta/][meta]]
 This is a common set of metadata files for GitHub projects, such as =.gitignore=, =dependabot.yml=, etc.
+
+#+begin_src sh
+nix flake init -t github:akirak/flake-templates#meta
+#+end_src
 ** Other template repositories
 - [[https://github.com/nixos/templates][NixOS]]
 - [[https://github.com/serokell/templates][serokell]]
