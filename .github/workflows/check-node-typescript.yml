@@ -1,0 +1,19 @@
+name: Check node-typescript
+
+on:
+  push:
+    paths:
+    - node-typescript/**
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v17
+    - working-directory: node-typescript
+      run: nix develop -c pnpm --version
+    - working-directory: node-typescript
+      run: nix develop -c tsc --version
+    - working-directory: node-typescript
+      run: nix develop -c typescript-language-server --version
