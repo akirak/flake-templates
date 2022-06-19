@@ -27,4 +27,4 @@ jobs:
       - name: Check executables
         run: |
           nix develop --command mix help
-          nix develop --command elixir --version
+          nix develop --command elixirc --version
