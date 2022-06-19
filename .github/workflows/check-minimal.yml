@@ -2,16 +2,27 @@ name: Check minimal
 
 on:
   push:
-    # Set this to the directory of the template
     paths:
+    # Set this to the directory of the template
     - minimal/**
+    - .github/workflows/check-minimal.yml
+  workflow_dispatch:
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v17
+
+    - uses: actions/checkout@v3
+      with:
+        path: ./tmp
+    - run: nix flake init -t ./tmp#minimal
+    - name: Prepare the project
+      run: |
+        rm -rf ./tmp
+        git init
+        git add .
+
     # Run any task to check your flake
-    - working-directory: minimal
-      run: nix build '.#hello'
+    - run: nix build '.#hello'
