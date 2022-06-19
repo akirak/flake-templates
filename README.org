@@ -15,6 +15,15 @@ nix flake init -t akirak/flake-templates#pre-commit
 #+end_src
 
 Alternatively, you can set up a pre-commit hook without adding a boilerplate by running =nix develop= as in [[https://github.com/akirak/git-hooks][akirak/git-hooks]].
+*** [[file:node-typescript/][node-typescript]]
+This is based on =minimal= but bundles opinionated settings for web development in TypeScript.
+You can add it to an existing code base to start coding without global dependencies.
+
+It includes Node, pnpm, TypeScript, and typescript-language-server as =buildInputs= of the development shell.
+It also includes =.dir-locals.el= for Emacs. Eglot is preferred as the LSP client.
+You can tweak these settings after initialization, e.g. to use yarn instead of pnpm.
+
+It uses the master branch of NixPkgs to install a recent set of node packages.
 *** [[file:elixir/][elixir]]
 This is a simplified flake.nix for Elixir.
 
