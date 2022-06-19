@@ -4,16 +4,25 @@ on:
   push:
     paths:
     - node-typescript/**
+    - .github/workflows/check-node-typescript.yml
+  workflow_dispatch:
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v17
-    - working-directory: node-typescript
-      run: nix develop -c pnpm --version
-    - working-directory: node-typescript
-      run: nix develop -c tsc --version
-    - working-directory: node-typescript
-      run: nix develop -c typescript-language-server --version
+
+    - uses: actions/checkout@v3
+      with:
+        path: ./tmp
+    - run: nix flake init -t ./tmp#node-typescript
+    - name: Prepare the project
+      run: |
+        rm -rf ./tmp
+        git init
+        git add .
+
+    - run: nix develop -c pnpm --version
+    - run: nix develop -c tsc --version
+    - run: nix develop -c typescript-language-server --version

@@ -2,24 +2,29 @@ name: Check elixir
 
 on:
   push:
-    # Set this to the directory of the template
     paths:
-    - elixir/**
+      # Set this to the directory of the template
+      - elixir/**
+      - .github/workflows/check-elixir.yml
+  workflow_dispatch:
 
 jobs:
   check:
-    strategy:
-      matrix:
-        platform:
-          - ubuntu-latest
-          - macos-latest
-    runs-on: ${{ matrix.platform }}
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v17
-    # Run any task to check your flake
-    - working-directory: elixir
-      name: Check executables
-      run: |
-        nix develop --command mix help
-        nix develop --command elixir --version
+      - uses: cachix/install-nix-action@v17
+
+      - uses: actions/checkout@v3
+        with:
+          path: ./tmp
+      - run: nix flake init -t ./tmp#elixir
+      - name: Prepare the project
+        run: |
+          rm -rf ./tmp
+          git init
+          git add .
+
+      - name: Check executables
+        run: |
+          nix develop --command mix help
+          nix develop --command elixirc --version
