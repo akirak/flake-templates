@@ -4,6 +4,7 @@ on:
   push:
     paths:
     - node-typescript/**
+  workflow_dispatch:
 
 jobs:
   check:
