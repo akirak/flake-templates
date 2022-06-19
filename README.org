@@ -5,13 +5,13 @@ This is a collection of [[https://nixos.wiki/wiki/Flakes][Nix flake]] templates.
 This is a minimal project boilerplate with [[https://github.com/numtide/flake-utils][flake-utils]].
 
 #+begin_src sh
-nix flake init -t akirak/flake-templates#minimal
+nix flake init -t github:akirak/flake-templates#minimal
 #+end_src
 *** [[file:pre-commit/flake.nix][pre-commit]]
 This is a basic project boilerplate with [[https://github.com/cachix/pre-commit-hooks.nix][pre-commit-hooks.nix]] to run linters.
 
 #+begin_src sh
-nix flake init -t akirak/flake-templates#pre-commit
+nix flake init -t github:akirak/flake-templates#pre-commit
 #+end_src
 
 Alternatively, you can set up a pre-commit hook without adding a boilerplate by running =nix develop= as in [[https://github.com/akirak/git-hooks][akirak/git-hooks]].
@@ -32,7 +32,7 @@ It uses the master branch of NixPkgs to install a recent set of node packages.
 This is a simplified flake.nix for Elixir.
 
 #+begin_src sh
-nix flake init -t akirak/flake-templates#elixir
+nix flake init -t github:akirak/flake-templates#elixir
 #+end_src
 
 Once you enter the devShell, you can initialize a project by running =mix=:
