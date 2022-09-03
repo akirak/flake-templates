@@ -26,7 +26,7 @@
         # packages = flake-utils.lib.flattenTree {
         # } ;
 
-        devShell = pkgs.mkShell {
+        devShells.default = pkgs.mkShell {
           buildInputs = [
             erlang
             elixir
