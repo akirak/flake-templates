@@ -1,6 +1,7 @@
 {
   description = "A collection of project templates";
 
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
   outputs = {
@@ -43,6 +44,11 @@
       system: let
         pkgs = import nixpkgs {inherit system;};
       in {
+        apps.update-beam = {
+          type = "app";
+          program = "${pkgs.callPackage ./updater.nix {}}";
+        };
+
         checks = {
           pre-commit-check = pre-commit-hooks.lib.${system}.run {
             src = ./.;

@@ -1,0 +1,35 @@
+name: Update
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    - uses: actions/checkout@v3
+
+    - uses: cachix/install-nix-action@v17
+
+    - name: Update flake inputs
+      run: nix flake lock --update-input nixpkgs
+
+    - name: Update Erlang and Elixir
+      run: nix run .#update-beam
+
+    - name: Roll back flake.lock if there is no change in any of the flake.nix files
+      run: |
+        if git diff-files --quiet -- **/flake.nix; then
+          git checkout HEAD -- flake.lock
+        fi
+
+    - uses: peter-evans/create-pull-request@v4
+      id: pr
+      with:
+        commit-message: 'Update'
+        base: master
+        title: 'chore: Update language runtime'
+        branch: create-pull-request/update
+        labels: automation,update
