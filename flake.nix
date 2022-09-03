@@ -1,6 +1,7 @@
 {
   description = "A collection of project templates";
 
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
   outputs = {
