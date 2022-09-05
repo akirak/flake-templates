@@ -33,5 +33,13 @@ let
   '';
 in
 writeShellScript "updater" ''
+  git add .
+  old=$(git write-tree)
   find -name flake.nix | xargs sed -i -r -f ${sed}
+
+  git add .
+  new=$(git write-tree)
+
+  # Exit with 0 if there has been any modification
+  [[ $old != $new ]]
 ''
