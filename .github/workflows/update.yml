@@ -21,13 +21,13 @@ jobs:
       run: nix run .#update-beam
 
     - name: Check if any of the flake.nix has been modified
-      run: git diff-files --quiet -- **/flake.nix
+      run: git diff-index --quiet ${{ github.sha }} -- **/flake.nix
       continue-on-error: true
       id: changed
 
     - name: Roll back flake.lock if flake.nix have not been modified
       if: ${{ steps.changed.outcome == 'success' }}
-      run: git checkout ${{ github.ref}} -- flake.lock
+      run: git checkout ${{ github.sha }} -- flake.lock
 
     - uses: peter-evans/create-pull-request@v4
       id: pr
