@@ -20,11 +20,14 @@ jobs:
     - name: Update Erlang and Elixir
       run: nix run .#update-beam
 
-    - name: Roll back flake.lock if there is no change in any of the flake.nix files
-      run: |
-        if git diff-files --quiet -- **/flake.nix; then
-          git checkout HEAD -- flake.lock
-        fi
+    - name: Check if any of the flake.nix has been modified
+      run: git diff-files --quiet -- **/flake.nix
+      continue-on-error: true
+      id: changed
+
+    - name: Roll back flake.lock if flake.nix have not been modified
+      if: ${{ steps.changed.outcome == 'success' }}
+      run: git checkout ${{ github.ref}} -- flake.lock
 
     - uses: peter-evans/create-pull-request@v4
       id: pr
