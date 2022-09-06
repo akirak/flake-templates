@@ -29,7 +29,7 @@
         # Set the Erlang version
         erlangVersion = "erlangR25";
         # Set the Elixir version
-        elixirVersion = "elixir_1_13";
+        elixirVersion = "elixir_1_14";
         erlang = pkgs.beam.interpreters.${erlangVersion};
         elixir = pkgs.beam.packages.${erlangVersion}.${elixirVersion};
         elixir_ls = pkgs.beam.packages.${erlangVersion}.elixir_ls;
