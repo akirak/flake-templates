@@ -17,6 +17,10 @@
           path = ./meta;
           description = "Miscellaneous files for GitHub projects";
         };
+        dir-locals = {
+          path = ./dir-locals;
+          description = "An opinionated .dir-locals.el for Emacs users";
+        };
         minimal = {
           path = ./minimal;
           description = "Minimal boilerplate with flake-utils";
