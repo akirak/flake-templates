@@ -4,6 +4,7 @@ on:
   schedule:
     # Every week
     - cron:  '0 14 * * 5'
+  workflow_dispatch:
 
 jobs:
   get_templates:
@@ -25,6 +26,7 @@ jobs:
         template: ${{ fromJson(needs.get_templates.outputs.templates) }}
         exclude:
           - template: meta
+          - template: dir-locals
     steps:
     - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v17
