@@ -4,6 +4,7 @@ on:
   schedule:
     # Every week
     - cron:  '0 14 * * 5'
+  workflow_dispatch:
 
 jobs:
   get_templates:
