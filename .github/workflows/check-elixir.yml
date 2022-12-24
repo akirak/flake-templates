@@ -12,7 +12,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: cachix/install-nix-action@v17
+      - uses: cachix/install-nix-action@v18
 
       - uses: actions/checkout@v3
         with:
