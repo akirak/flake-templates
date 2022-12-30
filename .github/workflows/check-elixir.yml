@@ -17,10 +17,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: ./tmp
-      - run: nix flake init -t ./tmp#elixir
+      - run: nix flake new -t ./tmp#elixir ./work
       - name: Prepare the project
+        working-directory: work
         run: |
-          rm -rf ./tmp
           git init
           git add .
 
@@ -28,3 +28,4 @@ jobs:
         run: |
           nix develop --command mix help
           nix develop --command elixirc --version
+        working-directory: work
