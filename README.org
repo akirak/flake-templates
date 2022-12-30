@@ -64,7 +64,10 @@ It is opinionated in that it assumes adoption of the following particular packag
 
 - [[https://github.com/joaotavora/eglot][eglot]]
 - [[https://github.com/purcell/emacs-reformatter][reformatter]]
-** Other template repositories
+** Other template repositories and alternatives
+The following is a list of template repositories I found on GitHub:
 - [[https://github.com/nixos/templates][NixOS]]
 - [[https://github.com/serokell/templates][serokell]]
 - [[https://github.com/johnae/nix-flake-templates][johnae]]
+
+[[https://devenv.sh/][devenv]] is a convenient tool that sets up stuffs quickly.
