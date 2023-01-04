@@ -17,12 +17,13 @@ jobs:
     - uses: actions/checkout@v3
       with:
         path: ./tmp
-    - run: nix flake init -t ./tmp#minimal
+    - run: nix flake new -t ./tmp#minimal ./work
     - name: Prepare the project
+      working-directory: work
       run: |
-        rm -rf ./tmp
         git init
         git add .
 
     # Run any task to check your flake
     - run: nix build '.#hello'
+      working-directory: work
