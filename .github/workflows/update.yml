@@ -34,6 +34,6 @@ jobs:
       with:
         commit-message: 'Update'
         base: master
-        title: 'chore: Update language runtime'
+        title: 'chore: Update flake inputs'
         branch: create-pull-request/update
         labels: automation,update
