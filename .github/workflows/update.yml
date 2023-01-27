@@ -13,6 +13,9 @@ jobs:
     - uses: actions/checkout@v3
 
     - uses: cachix/install-nix-action@v18
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
     - name: Update flake inputs
       run: nix flake lock --update-input nixpkgs
@@ -31,6 +34,6 @@ jobs:
       with:
         commit-message: 'Update'
         base: master
-        title: 'chore: Update language runtime'
+        title: 'chore: Update flake inputs'
         branch: create-pull-request/update
         labels: automation,update
