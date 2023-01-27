@@ -10,7 +10,7 @@ jobs:
   get_templates:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: cachix/install-nix-action@v18
     - name: Inspect the root flake
       id: show-flake
@@ -28,7 +28,7 @@ jobs:
           - template: meta
           - template: dir-locals
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: cachix/install-nix-action@v18
       with:
         install_url: https://nixos-nix-install-tests.cachix.org/serve/vij683ly7sl95nnhb67bdjjfabclr85m/install
