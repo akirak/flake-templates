@@ -7,6 +7,11 @@ on:
       - pre-commit/**
       - .github/workflows/check-pre-commit.yml
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        required: false
+        type: string
 
 jobs:
   check:
@@ -20,6 +25,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: ./tmp
+          ref: ${{ inputs.ref }}
+
       - run: nix flake new -t ./tmp#pre-commit ./work
       - name: Prepare the project
         working-directory: work
