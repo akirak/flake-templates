@@ -33,6 +33,10 @@
           path = ./node-typescript;
           description = "Toolchain for TypeScript frontend projects";
         };
+        zig = {
+          path = ./zig;
+          description = "Minimal Zig project";
+        };
         elixir = {
           path = ./elixir;
           description = "Simple Elixir project";

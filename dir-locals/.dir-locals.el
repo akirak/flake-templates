@@ -8,4 +8,7 @@
                      (typescript-indent-level . 2)))
  (css-mode . ((eval . (eglot-ensure))
               (tab-width . 2)
-              (css-indent-offset . 2))))
+              (css-indent-offset . 2)))
+ (zig-mode . ((eval . (eglot-ensure))
+              (zig-indent-offset . 4)
+              (tab-width . 4))))
