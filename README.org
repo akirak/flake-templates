@@ -57,13 +57,6 @@ This is a common set of metadata files for GitHub projects, such as =.gitignore=
 #+begin_src sh
 nix flake init -t github:akirak/flake-templates#meta
 #+end_src
-*** [[file:dir-locals/][dir-locals]]
-This template contains a =.dir-locals.el= file for per-project setup for Emacs.
-
-It is opinionated in that it assumes adoption of the following particular packages:
-
-- [[https://github.com/joaotavora/eglot][eglot]]
-- [[https://github.com/purcell/emacs-reformatter][reformatter]]
 ** Other template repositories and alternatives
 The following is a list of template repositories I found on GitHub:
 - [[https://github.com/nixos/templates][NixOS]]
