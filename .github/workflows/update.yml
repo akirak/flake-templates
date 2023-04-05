@@ -29,7 +29,7 @@ jobs:
       run: git reset --hard ${{ github.sha }}
       if: ${{ steps.updated.outcome == 'failure' }}
 
-    - uses: peter-evans/create-pull-request@v4
+    - uses: peter-evans/create-pull-request@v5
       id: pr
       with:
         commit-message: 'Update'
