@@ -30,7 +30,6 @@ jobs:
       if: ${{ steps.updated.outcome == 'failure' }}
 
     - uses: peter-evans/create-pull-request@v5
-      id: pr
       with:
         commit-message: 'Update'
         # Use a fine-grained personal access token that can trigger other
