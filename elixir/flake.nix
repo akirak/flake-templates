@@ -20,7 +20,7 @@
 
         erlang = pkgs.beam.interpreters.${erlangVersion};
         elixir = pkgs.beam.packages.${erlangVersion}.${elixirVersion};
-        elixir_ls = pkgs.beam.packages.${erlangVersion}.elixir_ls;
+        elixir-ls = pkgs.beam.packages.${erlangVersion}.elixir-ls;
       in rec {
         # TODO: Add your Elixir package
         # packages = flake-utils.lib.flattenTree {
@@ -30,7 +30,7 @@
           buildInputs = [
             erlang
             elixir
-            elixir_ls
+            elixir-ls
           ];
         };
       }

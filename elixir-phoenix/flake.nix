@@ -32,7 +32,7 @@
         elixirVersion = "elixir_1_14";
         erlang = pkgs.beam.interpreters.${erlangVersion};
         elixir = pkgs.beam.packages.${erlangVersion}.${elixirVersion};
-        elixir_ls = pkgs.beam.packages.${erlangVersion}.elixir_ls;
+        elixir-ls = pkgs.beam.packages.${erlangVersion}.elixir-ls;
 
         inherit (pkgs.lib) optional optionals;
 
@@ -59,7 +59,7 @@
             [
               erlang
               elixir
-              elixir_ls
+              elixir-ls
             ]
             ++ (with pkgs; [
               nodejs
