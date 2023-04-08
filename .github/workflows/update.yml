@@ -33,6 +33,9 @@ jobs:
       id: pr
       with:
         commit-message: 'Update'
+        # Use a fine-grained personal access token that can trigger other
+        # workflows
+        token: ${{ secrets.PAT_FOR_PR }}
         base: master
         title: 'chore: Update flake inputs'
         branch: create-pull-request/update
