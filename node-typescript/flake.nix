@@ -1,6 +1,4 @@
 {
-  description = "Your next node.js project";
-
   # Use the unstable nixpkgs to use the latest set of node packages
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
 
