@@ -17,8 +17,9 @@
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = [
-          # Set the major version of Node.js
-          pkgs.nodejs-16_x
+          pkgs.nodejs
+          # You can set the major version of Node.js to a specific one
+          # pkgs.nodejs-19_x
 
           pkgs.nodePackages.pnpm
           # pkgs.yarn
