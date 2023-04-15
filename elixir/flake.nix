@@ -1,6 +1,4 @@
 {
-  description = "An Elixir project";
-
   outputs = {
     self,
     nixpkgs,

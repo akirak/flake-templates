@@ -1,6 +1,4 @@
 {
-  description = "Minimal flake project";
-
   outputs = {
     self,
     nixpkgs,
