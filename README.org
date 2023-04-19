@@ -97,6 +97,8 @@ Th above settings depend on the following packages:
                          (locate-dominating-file default-directory "package.json")))
                 "--stdin-filepath" (buffer-file-name)))
 #+end_src
+
+Also see [[https://github.com/emacs-twist/nix3.el][nix3.el]], which provides =nix3-flake-new= and =nix3-flake-init= commands for running a flake template quickly from inside Emacs.
 ** Other template repositories and alternatives
 The following is a list of template repositories I found on GitHub:
 - [[https://github.com/nixos/templates][NixOS]]
