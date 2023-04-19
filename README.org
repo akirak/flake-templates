@@ -107,4 +107,4 @@ The following is a list of template repositories I found on GitHub:
 
 [[https://devenv.sh/][devenv]] is a convenient tool that lets you set up a Nix-based development environment quickly.
 
-[[https://github.com/nix-community/nix-init][nix-init]] is a community-maintained program to generate a Nix expression suitable for your project.
+[[https://github.com/nix-community/nix-init][nix-init]] is a program that interactively generates a Nix expression to build a project at a URL.
