@@ -57,6 +57,46 @@ This is a set of common metadata files for GitHub projects, such as =.gitignore=
 #+begin_src sh
 nix flake init -t github:akirak/flake-templates#meta
 #+end_src
+** Editor integration
+*** Emacs
+To turn on a LSP client and linters inside Emacs, a recommended way is to set =.dir-locals=.
+
+#+begin_src elisp
+  (let ((prettier '((eval . (prettier-on-save-mode t))))
+        (lsp '((eval . (eglot-ensure))))
+        (flymake-eslint '((eval . (flymake-eslint-enable)))))
+    (dir-locals-set-class-variables
+     'default
+     `((web-mode . (,@prettier ,@lsp))
+       (css-mode . (,@prettier ,@lsp))
+       (svelte-mode . (,@prettier ,@lsp ,@flymake-eslint))
+       (elixir-ts-mode . (,@lsp))
+       (tsx-ts-mode . (,@prettier ,@lsp))
+       (typescript-ts-mode . (,@prettier ,@lsp))
+       (tuareg-mode . (,@lsp))
+       (haskell-mode . (,@lsp)))))
+
+  (dir-locals-set-directory-class "~/work/my-org/" 'default)
+#+end_src
+
+For details, see [[info:elisp#Directory Local Variables][elisp#Directory Local Variables]] info manual.
+
+Th above settings depend on the following packages:
+
+- =eglot=, a LSP client for Emacs, which is built-in from Emacs 29
+- [[https://github.com/purcell/emacs-reformatter][reformatter]] for defining a formatter. See [[https://docs.google.com/document/d/1bIURUdHqlkF8QfFDnOP4ZOHXADkEtB_mbzMVoBQEBSw/edit][this comparison table]] for alternatives
+- [[https://github.com/orzechowskid/flymake-eslint][flymake-eslint]] for running eslint alongside the syntax checker provided by the running language server
+
+=prettier-on-save-mode= become available when you define =prettier= formatter using =reformatter= as follows:
+
+#+begin_src elisp
+  (reformatter-define prettier
+    :program "prettier"
+    :args (list (concat "--plugin-search-dir="
+                        (expand-file-name
+                         (locate-dominating-file default-directory "package.json")))
+                "--stdin-filepath" (buffer-file-name)))
+#+end_src
 ** Other template repositories and alternatives
 The following is a list of template repositories I found on GitHub:
 - [[https://github.com/nixos/templates][NixOS]]
