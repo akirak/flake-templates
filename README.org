@@ -104,3 +104,5 @@ The following is a list of template repositories I found on GitHub:
 - [[https://github.com/johnae/nix-flake-templates][johnae]]
 
 [[https://devenv.sh/][devenv]] is a convenient tool that sets up stuffs quickly.
+
+[[https://github.com/nix-community/nix-init][nix-init]] is a community-maintained program to generate a Nix expression suitable for your project.
