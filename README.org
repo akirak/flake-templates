@@ -1,5 +1,5 @@
 * Flake templates
-This is a collection of [[https://nixos.wiki/wiki/Flakes][Nix flake]] templates.
+This is a collection of [[https://nixos.wiki/wiki/Flakes][Nix flake]] templates I use in my personal projects.
 ** List of templates in this repository
 *** [[file:minimal/flake.nix][minimal]]
 This is a minimal project boilerplate with [[https://github.com/numtide/flake-utils][flake-utils]].
