@@ -60,6 +60,7 @@ nix flake init -t github:akirak/flake-templates#meta
 ** Editor integration
 *** Emacs
 To turn on a LSP client and linters inside Emacs, a recommended way is to set =.dir-locals=.
+I have the following configuration in my =init.el=:
 
 #+begin_src elisp
   (let ((prettier '((eval . (prettier-on-save-mode t))))
@@ -76,6 +77,7 @@ To turn on a LSP client and linters inside Emacs, a recommended way is to set =.
        (tuareg-mode . (,@lsp))
        (haskell-mode . (,@lsp)))))
 
+  ;; Apply the settings to only relevant organizations
   (dir-locals-set-directory-class "~/work/my-org/" 'default)
 #+end_src
 
