@@ -24,7 +24,6 @@ nix flake init -t github:akirak/flake-templates#node-typescript
 #+end_src
 
 It includes Node, pnpm, TypeScript, and typescript-language-server as =buildInputs= of the development shell.
-It also includes =.dir-locals.el= for Emacs. Eglot is preferred as the LSP client.
 You can tweak these settings after initialization, e.g. to use yarn instead of pnpm.
 
 It uses the master branch of NixPkgs to install a recent set of node packages.
