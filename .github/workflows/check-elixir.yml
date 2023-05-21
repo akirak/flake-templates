@@ -29,6 +29,6 @@ jobs:
 
       - name: Check executables
         run: |
-          nix develop --command mix help
-          nix develop --command elixirc --version
+          nix develop -L --command mix help
+          nix develop -L --command elixirc --version
         working-directory: work

@@ -28,5 +28,5 @@ jobs:
           git init
           git add .
 
-      - run: nix develop --command pre-commit --version
+      - run: nix develop -L --command pre-commit --version
         working-directory: work
