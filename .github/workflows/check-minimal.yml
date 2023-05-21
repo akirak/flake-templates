@@ -28,5 +28,5 @@ jobs:
         git add .
 
     # Run any task to check your flake
-    - run: nix build '.#hello'
+    - run: nix build '.#hello' -L
       working-directory: work
