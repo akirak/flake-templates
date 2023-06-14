@@ -34,12 +34,12 @@ let
 in
 writeShellScript "updater" ''
   git add .
-  old=$(git write-tree)
   find -name flake.nix | xargs sed -i -r -f ${sed}
 
-  git add .
-  new=$(git write-tree)
-
-  # Exit with 0 if there has been any modification
-  [[ $old != $new ]]
+  if git diff --exit-code
+  then
+    exit 1
+  else
+    git add .
+  fi
 ''
