@@ -12,7 +12,7 @@
         };
 
         # Set the Erlang version
-        erlangVersion = "erlangR26";
+        erlangVersion = "erlangR25";
         # Set the Elixir version
         elixirVersion = "elixir_1_14";
 
