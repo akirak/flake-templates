@@ -4,14 +4,16 @@
     inputs.nixpkgs.follows = "nixpkgs";
     inputs.flake-utils.follows = "flake-utils";
   };
+  inputs.systems.url = "github:nix-systems/default";
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
+    systems,
     pre-commit-hooks,
   }:
-    flake-utils.lib.eachDefaultSystem
+    flake-utils.lib.eachSystem (import systems)
     (system: let
       pkgs = import nixpkgs {inherit system;};
     in rec {
