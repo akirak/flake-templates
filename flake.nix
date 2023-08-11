@@ -17,6 +17,10 @@
           path = ./meta;
           description = "Miscellaneous files for GitHub projects";
         };
+        minimal = {
+          path = ./minimal;
+          description = "Minimal boilerplate with nix-systems";
+        };
         flake-utils = {
           path = ./flake-utils;
           description = "A basic boilerplate with flake-utils";
