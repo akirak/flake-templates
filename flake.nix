@@ -17,9 +17,9 @@
           path = ./meta;
           description = "Miscellaneous files for GitHub projects";
         };
-        minimal = {
-          path = ./minimal;
-          description = "Minimal boilerplate with flake-utils";
+        flake-utils = {
+          path = ./flake-utils;
+          description = "A basic boilerplate with flake-utils";
         };
         pre-commit = {
           path = ./pre-commit;
