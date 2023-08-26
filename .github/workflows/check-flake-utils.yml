@@ -1,0 +1,32 @@
+name: Check flake-utils
+
+on:
+  push:
+    paths:
+    # Set this to the directory of the template
+    - flake-utils/**
+    - .github/workflows/check-flake-utils.yml
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/checkout@v3
+      with:
+        path: ./tmp
+    - run: nix flake new -t ./tmp#flake-utils ./work
+    - name: Prepare the project
+      working-directory: work
+      run: |
+        git init
+        git add .
+
+    # Run any task to check your flake
+    - run: nix build '.#hello' -L
+      working-directory: work

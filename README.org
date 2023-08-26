@@ -5,10 +5,18 @@ For maintaining a complex flake configuration, I would suggest use of
 [[https://github.com/hercules-ci/flake-parts/][flake-parts]] instead.
 ** List of templates in this repository
 *** [[file:minimal/flake.nix][minimal]]
-This is a minimal project boilerplate with [[https://github.com/numtide/flake-utils][flake-utils]].
+This is a minimal project boilerplate which depends only on [[https://github.com/nix-systems/nix-systems][nix-systems]] and nixpkgs.
 
 #+begin_src sh
 nix flake init -t github:akirak/flake-templates#minimal
+#+end_src
+*** [[file:flake-utils/flake.nix][flake-utils]]
+This is another minimal project boilerplate with [[https://github.com/numtide/flake-utils][flake-utils]]. It adds a
+~flake-utils~ dependency but can be more convenient if you plan to provide
+multiple types of outputs from your flake:
+
+#+begin_src sh
+nix flake init -t github:akirak/flake-templates#flake-utils
 #+end_src
 *** [[file:pre-commit/flake.nix][pre-commit]]
 This is a basic project boilerplate with [[https://github.com/cachix/pre-commit-hooks.nix][pre-commit-hooks.nix]] to run linters.

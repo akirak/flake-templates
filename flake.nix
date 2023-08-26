@@ -19,7 +19,11 @@
         };
         minimal = {
           path = ./minimal;
-          description = "Minimal boilerplate with flake-utils";
+          description = "Minimal boilerplate with nix-systems";
+        };
+        flake-utils = {
+          path = ./flake-utils;
+          description = "A basic boilerplate with flake-utils";
         };
         pre-commit = {
           path = ./pre-commit;
