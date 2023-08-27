@@ -1,0 +1,34 @@
+name: Check pulumi-ts
+
+on:
+  push:
+    paths:
+    - pulumi-ts/**
+    - .github/workflows/check-pulumi-ts.yml
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/checkout@v3
+      with:
+        path: ./tmp
+    - run: nix flake new -t ./tmp#pulumi-ts ./work
+    - name: Prepare the project
+      working-directory: work
+      run: |
+        git init
+        git add .
+
+    - run: nix develop -L -c pulumi version
+      working-directory: work
+    - run: nix develop -L -c bash -c "command -v pulumi-language-nodejs"
+      working-directory: work
+    - run: nix develop -L -c typescript-language-server --version
+      working-directory: work
