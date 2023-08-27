@@ -33,6 +33,10 @@
           path = ./node-typescript;
           description = "Toolchain for TypeScript frontend projects";
         };
+        pulumi-ts = {
+          path = ./pulumi-ts;
+          description = "Pulumi project in TypeScript";
+        };
         elixir = {
           path = ./elixir;
           description = "Simple Elixir project";
