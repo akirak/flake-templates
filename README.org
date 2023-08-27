@@ -61,6 +61,8 @@ You may be able to use [[https://github.com/serokell/mix-to-nix][serokell/mix-to
 #+begin_src sh
 nix flake init -t github:akirak/flake-templates#elixir-phoenix
 #+end_src
+*** [[file:pulumi-ts/flake.nix][pulumi-ts]]
+[[https://www.pulumi.com/b/][Pulumi]], the Node.js language plugin, and ~typescript-language-server~ for development.
 *** [[file:meta/][meta]]
 This is a set of common metadata files for GitHub projects, such as =.gitignore=, =dependabot.yml=, etc.
 
