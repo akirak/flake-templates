@@ -9,16 +9,19 @@
     nixpkgs,
     ...
   } @ inputs: let
-    eachSystem = nixpkgs.lib.genAttrs (import systems);
-    pkgsFor = system: nixpkgs.legacyPackages.${system};
+    eachSystem = f:
+      nixpkgs.lib.genAttrs (import systems) (
+        system:
+          f nixpkgs.legacyPackages.${system}
+      );
   in {
-    packages = eachSystem (system: {
-      hello = (pkgsFor system).hello;
+    packages = eachSystem (pkgs: {
+      hello = pkgs.hello;
     });
 
-    devShells = eachSystem (system: {
-      default = (pkgsFor system).mkShell {
-        buildInputs = with (pkgsFor system); [
+    devShells = eachSystem (pkgs: {
+      default = pkgs.mkShell {
+        buildInputs = with pkgs; [
           # Add development dependencies here
         ];
       };
