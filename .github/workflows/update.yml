@@ -17,11 +17,8 @@ jobs:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-    - name: Update flake inputs
-      run: nix flake lock --update-input nixpkgs
-
     - name: Update Erlang and Elixir
-      run: nix run ./dev#update-beam
+      run: nix run ./dev#update-beam --update-input nixpkgs --no-write-lock-file
       continue-on-error: true
       id: updated
 
