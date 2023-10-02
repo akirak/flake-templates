@@ -14,7 +14,7 @@
   } @ inputs: let
     eachSystem = nixpkgs.lib.genAttrs (import systems);
   in {
-    apps = eachSystem (system: {
+    packages = eachSystem (system: {
       update-beam = nixpkgs.legacyPackages.${system}.callPackage ./update-beam.nix {};
     });
 
