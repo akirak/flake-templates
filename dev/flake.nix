@@ -23,6 +23,7 @@
         src = ./.;
         hooks = {
           alejandra.enable = true;
+          markdownlint.enable = true;
         };
       };
     });
