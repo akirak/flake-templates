@@ -21,7 +21,7 @@ jobs:
       run: nix flake lock --update-input nixpkgs
 
     - name: Update Erlang and Elixir
-      run: nix run .#update-beam
+      run: nix run ./dev#update-beam
       continue-on-error: true
       id: updated
 
