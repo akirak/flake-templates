@@ -1,7 +1,9 @@
 # Flake Templates
 
-This is a collection of [Nix flake](https://nixos.wiki/wiki/Flakes)
-templates I use in my personal projects.
+This is a collection of [Nix flake](https://nixos.wiki/wiki/Flakes) templates I
+use in my personal projects. They mostly provide development shells (i.e.
+`devShells.*`), but I may add further instructions for production builds in the
+future.
 
 For maintaining a complex flake configuration, I would suggest use of
 [flake-parts](https://github.com/hercules-ci/flake-parts/) instead.
