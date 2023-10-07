@@ -1,4 +1,4 @@
-# Flake templates
+# Flake Templates
 
 This is a collection of [Nix flake](https://nixos.wiki/wiki/Flakes)
 templates I use in my personal projects.
