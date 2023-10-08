@@ -47,7 +47,7 @@ boilerplate by running `nix develop` as in
 ### [treefmt](treefmt/flake.nix)
 
 Based on `minimal`, this boilerplate contains a configuration for
-[treefmt-nix](https://github.com/numtide/treefmt-nix), so you can run set up
+[treefmt-nix](https://github.com/numtide/treefmt-nix), so you can set up
 formatters easily.
 
 ``` bash
