@@ -23,6 +23,10 @@
         path = ./node-typescript;
         description = "Toolchain for TypeScript frontend projects";
       };
+      rust = {
+        path = ./rust;
+        description = "Rust toolchain";
+      };
       pulumi-ts = {
         path = ./pulumi-ts;
         description = "Pulumi project in TypeScript";

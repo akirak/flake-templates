@@ -61,6 +61,19 @@ after initialization, e.g. to use yarn instead of pnpm.
 It uses the master branch of NixPkgs to install a recent set of node
 packages.
 
+### [rust](rust/)
+
+This flake.nix provides a Rust toolchain.
+
+``` bash
+nix flake init -t github:akirak/flake-templates#rust
+```
+
+It relies on [oxalica/rust-overlay](https://github.com/oxalica/rust-overlay) to
+allow you to choose a specific channel of Rust. `rust-analyzer` is available in
+the shell. It also contains a formatter configuration using
+[treefmt-nix](https://github.com/numtide/treefmt-nix), which runs `rustfmt`.
+
 ### [elixir](elixir/)
 
 This is a simplified flake.nix for Elixir.
