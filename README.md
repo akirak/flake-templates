@@ -44,6 +44,23 @@ Alternatively, you can set up a pre-commit hook without adding a
 boilerplate by running `nix develop` as in
 [akirak/git-hooks](https://github.com/akirak/git-hooks).
 
+### [treefmt](treefmt/flake.nix)
+
+Based on `minimal`, this boilerplate contains a configuration for
+[treefmt-nix](https://github.com/numtide/treefmt-nix), so you can run set up
+formatters easily.
+
+``` bash
+nix flake init -t github:akirak/flake-templates#pre-commit
+```
+
+Usage:
+
+- You can run `nix fmt` to run formatters configured in `treefmt.nix` in the
+  repository.
+- You can run `nix flake check --print-build-logs` to check if all files are
+  correctly formatted (useful on CI).
+
 ### [node-typescript](node-typescript/)
 
 This is based on `minimal` but bundles opinionated settings for web
