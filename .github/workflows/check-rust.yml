@@ -1,0 +1,35 @@
+name: Check rust
+
+on:
+  push:
+    paths:
+      # Set this to the directory of the template
+      - rust/**
+      - .github/workflows/check-rust.yml
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v23
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v4
+        with:
+          path: ./tmp
+      - run: nix flake new -t ./tmp#rust ./work
+      - name: Prepare the project
+        working-directory: work
+        run: |
+          git init
+          git add .
+
+      - name: Check executables
+        run: |
+          nix develop -L --command rustc --version
+          nix develop -L --command cargo --version
+          nix develop -L --command rust-analyzer --version
+        working-directory: work
