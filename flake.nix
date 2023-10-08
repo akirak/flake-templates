@@ -19,6 +19,10 @@
         path = ./pre-commit;
         description = "Basic flake with pre-commit check";
       };
+      treefmt = {
+        path = ./treefmt;
+        description = "Basic flake with a treefmt integration";
+      };
       node-typescript = {
         path = ./node-typescript;
         description = "Toolchain for TypeScript frontend projects";
