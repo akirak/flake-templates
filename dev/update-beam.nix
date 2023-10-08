@@ -22,7 +22,7 @@ to their latest versions. It performs simple regexp substitutions in flake.nix.
       (x: x.name)
     ];
 
-  erlangRegex = "erlangR[[:digit:]]+";
+  erlangRegex = "erlang_[[:digit:]]+";
 
   latestErlang = latestPackageMatching erlangRegex beam.interpreters;
 
