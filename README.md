@@ -87,8 +87,8 @@ nix flake init -t github:akirak/flake-templates#rust
 ```
 
 It relies on [oxalica/rust-overlay](https://github.com/oxalica/rust-overlay) to
-allow you to choose a specific channel of Rust. `rust-analyzer` is available in
-the shell. It also contains a formatter configuration using
+let you choose a specific channel of Rust. `rust-analyzer` is available in the
+shell. It also contains a formatter configuration using
 [treefmt-nix](https://github.com/numtide/treefmt-nix), which runs `rustfmt`.
 
 ### [elixir](elixir/)
