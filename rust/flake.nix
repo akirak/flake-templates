@@ -24,17 +24,27 @@
           })
       );
 
+    rustToolchain = eachSystem (pkgs: pkgs.rust-bin.stable.latest.default);
+
     treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
   in {
     devShells = eachSystem (pkgs: {
-      default = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          rust-bin.stable.latest.default
+      # Based on a discussion at https://github.com/oxalica/rust-overlay/issues/129
+      default = pkgs.mkShell (with pkgs; {
+        nativeBuildInputs = [
+          clang
+          # Use mold when we are runnning in Linux
+          (lib.optionals stdenv.isLinux mold)
+        ];
+        buildInputs = [
+          rustToolchain.${system}
+          rust-analyzer-unwrapped
           cargo
           # pkg-config
           # openssl
         ];
-      };
+        RUST_SRC_PATH = "${rustToolchain.${system}}/lib/rustlib/src/rust/library";
+      });
     });
 
     formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
