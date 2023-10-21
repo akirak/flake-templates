@@ -1,39 +1,51 @@
 {
-  inputs.systems.url = "github:nix-systems/default";
+  inputs = {
+    systems.url = "github:nix-systems/default";
+  };
 
   outputs = {
-    self,
     nixpkgs,
     systems,
-    flake-utils,
-  }:
-    flake-utils.lib.eachSystem (import systems)
-    (
-      system: let
-        pkgs = import nixpkgs {
-          inherit system;
-        };
+    ...
+  } @ inputs: let
+    inherit (nixpkgs) lib;
 
-        # Set the Erlang version
-        erlangVersion = "erlangR25";
-        # Set the Elixir version
-        elixirVersion = "elixir_1_15";
+    # Set the Erlang version
+    erlangVersion = "erlang_25";
+    # Set the Elixir version
+    elixirVersion = "elixir_1_15";
 
-        erlang = pkgs.beam.interpreters.${erlangVersion};
-        beamPackages = pkgs.beam.packages.${erlangVersion};
-        elixir = beamPackages.${elixirVersion};
-      in rec {
-        # TODO: Add your Elixir package
-        # packages = flake-utils.lib.flattenTree {
-        # } ;
+    eachSystem = f:
+      nixpkgs.lib.genAttrs (import systems) (
+        system:
+          f (import nixpkgs {
+            inherit system;
+            overlays = [
+              (final: _: let
+                erlang = final.beam.interpreters.${erlangVersion};
+                beamPackages = final.beam.packages.${erlangVersion};
+                elixir = beamPackages.${elixirVersion};
+              in {
+                inherit erlang elixir;
+                inherit (beamPackages) elixir-ls hex;
+              })
+            ];
+          })
+      );
+  in {
+    # packages = eachSystem (pkgs:
+    # );
 
-        devShells.default = pkgs.mkShell {
-          buildInputs = [
+    devShells = eachSystem (
+      pkgs: {
+        default = pkgs.mkShell {
+          buildInputs = with pkgs; [
             erlang
             elixir
-            beamPackages.elixir-ls
+            elixir-ls
           ];
         };
       }
     );
+  };
 }
