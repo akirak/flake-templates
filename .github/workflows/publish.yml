@@ -20,4 +20,4 @@ jobs:
     steps:
       - uses: flakestry/flakestry-publish@main
         with:
-        version: "${{ inputs.tag || github.ref_name }}"
+          version: "${{ inputs.tag || github.ref_name }}"
