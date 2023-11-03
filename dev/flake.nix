@@ -22,6 +22,7 @@
       pre-commit-check = pre-commit-hooks.lib.${system}.run {
         src = ./.;
         hooks = {
+          actionlint.enable = true;
           alejandra.enable = true;
           markdownlint.enable = true;
         };
