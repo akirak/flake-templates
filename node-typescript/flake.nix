@@ -1,21 +1,23 @@
 {
-  # Override nixpkgs to use the latest set of node packages
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
-  inputs.systems.url = "github:nix-systems/default";
+  inputs = {
+    # You can override nixpkgs to use the latest set of node packages
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    systems.url = "github:nix-systems/default";
+  };
 
   outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
     systems,
-  }:
-    flake-utils.lib.eachSystem (import systems)
-    (system: let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
-    in {
-      devShells.default = pkgs.mkShell {
+    nixpkgs,
+    ...
+  } @ inputs: let
+    eachSystem = f:
+      nixpkgs.lib.genAttrs (import systems) (
+        system:
+          f nixpkgs.legacyPackages.${system}
+      );
+  in {
+    devShells = eachSystem (pkgs: {
+      default = pkgs.mkShell {
         buildInputs = [
           pkgs.nodejs
           # You can set the major version of Node.js to a specific one instead
@@ -31,4 +33,5 @@
         ];
       };
     });
+  };
 }
