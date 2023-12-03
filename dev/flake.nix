@@ -3,6 +3,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    # To be overridden during execution
+    src.url = "github:akirak/flake-templates";
   };
 
   outputs = {
@@ -20,7 +22,7 @@
 
     checks = eachSystem (system: {
       pre-commit-check = pre-commit-hooks.lib.${system}.run {
-        src = ./.;
+        src = inputs.src.outPath;
         hooks = {
           actionlint.enable = true;
           alejandra.enable = true;
