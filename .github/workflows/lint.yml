@@ -14,4 +14,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v24
-      - run: nix flake check ./dev
+      - run: nix flake check ./dev -L --override-input src path:.
