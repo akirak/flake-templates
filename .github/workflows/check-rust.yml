@@ -36,4 +36,6 @@ jobs:
           nix develop -L --command rustc --version
           nix develop -L --command cargo --version
           nix develop -L --command rust-analyzer --version
+          # shellcheck disable=SC2016
+          nix develop -L --command sh -c 'test -d ${RUST_SRC_PATH}'
         working-directory: work
