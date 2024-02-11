@@ -25,7 +25,7 @@
           })
       );
 
-    rustToolchain = eachSystem (pkgs: pkgs.rust-bin.stable.latest.default);
+    rustToolchain = eachSystem (pkgs: pkgs.rust-bin.stable.latest);
 
     treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
   in {
@@ -38,13 +38,15 @@
           (lib.optionals stdenv.isLinux mold)
         ];
         buildInputs = [
-          rustToolchain.${system}
+          rustToolchain.${pkgs.system}.default
           rust-analyzer-unwrapped
           cargo
           # pkg-config
           # openssl
         ];
-        RUST_SRC_PATH = "${rustToolchain.${system}}/lib/rustlib/src/rust/library";
+        RUST_SRC_PATH = "${
+          rustToolchain.${pkgs.system}.rust-src
+        }/lib/rustlib/src/rust/library";
       });
     });
 
