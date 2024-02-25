@@ -27,6 +27,10 @@
         path = ./node-typescript;
         description = "Toolchain for TypeScript frontend projects";
       };
+      bun = {
+        path = ./bun;
+        description = "Web development with Bun and Biome";
+      };
       rust = {
         path = ./rust;
         description = "Rust toolchain";
