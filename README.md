@@ -140,15 +140,6 @@ building Elixir applications using Nix, but I haven't tried it out yet.
 nix flake init -t github:akirak/flake-templates#elixir-phoenix
 ```
 
-### [pulumi-ts](pulumi-ts/flake.nix)
-
-[Pulumi](https://www.pulumi.com/b/), the Node.js language plugin, and
-`typescript-language-server` for development.
-
-``` bash
-nix flake init -t github:akirak/flake-templates#pulumi-ts
-```
-
 ### [meta](meta/)
 
 This is a set of common metadata files for GitHub projects, such as
