@@ -89,6 +89,7 @@
             opam
             odoc
             odig
+            (sherlodoc.override {enableServe = true;})
           ]);
       };
     });
