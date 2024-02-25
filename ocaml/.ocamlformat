@@ -1,0 +1,12 @@
+# Latest version is available from
+# https://github.com/ocaml-ppx/ocamlformat/blob/main/.ocamlformat
+
+profile = ocamlformat
+break-cases = fit
+margin = 77
+wrap-comments = true
+line-endings = lf
+
+# To make ocaml-ci happy
+version = ignore
+version-check = false
