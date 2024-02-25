@@ -1,0 +1,47 @@
+name: Check ocaml
+
+on:
+  push:
+    paths:
+      # Set this to the directory of the template
+      - ocaml/**
+      - .github/workflows/check-ocaml.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v25
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v4
+        with:
+          path: ./tmp
+
+      - name: Initialize a Dune project
+        run: |
+          nix run nixpkgs#dune_3 -- init project hello work
+
+      - name: Use the template
+        run: |
+          nix flake new -t ./tmp#ocaml work
+
+      - name: Prepare the project
+        working-directory: work
+        run: |
+          sed -i 's/throw "Name your OCaml package"/"hello"/' flake.nix
+          sed -i 's/throw "Version your OCaml package"/"0.1"/' flake.nix
+          git init
+          git add .
+
+      - name: Check executables
+        run: |
+          nix develop -L --command ocamlc --version
+        working-directory: work
