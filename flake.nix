@@ -35,10 +35,6 @@
         path = ./rust;
         description = "Rust toolchain";
       };
-      pulumi-ts = {
-        path = ./pulumi-ts;
-        description = "Pulumi project in TypeScript";
-      };
       elixir = {
         path = ./elixir;
         description = "Simple Elixir project";
