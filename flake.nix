@@ -27,6 +27,10 @@
         path = ./node-typescript;
         description = "Toolchain for TypeScript frontend projects";
       };
+      ocaml = {
+        path = ./ocaml;
+        description = "A flake template for development with OPAM and Dune";
+      };
       rust = {
         path = ./rust;
         description = "Rust toolchain";

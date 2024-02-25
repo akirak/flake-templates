@@ -78,6 +78,25 @@ after initialization, e.g. to use yarn instead of pnpm.
 It uses the master branch of NixPkgs to install a recent set of node
 packages.
 
+### [ocaml](ocaml/)
+
+This flake.nix lets you use [Dune](https://dune.build/) for your development
+workflow but also allows to build your package using Nix.
+It depends on [the overlay from
+nix-ocaml](https://github.com/nix-ocaml/nix-overlays).
+
+``` bash
+nix flake init -t github:akirak/flake-templates#ocaml
+```
+
+You will define your OCaml dependencies in `propagatedBuildInputs` of the dune
+package in `flake.nix`. With the `direnv` integration, you don't have to
+manually install packages using `opam` for development.
+
+See also [the Nixpkgs
+manual](https://nixos.org/manual/nixpkgs/unstable/#sec-language-ocaml) for
+concrete information.
+
 ### [rust](rust/)
 
 This flake.nix provides a Rust toolchain.
