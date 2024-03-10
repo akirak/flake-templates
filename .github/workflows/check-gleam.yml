@@ -1,0 +1,44 @@
+name: Check gleam
+
+on:
+  push:
+    paths:
+      # Set this to the directory of the template
+      - gleam/**
+      - .github/workflows/check-gleam.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v25
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v4
+        with:
+          path: ./tmp
+
+      - name: Initialize a project
+        run: |
+          nix run nixpkgs#gleam -- new hello_gleam
+          cd hello_gleam
+          nix flake init -t ../tmp#gleam
+
+      - name: Prepare the project
+        working-directory: hello_gleam
+        run: |
+          git init
+          git add .
+
+      - name: Run the example program
+        working-directory: hello_gleam
+        run: |
+          nix develop -L --command gleam --version
+          nix develop -L --command gleam run
