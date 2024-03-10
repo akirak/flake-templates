@@ -43,6 +43,10 @@
         path = ./elixir-phoenix;
         description = "Elixir Phoenix project where you use Mix";
       };
+      gleam = {
+        path = ./gleam;
+        description = "A minimal Gleam project";
+      };
     };
   };
 }
