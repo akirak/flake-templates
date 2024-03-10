@@ -140,6 +140,14 @@ building Elixir applications using Nix, but I haven't tried it out yet.
 nix flake init -t github:akirak/flake-templates#elixir-phoenix
 ```
 
+### [gleam](gleam/)
+
+This flake provides minimal dependencies for [Gleam](https://gleam.run/).
+
+``` bash
+nix flake init -t github:akirak/flake-templates#gleam
+```
+
 ### [meta](meta/)
 
 This is a set of common metadata files for GitHub projects, such as
