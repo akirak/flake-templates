@@ -20,6 +20,7 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            flake-registry =  https://raw.githubusercontent.com/akirak/flake-pins/master/registry.json
 
       - uses: actions/checkout@v4
         with:
