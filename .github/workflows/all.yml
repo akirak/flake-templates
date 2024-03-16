@@ -2,6 +2,9 @@ name: Run all check workflows
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types:
+    - check
 
 jobs:
   check-elixir-phoenix:
