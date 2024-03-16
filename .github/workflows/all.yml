@@ -1,0 +1,39 @@
+name: Run all check workflows
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-elixir-phoenix:
+    uses: ./.github/workflows/check-elixir-phoenix.yml
+
+  check-elixir:
+    uses: ./.github/workflows/check-elixir.yml
+
+  check-flake-utils:
+    uses: ./.github/workflows/check-flake-utils.yml
+
+  check-gleam:
+    uses: ./.github/workflows/check-gleam.yml
+
+  check-minimal:
+    uses: ./.github/workflows/check-minimal.yml
+
+  check-node-typescript:
+    uses: ./.github/workflows/check-node-typescript.yml
+
+  check-ocaml:
+    uses: ./.github/workflows/check-ocaml.yml
+
+  check-pre-commit:
+    uses: ./.github/workflows/check-pre-commit.yml
+
+  check-rust:
+    uses: ./.github/workflows/check-rust.yml
+
+  check-treefmt:
+    uses: ./.github/workflows/check-treefmt.yml
