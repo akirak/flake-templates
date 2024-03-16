@@ -7,6 +7,7 @@ on:
       - treefmt/**
       - .github/workflows/check-treefmt.yml
   workflow_dispatch:
+  workflow_call:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

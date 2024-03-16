@@ -7,6 +7,7 @@ on:
       - gleam/**
       - .github/workflows/check-gleam.yml
   workflow_dispatch:
+  workflow_call:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

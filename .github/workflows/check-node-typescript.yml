@@ -6,6 +6,7 @@ on:
     - node-typescript/**
     - .github/workflows/check-node-typescript.yml
   workflow_dispatch:
+  workflow_call:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
