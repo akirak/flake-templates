@@ -2,6 +2,12 @@
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     rust-overlay.url = "github:oxalica/rust-overlay";
+
+    # crane = {
+    #   url = "github:ipetkov/crane";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
     systems.url = "github:nix-systems/default";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -29,6 +35,16 @@
 
     treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
   in {
+    # You can use crane to build the Rust application with Nix
+
+    # packages = eachSystem (pkgs: let
+    #   craneLib = inputs.crane.lib.${pkgs.system};
+    # in {
+    #   default = craneLib.buildPackage {
+    #     src = craneLib.cleanCargoSource (craneLib.path ./.);
+    #   };
+    # });
+
     devShells = eachSystem (pkgs: {
       # Based on a discussion at https://github.com/oxalica/rust-overlay/issues/129
       default = pkgs.mkShell (with pkgs; {

@@ -110,6 +110,11 @@ let you choose a specific channel of Rust. `rust-analyzer` is available in the
 shell. It also contains a formatter configuration using
 [treefmt-nix](https://github.com/numtide/treefmt-nix), which runs `rustfmt`.
 
+It also contains a comment for quickly adding the default package that builds
+the Rust package using [crane](https://github.com/ipetkov/crane). See [NixOS
+Wiki](https://nixos.wiki/wiki/Rust#Packaging_Rust_projects_with_nix) for other
+options.
+
 ### [elixir](elixir/)
 
 This is a simplified flake.nix for Elixir.
