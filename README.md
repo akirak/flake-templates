@@ -51,7 +51,7 @@ Based on `minimal`, this boilerplate contains a configuration for
 formatters easily.
 
 ``` bash
-nix flake init -t github:akirak/flake-templates#pre-commit
+nix flake init -t github:akirak/flake-templates#treefmt
 ```
 
 Usage:
