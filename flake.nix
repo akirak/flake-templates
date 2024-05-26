@@ -39,9 +39,9 @@
         path = ./elixir;
         description = "Simple Elixir project";
       };
-      elixir-phoenix = {
-        path = ./elixir-phoenix;
-        description = "Elixir Phoenix project where you use Mix";
+      elixir-app = {
+        path = ./elixir-app;
+        description = "A boilerplate for Elixir (Phoenix) application";
       };
       gleam = {
         path = ./gleam;

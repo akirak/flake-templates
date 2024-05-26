@@ -130,20 +130,30 @@ Once you enter the devShell, you can initialize a project by running
 mix new . --app hello
 ```
 
-### [elixir-phoenix](elixir-phoenix/flake.nix) (work in progress)
+### [elixir-app](elixir-app/)
 
-**This is a work in progress.** At present, I have no experience with
-Phoenix in production.
-
-This is a boilerplate for developing a web application using Elixir
-Phoenix. You won't use Nix to build Elixir applications, but you will
-use Mix for your workflow. You may be able to use
-[serokell/mix-to-nix](https://github.com/serokell/mix-to-nix) for
-building Elixir applications using Nix, but I haven't tried it out yet.
+This is a more complex Nix boilerplate for Elixir. To use this flake, first
+scaffold an application using `mix`, and then run the following command to add
+`flake.nix`:
 
 ``` bash
-nix flake init -t github:akirak/flake-templates#elixir-phoenix
+nix flake init -t github:akirak/flake-templates#elixir-app
 ```
+
+Features:
+
+- It includes native dependencies for developing a Phoenix application such as
+  node.js and a file watcher.
+- It includes [Lexical](https://github.com/lexical-lsp/lexical) LSP server, but
+  you can tweak the flake to use one of [the
+  alternatives](https://gist.github.com/Nezteb/dc63f1d5ad9d88907dd103da2ca000b1).
+- It uses [flake-parts](https://flake.parts/) to organize the flake outputs. It
+  contains a boilerplate for
+  [process-compose-flake](https://github.com/Platonic-Systems/process-compose-flake)
+  to define background processes declaratively.
+
+Note that I don't run Elixir applications in production, so I didn't take into
+account real-world deployment scenarios of Erlang applications.
 
 ### [gleam](gleam/)
 

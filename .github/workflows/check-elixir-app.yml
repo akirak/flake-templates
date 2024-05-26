@@ -1,16 +1,16 @@
-name: Check elixir-phoenix
+name: Check elixir-app
 
 on:
   push:
     paths:
       # Set this to the directory of the template
-      - elixir-phoenix/**
-      - .github/workflows/check-elixir-phoenix.yml
+      - elixir-app/**
+      - .github/workflows/check-elixir-app.yml
   workflow_dispatch:
   workflow_call:
 
 concurrency:
-  group: check-elixir-phoenix-${{ github.ref }}
+  group: check-elixir-app-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
         with:
           path: ./tmp
 
-      - run: nix flake new -t ./tmp#elixir-phoenix ./work
+      - run: nix flake new -t ./tmp#elixir-app ./work
       - name: Prepare the project
         working-directory: work
         run: |
