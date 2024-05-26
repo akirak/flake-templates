@@ -18,7 +18,7 @@ to their latest versions. It performs simple regexp substitutions in flake.nix.
         inherit (value) version;
       }))
       (sort (a: b: compareVersions a.version b.version > 0))
-      head
+      (elems: builtins.elemAt elems 1)
       (x: x.name)
     ];
 
