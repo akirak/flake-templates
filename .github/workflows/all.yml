@@ -10,9 +10,6 @@ jobs:
   check-elixir-app:
     uses: ./.github/workflows/check-elixir-app.yml
 
-  check-elixir-phoenix:
-    uses: ./.github/workflows/check-elixir-phoenix.yml
-
   check-elixir:
     uses: ./.github/workflows/check-elixir.yml
 
