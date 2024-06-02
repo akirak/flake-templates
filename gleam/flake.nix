@@ -23,11 +23,18 @@
 
     devShells = eachSystem (pkgs: {
       default = pkgs.mkShell {
-        buildInputs = [
-          pkgs.gleam
-          pkgs.beam.interpreters.${erlang_version}
-          pkgs.beam.packages.${erlang_version}.rebar3
-        ];
+        buildInputs = with pkgs; ([
+            gleam
+            beam.interpreters.${erlang_version}
+            beam.packages.${erlang_version}.rebar3
+          ]
+          ++ lib.optional stdenv.isLinux inotify-tools
+          ++ (
+            lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+              CoreFoundation
+              CoreServices
+            ])
+          ));
       };
     });
   };
