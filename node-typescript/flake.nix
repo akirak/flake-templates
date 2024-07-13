@@ -19,12 +19,16 @@
       default = pkgs.mkShell {
         buildInputs = [
           pkgs.nodejs
+
           # You can set the major version of Node.js to a specific one instead
           # of the default version
-          # pkgs.nodejs-19_x
+          # pkgs.nodejs-22_x
 
-          # You can choose pnpm, yarn, or none (npm).
-          pkgs.nodePackages.pnpm
+          # It is possible to use bun instead of node.
+          # pkgs.bun
+
+          # Optionally, you can add yarn or pnpm for package management for node.
+          # pkgs.nodePackages.pnpm
           # pkgs.yarn
 
           pkgs.nodePackages.typescript
