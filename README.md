@@ -63,20 +63,17 @@ Usage:
 
 ### [node-typescript](node-typescript/)
 
-This is based on `minimal` but bundles opinionated settings for web
-development in TypeScript. You can add it to an existing code base to
-start coding without global dependencies.
+This is based on `minimal` but contains basic dependencies for web development
+with Node.js and TypeScript. You can add it to your existing code base to start
+coding without globally installing node.
 
 ``` bash
 nix flake init -t github:akirak/flake-templates#node-typescript
 ```
 
-It includes Node, pnpm, TypeScript, and typescript-language-server as
-`buildInputs` of the development shell. You can tweak these settings
-after initialization, e.g. to use yarn instead of pnpm.
-
-It uses the master branch of NixPkgs to install a recent set of node
-packages.
+It includes Node, TypeScript, and typescript-language-server as `buildInputs` of
+the development shell. You can tweak these settings to suit your needs, e.g. to
+use yarn or pnpm.
 
 ### [ocaml](ocaml/)
 
