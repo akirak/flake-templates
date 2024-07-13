@@ -47,6 +47,10 @@
         path = ./gleam;
         description = "A minimal Gleam project";
       };
+      emacs-lisp = {
+        path = ./emacs-lisp;
+        description = "Emacs Lisp package with Nix CI";
+      };
     };
   };
 }
