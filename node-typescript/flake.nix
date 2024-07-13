@@ -23,8 +23,8 @@
           # of the default version
           # pkgs.nodejs-19_x
 
-          # You can choose pnpm, yarn, or none (npm).
-          pkgs.nodePackages.pnpm
+          # Optionally, you can add yarn or pnpm for package management for node.
+          # pkgs.nodePackages.pnpm
           # pkgs.yarn
 
           pkgs.nodePackages.typescript
