@@ -1,0 +1,26 @@
+name: Check Emacs Lisp
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'README.*'
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'README.*'
+  workflow_dispatch:
+
+jobs:
+  byte-compile:
+    uses: emacs-twist/elisp-workflows/.github/workflows/byte-compile.yml@master
+    # with:
+      # rice-config: github:emacs-twist/rice-config
+      # melpa: github:akirak/melpa/akirak
+      # systems: github:nix-systems/x86_64-linux
+
+  melpazoid:
+    uses: emacs-twist/elisp-workflows/.github/workflows/melpazoid.yml@master
+    # with:
+      # rice-config: github:emacs-twist/rice-config
+      # melpa: github:akirak/melpa/akirak
