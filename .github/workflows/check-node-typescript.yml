@@ -31,8 +31,6 @@ jobs:
         git init
         git add .
 
-    - run: nix develop -L -c pnpm --version
-      working-directory: work
     - run: nix develop -L -c tsc --version
       working-directory: work
     - run: nix develop -L -c typescript-language-server --version
