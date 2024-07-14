@@ -11,7 +11,7 @@ melpa := "github:melpa/melpa/master"
 common-options := "--override-input rice-src \"path:$PWD\" --override-input melpa " + quote(melpa)
 
 # The name of an Emacs package from nix-emacs-ci
-emacs-version := "emacs-release-snapshot"
+emacs := "emacs-release-snapshot"
 
 # Name of the package under test
 package := error("Please set the package name in justfile")
@@ -29,16 +29,16 @@ eval ATTR *OPTIONS:
 
 # Enter a shell for byte-compiling individual source files
 shell-compile:
-    nix develop {{ rice-config }}\#{{ emacs-version }}-for-{{ package }} {{ common-options }}
+    nix develop {{ rice-config }}\#{{ emacs }}-for-{{ package }} {{ common-options }}
 
 # Re-run byte-compile every time a file is modified
 watch-compile:
-    nix develop {{ rice-config }}\#{{ emacs-version }}-for-{{ package }} {{ common-options }} -c bash -c 'echo >&2 Watching *.el; ls *.el | entr -p elisp-byte-compile /_'
+    nix develop {{ rice-config }}\#{{ emacs }}-for-{{ package }} {{ common-options }} -c bash -c 'echo >&2 Watching *.el; ls *.el | entr -p elisp-byte-compile /_'
 
 # Byte-compile the package
 check-compile:
-    nix build {{ rice-config }}\#checks.{{ arch }}.{{ package }}-compile-{{ emacs-version }} {{ common-options }} --print-build-logs
+    nix build {{ rice-config }}\#checks.{{ arch }}.{{ package }}-compile-{{ emacs }} {{ common-options }} --print-build-logs
 
 # Enter a shell for running tests
 shell-emacs *OPTIONS:
-    nix shell {{ rice-config }}\#{{ emacs-version }}-with-packages {{ common-options }} {{ OPTIONS }}
+    nix shell {{ rice-config }}\#{{ emacs }}-with-packages {{ common-options }} {{ OPTIONS }}
