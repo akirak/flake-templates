@@ -18,9 +18,11 @@ jobs:
       # rice-config: github:emacs-twist/rice-config
       # melpa: github:akirak/melpa/akirak
       # systems: github:nix-systems/x86_64-linux
+      # lock-dir: .rice-lock/default
 
   melpazoid:
     uses: emacs-twist/elisp-workflows/.github/workflows/melpazoid.yml@master
     # with:
       # rice-config: github:emacs-twist/rice-config
       # melpa: github:akirak/melpa/akirak
+      # lock-dir: .rice-lock/default
