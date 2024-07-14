@@ -7,8 +7,11 @@ melpa := "github:melpa/melpa/master"
 # Before it is available on melpa, you need to specify a non-default branch.
 # melpa := "github:akirak/melpa/akirak"
 
+# Relative path to the lock directory
+lock-dir := ".rice-lock/default"
+
 # This is only to avoid repetition, and you usually don't edit this.
-common-options := "--override-input rice-src \"path:$PWD\" --override-input melpa " + quote(melpa)
+common-options := "--override-input rice-src \"path:$PWD\" --override-input rice-lock \"path:$PWD/{{ lock-dir }}\" --override-input melpa " + quote(melpa)
 
 # The name of an Emacs package from nix-emacs-ci
 emacs := "emacs-release-snapshot"
@@ -26,6 +29,10 @@ show *OPTIONS:
 # Evaluate an attribute on the flake, e.g. just eval melpaRecipes.
 eval ATTR *OPTIONS:
     nix eval {{rice-config}}\#{{ATTR}} {{OPTIONS}} {{ common-options }}
+
+# Generate a lock directory.
+lock *OPTIONS:
+    nix run github:emacs-twist/rice-init-lock\#lock-with-{{ emacs-version }} {{ common-options }} --impure -- {{ OPTIONS }} {{ lock-dir }}
 
 # Enter a shell for byte-compiling individual source files
 shell-compile:
