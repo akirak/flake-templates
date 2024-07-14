@@ -21,7 +21,7 @@ arch := shell('nix eval --expr builtins.currentSystem --impure --raw')
 
 # Show the flake
 show *OPTIONS:
-    nix flake show {{ rice-config }} {{ OPTIONS }} {{ common-options }}
+    nix flake show {{ rice-config }} {{ OPTIONS }} {{ common-options }} --override-input systems github:nix-systems/{{ arch }} --allow-import-from-derivation
 
 # Evaluate an attribute on the flake, e.g. just eval melpaRecipes.
 eval ATTR *OPTIONS:
