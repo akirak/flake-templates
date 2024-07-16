@@ -91,6 +91,9 @@
             odig
             (sherlodoc.override {enableServe = true;})
           ]);
+        shellHook = ''
+          export OCAMLRUNPARAM=b
+        '';
       };
     });
   };
