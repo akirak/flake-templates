@@ -44,11 +44,8 @@
         duneVersion = "3";
         src = self.outPath;
 
-        # Uncomment if you need the executable of dream_eml during build
-        # preBuild = ''
-        #   PATH="${ocamlPackages.dream}/bin:$PATH"
-        #   export PATH
-        # '';
+        # Add ocamlPackages.dream if you need the executable of dream_eml during
+        # build
 
         buildInputs = with ocamlPackages; [
           ocaml-syntax-shims
