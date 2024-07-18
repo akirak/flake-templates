@@ -32,7 +32,7 @@ eval ATTR *OPTIONS:
 
 # Generate a lock directory.
 lock *OPTIONS:
-    nix run github:emacs-twist/rice-init-lock\#lock-with-{{ emacs-version }} {{ common-options }} --impure -- {{ OPTIONS }} {{ lock-dir }}
+    nix run github:emacs-twist/rice-init-lock\#lock-with-{{ emacs }} {{ common-options }} --impure -- {{ OPTIONS }} {{ lock-dir }}
 
 # Enter a shell for byte-compiling individual source files
 shell-compile:
