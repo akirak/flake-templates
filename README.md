@@ -1,7 +1,7 @@
 # Nix Flake Templates
 
 This is a collection of [Nix flake](https://nixos.wiki/wiki/Flakes) templates I
-use in my personal projects. They mostly provide development shells (i.e.
+use in my personal projects. Most of them provide development shells (i.e.
 `devShells.*`), but I may add further instructions for production builds in the
 future.
 
