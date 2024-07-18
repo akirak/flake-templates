@@ -1,0 +1,28 @@
+name: Check emacs-lisp
+
+on:
+  push:
+    paths:
+      - emacs-lisp/**
+      - .github/workflows/check-emacs-lisp.yml
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: check-emacs-lisp-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@V27
+
+      - name: Install just
+        run: nix profile install nixpkgs#just
+
+      - name: Lint justfile
+        working-directory: emacs-lisp
+        run: just -l
