@@ -160,18 +160,6 @@ This flake provides minimal dependencies for [Gleam](https://gleam.run/).
 nix flake init -t github:akirak/flake-templates#gleam
 ```
 
-### [emacs-lisp](emacs-lisp/)
-
-This boilerplate contains configuration files for checking Emacs Lisp packages.
-It uses [rice-config](https://github.com/emacs-twist/rice-config) (which relies
-on [twist.nix](https://github.com/emacs-twist/rice-config) under the hood) and
-[reusable workflows](https://github.com/emacs-twist/elisp-workflows) for GitHub
-Actions to minimize maintenance.
-
-``` bash
-nix flake init -t github:akirak/flake-templates#emacs-lisp
-```
-
 ### [meta](meta/)
 
 This is a set of common metadata files for GitHub projects, such as
