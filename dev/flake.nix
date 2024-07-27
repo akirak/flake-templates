@@ -2,41 +2,42 @@
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     systems.url = "github:nix-systems/default";
-    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # To be overridden during execution
     src.url = "github:akirak/flake-templates";
   };
 
-  outputs = {
-    self,
-    systems,
-    nixpkgs,
-    pre-commit-hooks,
-    ...
-  } @ inputs: let
-    eachSystem = nixpkgs.lib.genAttrs (import systems);
-  in {
-    packages = eachSystem (system: {
-      update-beam = nixpkgs.legacyPackages.${system}.callPackage ./update-beam.nix {};
-    });
+  outputs =
+    {
+      self,
+      systems,
+      nixpkgs,
+      treefmt-nix,
+      ...
+    }@inputs:
+    let
+      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
 
-    checks = eachSystem (system: {
-      pre-commit-check = pre-commit-hooks.lib.${system}.run {
-        src = inputs.src.outPath;
-        hooks = {
-          actionlint.enable = true;
-          alejandra.enable = true;
-          markdownlint.enable = true;
-        };
-      };
-    });
+      treefmtEval = eachSystem (
+        pkgs:
+        treefmt-nix.lib.evalModule pkgs {
+          projectRootFile = "flake.nix";
+          programs.nixfmt-rfc-style.enable = true;
+        }
+      );
+    in
+    {
+      packages = eachSystem (pkgs: {
+        update-beam = nixpkgs.legacyPackages.${pkgs.system}.callPackage ./update-beam.nix { };
+      });
 
-    devShells = eachSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      default = pkgs.mkShell {
-        inherit (self.checks.${system}.pre-commit-check) shellHook;
-      };
-    });
-  };
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+
+      checks = eachSystem (pkgs: {
+        formatting = treefmtEval.${pkgs.system}.config.build.check self;
+      });
+    };
 }
