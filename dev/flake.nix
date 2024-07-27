@@ -2,7 +2,10 @@
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     systems.url = "github:nix-systems/default";
-    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # To be overridden during execution
     src.url = "github:akirak/flake-templates";
   };
@@ -12,36 +15,29 @@
       self,
       systems,
       nixpkgs,
-      pre-commit-hooks,
+      treefmt-nix,
       ...
     }@inputs:
     let
-      eachSystem = nixpkgs.lib.genAttrs (import systems);
-    in
-    {
-      packages = eachSystem (system: {
-        update-beam = nixpkgs.legacyPackages.${system}.callPackage ./update-beam.nix { };
-      });
+      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
 
-      checks = eachSystem (system: {
-        pre-commit-check = pre-commit-hooks.lib.${system}.run {
-          src = inputs.src.outPath;
-          hooks = {
-            actionlint.enable = true;
-            nixfmt.enable = true;
-            markdownlint.enable = true;
-          };
-        };
-      });
-
-      devShells = eachSystem (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          default = pkgs.mkShell { inherit (self.checks.${system}.pre-commit-check) shellHook; };
+      treefmtEval = eachSystem (
+        pkgs:
+        treefmt-nix.lib.evalModule pkgs {
+          projectRootFile = "flake.nix";
+          programs.nixfmt-rfc-style.enable = true;
         }
       );
+    in
+    {
+      packages = eachSystem (pkgs: {
+        update-beam = nixpkgs.legacyPackages.${pkgs.system}.callPackage ./update-beam.nix { };
+      });
+
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+
+      checks = eachSystem (pkgs: {
+        formatting = treefmtEval.${pkgs.system}.config.build.check self;
+      });
     };
 }
