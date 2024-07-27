@@ -1,5 +1,5 @@
-name: Lint via pre-commit-hooks
 
+name: Format check and linting
 on:
   pull_request:
   workflow_dispatch:
