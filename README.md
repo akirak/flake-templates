@@ -5,6 +5,18 @@ use in my personal projects. Most of them provide development shells (i.e.
 `devShells.*`), but I may add further instructions for production builds in the
 future.
 
+I use these templates on NixOS, so they don't assume any non-Nix dependencies.
+They should work on any platform. Basically, each template contains:
+
+- A programming language implementation (compiler and build system)
+- A language server
+
+Most of the modern programming languages provide a scaffolding command
+(typically as `new`/`init` sub-command), so most of my templates are minimalist.
+They also don't contain DevOps things (e.g. CI, non-default formatting and
+linting, and other conformance-related settings), as such settings can be
+opinionated.
+
 For maintaining a complex flake configuration, I would suggest use of
 [flake-parts](https://github.com/hercules-ci/flake-parts/) instead.
 
