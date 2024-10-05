@@ -172,6 +172,18 @@ This flake provides minimal dependencies for [Gleam](https://gleam.run/).
 nix flake init -t github:akirak/flake-templates#gleam
 ```
 
+### [go](go/)
+
+This flake provides a development environment for [Go](https://go.dev/).
+
+``` bash
+nix flake init -t github:akirak/flake-templates#go
+```
+
+Note that creating a Go project may require some manual work. This template
+helps you start working on an existing Go project on NixOS or adding a Nix-based
+CI, but not much more.
+
 ### [meta](meta/)
 
 This is a set of common metadata files for GitHub projects, such as

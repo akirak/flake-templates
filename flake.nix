@@ -29,6 +29,10 @@
           path = ./node-typescript;
           description = "Toolchain for TypeScript frontend projects";
         };
+        go = {
+          path = ./go;
+          description = "A minimal environment for Go with support for Go module";
+        };
         ocaml = {
           path = ./ocaml;
           description = "A flake template for development with OPAM and Dune";
