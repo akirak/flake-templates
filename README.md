@@ -77,7 +77,9 @@ Usage:
 
 This is based on `minimal` but contains basic dependencies for web development
 with Node.js and TypeScript. You can add it to your existing code base to start
-coding without globally installing node.
+coding without globally installing node. To scaffold a new project, you can use,
+for example, [bolt.new](https://bolt.new/) and then develop the project on NixOS
+after adding `flake.nix`:
 
 ``` bash
 nix flake init -t github:akirak/flake-templates#node-typescript
