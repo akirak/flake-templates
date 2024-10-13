@@ -186,6 +186,15 @@ Note that creating a Go project may require some manual work. This template
 helps you start working on an existing Go project on NixOS or adding a Nix-based
 CI, but not much more.
 
+### [zig](zig/)
+
+This flake provides a minimal development environment for
+[Zig](https://ziglang.org/).
+
+``` bash
+nix flake init -t github:akirak/flake-templates#zig
+```
+
 ### [meta](meta/)
 
 This is a set of common metadata files for GitHub projects, such as
