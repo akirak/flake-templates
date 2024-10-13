@@ -53,6 +53,10 @@
           path = ./gleam;
           description = "A minimal Gleam project";
         };
+        zig = {
+          path = ./zig;
+          description = "A minimal Zig project";
+        };
       };
     };
 }
