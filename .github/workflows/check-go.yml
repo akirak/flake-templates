@@ -30,4 +30,5 @@ jobs:
       - name: Use the template
         run: |
           nix flake new -t ./tmp#go work
-      - run: go version
+      - run: nix develop -c go version
+        working-directory: work
