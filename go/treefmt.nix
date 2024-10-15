@@ -5,9 +5,6 @@
 
   programs.gofmt.enable = true;
 
-  # JSON
-  programs.biome.enable = true;
-
   # GitHub Actions
   programs.yamlfmt.enable = true;
   programs.actionlint.enable = true;
