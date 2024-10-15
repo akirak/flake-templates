@@ -1,0 +1,34 @@
+name: Check zig
+on:
+  push:
+    paths:
+      # Set this to the directory of the template
+      - zig/**
+      - .github/workflows/check-zig.yml
+  workflow_dispatch:
+  workflow_call:
+concurrency:
+  group: check-zig-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v30
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            flake-registry =  https://raw.githubusercontent.com/akirak/flake-pins/master/registry.json
+      - uses: cachix/cachix-action@v15
+        with:
+          name: akirak
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          pushFilter: '-source$'
+      - uses: actions/checkout@v4
+        with:
+          path: ./tmp
+      - name: Use the template
+        run: |
+          nix flake new -t ./tmp#zig work
+      - run: nix develop -c zig version
+        working-directory: work
