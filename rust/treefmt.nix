@@ -1,6 +1,6 @@
 {
   projectRootFile = "treefmt.nix";
 
-  programs.alejandra.enable = true;
+  programs.nixfmt.enable = true;
   programs.rustfmt.enable = true;
 }
