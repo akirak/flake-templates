@@ -1,82 +1,88 @@
 {
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    rust-overlay.url = "github:oxalica/rust-overlay";
-
-    # crane = {
-    #   url = "github:ipetkov/crane";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     systems.url = "github:nix-systems/default";
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    crane.url = "github:ipetkov/crane";
   };
 
-  outputs =
+  # Add settings for your binary cache.
+  nixConfig =
     {
-      self,
-      systems,
-      nixpkgs,
-      treefmt-nix,
-      ...
-    }@inputs:
-    let
-      eachSystem =
-        f:
-        nixpkgs.lib.genAttrs (import systems) (
-          system:
-          f (
-            import nixpkgs {
+    };
+
+  outputs =
+    inputs@{ nixpkgs, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = import inputs.systems;
+
+      imports = [
+        inputs.treefmt-nix.flakeModule
+      ];
+
+      perSystem =
+        {
+          config,
+          system,
+          pkgs,
+          lib,
+          craneLib,
+          commonArgs,
+          ...
+        }:
+        {
+          _module.args = {
+            pkgs = import nixpkgs {
               inherit system;
               overlays = [ inputs.rust-overlay.overlays.default ];
+            };
+            craneLib = (inputs.crane.mkLib pkgs).overrideToolchain (pkgs: pkgs.rust-bin.stable.latest.default);
+            commonArgs = {
+              # Depending on your code base, you may have to customize the
+              # source filtering to include non-standard files during the build.
+              # See
+              # https://crane.dev/source-filtering.html?highlight=source#source-filtering
+              src = craneLib.cleanCargoSource (craneLib.path ./.);
+
+              # nativeBuildInputs = with pkgs; [
+              #   pkg-config
+              # ];
+
+              # buildInputs = with pkgs; [
+              #   openssl
+              # ];
+            };
+          };
+
+          # Build the executable package.
+          packages.default = craneLib.buildPackage (
+            commonArgs
+            // {
+              cargoArtifacts = craneLib.buildDepsOnly commonArgs;
             }
-          )
-        );
+          );
 
-      rustToolchain = eachSystem (pkgs: pkgs.rust-bin.stable.latest);
+          devShells.default = craneLib.devShell {
+            packages =
+              (commonArgs.nativeBuildInputs or [ ])
+              ++ (commonArgs.buildInputs or [ ])
+              ++ [ pkgs.rust-analyzer-unwrapped ];
 
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
-    in
-    {
-      # You can use crane to build the Rust application with Nix
+            RUST_SRC_PATH = "${pkgs.rust-bin.stable.latest.rust-src}/lib/rustlib/src/rust/library";
+          };
 
-      # packages = eachSystem (pkgs: let
-      #   craneLib = inputs.crane.lib.${pkgs.system};
-      # in {
-      #   default = craneLib.buildPackage {
-      #     src = craneLib.cleanCargoSource (craneLib.path ./.);
-      #   };
-      # });
-
-      devShells = eachSystem (pkgs: {
-        # Based on a discussion at https://github.com/oxalica/rust-overlay/issues/129
-        default = pkgs.mkShell (
-          with pkgs;
-          {
-            nativeBuildInputs = [
-              clang
-              # Use mold when we are runnning in Linux
-              (lib.optionals stdenv.isLinux mold)
-            ];
-            buildInputs = [
-              rustToolchain.${pkgs.system}.default
-              rust-analyzer-unwrapped
-              cargo
-              # pkg-config
-              # openssl
-            ];
-            RUST_SRC_PATH = "${rustToolchain.${pkgs.system}.rust-src}/lib/rustlib/src/rust/library";
-          }
-        );
-      });
-
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
-
-      checks = eachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.system}.config.build.check self;
-      });
+          treefmt = {
+            projectRootFile = "Cargo.toml";
+            programs = {
+              actionlint.enable = true;
+              nixfmt.enable = true;
+              rustfmt.enable = true;
+            };
+          };
+        };
     };
 }
