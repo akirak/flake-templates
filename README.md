@@ -110,21 +110,23 @@ concrete information.
 
 ### [rust](rust/)
 
-This flake.nix provides a Rust toolchain.
+This is a template for a simple Rust project with a single executable package.
 
 ``` bash
 nix flake init -t github:akirak/flake-templates#rust
 ```
 
-It relies on [oxalica/rust-overlay](https://github.com/oxalica/rust-overlay) to
-let you choose a specific channel of Rust. `rust-analyzer` is available in the
-shell. It also contains a formatter configuration using
-[treefmt-nix](https://github.com/numtide/treefmt-nix), which runs `rustfmt`.
+It depends on:
 
-It also contains a comment for quickly adding the default package that builds
-the Rust package using [crane](https://github.com/ipetkov/crane). See [NixOS
-Wiki](https://nixos.wiki/wiki/Rust#Packaging_Rust_projects_with_nix) for other
-options.
+- [oxalica/rust-overlay](https://github.com/oxalica/rust-overlay).
+- [crane](https://github.com/ipetkov/crane).
+- flake-parts.
+- [treefmt-nix](https://github.com/numtide/treefmt-nix)
+
+It provides:
+
+- `rust-analyzer` for a selected Rust toolchain.
+- Auto-formatting of Rust and Nix code via `nix fmt`.
 
 ### [elixir](elixir/)
 
