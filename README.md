@@ -269,7 +269,7 @@ The following is a list of template repositories I found on GitHub:
 
 - [NixOS](https://github.com/nixos/templates)
 - [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates): an
-  extensive collection maintained by a guy behind Determinate Systems.
+  extensive collection maintained by a developer behind Determinate Systems.
 - [serokell](https://github.com/serokell/templates)
 - [johnae](https://github.com/johnae/nix-flake-templates)
 
