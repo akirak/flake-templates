@@ -17,6 +17,10 @@
           path = ./flake-utils;
           description = "A basic boilerplate with flake-utils";
         };
+        flake-parts = {
+          path = ./flake-parts;
+          description = "A minimal boilerplate for the root flake";
+        };
         pre-commit = {
           path = ./pre-commit;
           description = "Basic flake with pre-commit check";

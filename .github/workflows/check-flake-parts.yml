@@ -1,0 +1,36 @@
+name: Check flake-parts
+
+on:
+  push:
+    paths:
+    # Set this to the directory of the template
+    - flake-parts/**
+    - .github/workflows/check-flake-parts.yml
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: check-flake-parts-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: cachix/install-nix-action@v30
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/checkout@v4
+      with:
+        path: ./tmp
+    - run: nix flake new -t ./tmp#flake-parts ./work
+    - name: Prepare the project
+      working-directory: work
+      run: |
+        git init
+        git add .
+
+    - run: nix flake show
+      working-directory: work

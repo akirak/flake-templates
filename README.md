@@ -42,6 +42,18 @@ provide multiple types of outputs from your flake:
 nix flake init -t github:akirak/flake-templates#flake-utils
 ```
 
+### [flake-parts](flake-parts/flake.nix)
+
+This is a boilerplate based on [flake-parts](https://flake.parts/).
+
+``` bash
+nix flake init -t github:akirak/flake-templates#flake-parts
+```
+
+It contains a stub for
+[partitions](https://flake.parts/options/flake-parts-partitions) which is
+commented out by default.
+
 ### [pre-commit](pre-commit/flake.nix)
 
 This is a basic project boilerplate with
