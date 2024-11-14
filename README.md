@@ -18,8 +18,9 @@ linting, and other conformance-related settings), as such settings can be
 opinionated.
 
 For maintaining a complex flake configuration, I would suggest use of
-[flake-parts](https://github.com/hercules-ci/flake-parts/) instead.
-
+[flake-parts](https://github.com/hercules-ci/flake-parts/). Actually, I am using
+flake-parts in some of these templates where it makes the configuration more
+concise.
 ## List of templates in this repository
 
 ### [minimal](minimal/flake.nix)
