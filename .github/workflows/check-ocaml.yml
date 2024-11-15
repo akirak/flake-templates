@@ -17,19 +17,19 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: cachix/install-nix-action@v30
+      - uses: cachix/install-nix-action@08dcb3a5e62fa31e2da3d490afc4176ef55ecd72 # v30
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             flake-registry =  https://raw.githubusercontent.com/akirak/flake-pins/master/registry.json
 
-      - uses: cachix/cachix-action@v15
+      - uses: cachix/cachix-action@ad2ddac53f961de1989924296a1f236fcfbaa4fc # v15
         with:
           name: akirak
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           pushFilter: '-source$'
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           path: ./tmp
 
