@@ -23,13 +23,13 @@
         nixpkgs.lib.genAttrs (import systems) (
           system:
           let
-            pkgs = import nixpkgs {
-              inherit system;
-              overlays = [ ocaml-overlays.overlays.default ];
-            };
+            pkgs = nixpkgs.legacyPackages.${system}.extend ocaml-overlays.overlays.default;
           in
           f {
             inherit pkgs system;
+            # You can set the OCaml version to a particular release. Also, you
+            # may have to pin some packages to a particular revision if the
+            # devshell fail to build. This should be resolved in the upstream.
             ocamlPackages = pkgs.ocaml-ng.ocamlPackages_latest;
           }
         );
@@ -47,10 +47,9 @@
             src = self.outPath;
 
             # Uncomment if you need the executable of dream_eml during build
-            # preBuild = ''
-            #   PATH="${ocamlPackages.dream}/bin:$PATH"
-            #   export PATH
-            # '';
+            # nativeBuildInputs = [
+            #   ocamlPackages.dream
+            # ];
 
             buildInputs = with ocamlPackages; [ ocaml-syntax-shims ];
 
