@@ -27,6 +27,9 @@
           in
           f {
             inherit pkgs system;
+            # You can set the OCaml version to a particular release. Also, you
+            # may have to pin some packages to a particular revision if the
+            # devshell fail to build. This should be resolved in the upstream.
             ocamlPackages = pkgs.ocaml-ng.ocamlPackages_latest;
           }
         );
