@@ -23,10 +23,7 @@
         nixpkgs.lib.genAttrs (import systems) (
           system:
           let
-            pkgs = import nixpkgs {
-              inherit system;
-              overlays = [ ocaml-overlays.overlays.default ];
-            };
+            pkgs = nixpkgs.legacyPackages.${system}.extend ocaml-overlays.overlays.default;
           in
           f {
             inherit pkgs system;
