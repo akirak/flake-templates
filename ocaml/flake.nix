@@ -47,10 +47,9 @@
             src = self.outPath;
 
             # Uncomment if you need the executable of dream_eml during build
-            # preBuild = ''
-            #   PATH="${ocamlPackages.dream}/bin:$PATH"
-            #   export PATH
-            # '';
+            # nativeBuildInputs = [
+            #   ocamlPackages.dream
+            # ];
 
             buildInputs = with ocamlPackages; [ ocaml-syntax-shims ];
 
