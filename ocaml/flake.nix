@@ -4,7 +4,6 @@
     systems.url = "github:nix-systems/default";
 
     ocaml-overlays.url = "github:nix-ocaml/nix-overlays";
-    ocaml-overlays.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
