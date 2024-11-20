@@ -86,7 +86,8 @@
                 opam
                 odoc
                 odig
-                (sherlodoc.override { enableServe = true; })
+                # This may fail to build, so it is turned off by default.
+                # (sherlodoc.override { enableServe = true; })
               ]);
           };
         }
