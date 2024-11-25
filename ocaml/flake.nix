@@ -75,9 +75,9 @@
         {
           default = pkgs.mkShell {
             inputsFrom = [ self.packages.${pkgs.system}.default ];
-            buildInputs =
-              lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
-              ++ (with ocamlPackages; [
+            buildInputs = (
+              with ocamlPackages;
+              [
                 ocaml-lsp
                 ocamlformat
                 ocp-indent
@@ -88,7 +88,11 @@
                 odig
                 # This may fail to build, so it is turned off by default.
                 # (sherlodoc.override { enableServe = true; })
-              ]);
+              ]
+            )
+            # Enable file watcher.
+            # ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
+            ;
           };
         }
       );
