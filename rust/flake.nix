@@ -17,6 +17,17 @@
 
   outputs =
     inputs@{ nixpkgs, flake-parts, ... }:
+    let
+      # For details on these options, See
+      # https://github.com/oxalica/rust-overlay?tab=readme-ov-file#cheat-sheet-common-usage-of-rust-bin
+      #
+      # Channel of the Rust toolchain (stable or beta).
+      rustChannel = "stable";
+      # Version (latest or specific date/semantic version)
+      rustVersion = "latest";
+      # Profile (default or minimal)
+      rustProfile = "default";
+    in
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
 
@@ -40,7 +51,9 @@
               inherit system;
               overlays = [ inputs.rust-overlay.overlays.default ];
             };
-            craneLib = (inputs.crane.mkLib pkgs).overrideToolchain (pkgs: pkgs.rust-bin.stable.latest.default);
+            craneLib = (inputs.crane.mkLib pkgs).overrideToolchain (
+              pkgs: pkgs.rust-bin.${rustChannel}.${rustVersion}.${rustProfile}
+            );
             commonArgs = {
               # Depending on your code base, you may have to customize the
               # source filtering to include non-standard files during the build.
@@ -72,7 +85,9 @@
               ++ (commonArgs.buildInputs or [ ])
               ++ [ pkgs.rust-analyzer-unwrapped ];
 
-            RUST_SRC_PATH = "${pkgs.rust-bin.stable.latest.rust-src}/lib/rustlib/src/rust/library";
+            RUST_SRC_PATH = "${
+              pkgs.rust-bin.${rustChannel}.${rustVersion}.rust-src
+            }/lib/rustlib/src/rust/library";
           };
 
           treefmt = {
