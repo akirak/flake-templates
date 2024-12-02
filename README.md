@@ -21,7 +21,13 @@ For maintaining a complex flake configuration, I would suggest use of
 [flake-parts](https://github.com/hercules-ci/flake-parts/). Actually, I am using
 flake-parts in some of these templates where it makes the configuration more
 concise.
+
 ## List of templates in this repository
+
+> [!IMPORTANT]
+> I have built a web site which describes how to use these templates.
+> Check out [the web site](https://akirak.github.io/flake-templates-doc/)
+> for detailed instructions.
 
 ### [minimal](minimal/flake.nix)
 
