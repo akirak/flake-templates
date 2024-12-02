@@ -2,7 +2,7 @@ odig-odoc:
     odig odoc
 
 sherlodoc-index: odig-odoc
-    find "$(odig cache path)/odoc" -name '*.odocl' \
+    find "${ODIG_CACHE_DIR}/odoc" -name '*.odocl' \
     | grep -v '__' \
     | xargs sherlodoc index
 
