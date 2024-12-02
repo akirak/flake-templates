@@ -36,7 +36,7 @@
       # Build executables. See https://nixos.org/manual/nixpkgs/stable/#sec-language-go
       packages = eachSystem (pkgs: {
         # default = pkgs.buildGoModule {
-        #   pname = "squasher";
+        #   pname = "hello";
         #   version = builtins.substring 0 8 (self.lastModifiedDate or "19700101");
         #   src = self.outPath;
         #   vendorHash = lib.fakeHash;
