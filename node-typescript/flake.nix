@@ -19,12 +19,10 @@
             # of the default version
             # pkgs.nodejs-22_x
 
-            # It is possible to use bun instead of node.
-            # pkgs.bun
-
-            # Optionally, you can add yarn or pnpm for package management for node.
-            # pkgs.nodePackages.pnpm
+            # Comment out one of these to use an alternative package manager.
             # pkgs.yarn
+            # pkgs.pnpm
+            # pkgs.bun
 
             pkgs.nodePackages.typescript
             pkgs.nodePackages.typescript-language-server
