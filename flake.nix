@@ -45,6 +45,10 @@
           path = ./rust;
           description = "Rust toolchain";
         };
+        fsharp = {
+          path = ./fsharp;
+          description = "F# development environment";
+        };
         elixir = {
           path = ./elixir;
           description = "Simple Elixir project";
