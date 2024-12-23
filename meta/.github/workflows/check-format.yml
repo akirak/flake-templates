@@ -1,0 +1,30 @@
+name: Check format
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'README.*'
+
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'README.*'
+
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@V30
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check format
+        run: |
+          system="$(nix eval --expr builtins.currentSystem --impure --raw)"
+          nix build ".#checks.$system.treefmt"
