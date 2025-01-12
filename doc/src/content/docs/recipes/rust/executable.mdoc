@@ -1,0 +1,117 @@
+---
+title: Developing a Rust program
+description: How to develop a Rust program with a Nix flake template
+---
+
+In this tutorial, you will learn how to initialize a Rust executable project.
+You can use `cargo` for most of the workflow. Thanks to
+[rust-overlay](https://github.com/oxalica/rust-overlay), you can pick a
+particular channel of the Rust toolchain, and
+[crane](https://github.com/ipetkov/crane) builds an executable in a reproducible
+manner with Nix. Rust Analyzer works out of the box.
+
+## Initialize a new project
+
+{% aside type="caution" %}
+If you are trying to add `flake.nix` to an existing project, please skip this
+section.
+{% /aside %}
+
+{% steps %}
+
+1. Make `cargo` executable available:
+
+   ```shell
+   nix shell nixpkgs#cargo
+   ```
+
+2. Use `cargo new` to create a new project:
+
+   ```shell
+   cargo new 'your-new-project'
+   ```
+
+3. Enter the directory:
+
+   ```shell
+   cd 'your-new-project'
+   ```
+
+{% /steps %}
+
+## Add flake.nix to the project
+
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#rust
+   ```
+
+   By default, the template will pick the **default** profile of the **latest**
+   version from the **stable** channel. If you prefer a different one, open
+   `flake.nix` and edit the following settings to your preference. Check out [the
+   documentation of the Rust
+   Overlay](https://github.com/oxalica/rust-overlay?tab=readme-ov-file#cheat-sheet-common-usage-of-rust-bin)
+   for details:
+
+   ```nix
+       let
+         # For details on these options, See
+         # https://github.com/oxalica/rust-overlay?tab=readme-ov-file#cheat-sheet-common-usage-of-rust-bin
+         #
+         # Channel of the Rust toolchain (stable or beta).
+         rustChannel = "stable";
+         # Version (latest or specific date/semantic version)
+         rustVersion = "latest";
+         # Profile (default or minimal)
+         rustProfile = "default";
+       in
+   ```
+
+2. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+3. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+{% /steps %}
+
+## Developing
+
+Use `cargo` to develop the project as you would normally do without Nix.
+
+Depending on the project, you may have to add dependencies such as `pkg-config`,
+`openssl`, etc. Some of these things are supported in the template, so just
+check out the `flake.nix` and comment out relevant fields.
+
+### Building the Nix package
+
+The package is exposed as `default` package out of the box, so you can run the
+application:
+
+```shell
+nix run .
+```
+
+It is recommended to add the settings for your binary cache to `flake.nix`:
+
+```nix title="flake.nix"
+  nixConfig = {
+    extra-substituters = [
+      # Use your cachix account
+      "https://akirak.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      # Use a public key for your binary cache
+      "akirak.cachix.org-1:WJrEMdV1dYyALkOdp/kAECVZ6nAODY5URN05ITFHC+M="
+    ];
+  };
+```

@@ -1,0 +1,120 @@
+---
+title: Developing a web application in TypeScript
+description: How to develop a web application in TypeScript with a Nix flake template
+---
+
+In this tutorial, you will learn how to add `flake.nix` to a TypeScript web
+application.
+
+## Initialize a new project
+
+{% aside type="caution" %}
+If you are trying to add `flake.nix` to an existing project, please skip this
+section.
+{% /aside %}
+
+We will be using a framework-specific scaffolder to initialize a project. An
+alternative way is to use an external service such as
+[StackBlitz](https://stackblitz.com/) and [Bolt.new](https://bolt.new/). The
+flake template should work the same way, but I don't provide any specific
+support for those services.
+
+{% steps %}
+
+1. We need one of `npm`, `yarn`, `pnpm`, or `bun`. Both `npm` and `bun` are
+available directly from Nixpkgs.
+
+   If you prefer `yarn` or `pnpm`, you will probably need both `yarn`/`pnpm` and
+`npm`. To make the multiple packages available, you can use the classic
+`nix-shell` command, or use a devshell in [my personal
+repository](https://github.com/akirak/flake-pins/).
+
+   {% tabs %}
+   {% tabitem label="npm" %}
+   ```shell
+   nix shell nixpkgs#nodejs
+   ```
+   {% /tabitem %}
+   {% tabitem label="yarn" %}
+   ```shell
+   nix-shell -p yarn -p nodejs
+   ```
+   or
+   ```shell
+   nix shell github:akirak/flake-pins#yarn
+   ```
+   {% /tabitem %}
+   {% tabitem label="pnpm" %}
+   ```shell
+   nix-shell -p pnpm -p nodejs
+   ```
+   or
+   ```shell
+   nix shell github:akirak/flake-pins#pnpm
+   ```
+   {% /tabitem %}
+   {% tabitem label="bun" %}
+   ```shell
+   nix shell nixpkgs#bun
+   ```
+   {% /tabitem %}
+   {% /tabs %}
+
+2. Then follow an instruction for the framework of your choice to initialize the
+project. Below are some links:
+
+   - [Install and set up Astro | Docs](https://docs.astro.build/en/install-and-setup/)
+   - [Getting Started: Installation | Next.js](https://nextjs.org/docs/app/getting-started/installation)
+   - [Installation · Get Started with Nuxt](https://nuxt.com/docs/getting-started/installation)
+   - [Creating a project • Docs • Svelte](https://svelte.dev/docs/kit/creating-a-project)
+
+{% /steps %}
+
+## Add flake.nix to the project
+
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#node-typescript
+   ```
+
+2. Open `flake.nix` and comment out `yarn`, `pnpm`, or `bun` in the
+`buildInputs` field of the default shell, depending on the package manager of
+your choice.
+
+   ```diff lang="nix" title="flake.nix"
+         devShells = eachSystem (pkgs: {
+           default = pkgs.mkShell {
+             buildInputs = [
+               pkgs.nodejs
+               # Comment out one of these
+   -           # pkgs.bun
+   -           # pkgs.nodePackages.pnpm
+   -           # pkgs.yarn
+   +           pkgs.yarn
+               ...
+             ];
+           };
+         });
+   ```
+
+3. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+4. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+{% /steps %}
+
+## Developing
+
+You can use `npm`, `yarn`, `pnpm`, or `bun` to develop your application as you
+would normally do.

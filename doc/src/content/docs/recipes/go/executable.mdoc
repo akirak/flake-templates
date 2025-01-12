@@ -1,0 +1,119 @@
+---
+title: Developing a Go executable application
+---
+
+In this tutorial, you will learn how to add `flake.nix` to a Go project.
+
+## Initialize a new project
+
+{% aside type="caution" %}
+If you are trying to add `flake.nix` to an existing project, please skip this
+section.
+{% /aside %}
+
+You can start developing a Go project by simply adding `main.go` and `go.mod` to
+an empty directory. Refer to [GitHub - golang-standards/project-layout: Standard
+Go Project Layout](https://github.com/golang-standards/project-layout) for a
+complex project layout.
+
+## Add flake.nix to the project
+
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#go
+   ```
+
+2. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+3. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+{% /steps %}
+
+## Developing
+
+### Exposing the executable from the flake
+
+To expose the program as a Nix flake package, comment out the stub inside
+`packages` in the `flake.nix`.
+
+{% steps %}
+
+1. Adapt `pname` and `version` to match your package information:
+
+   ```diff lang="nix" title="flake.nix"
+         packages = eachSystem (pkgs: {
+           default = pkgs.buildGoModule {
+   -         pname = "hello";
+   +         pname = "your-go-program";
+             # Edit this if you are using a semantic version
+   -         version = builtins.substring 0 8 (self.lastModifiedDate or "19700101");
+   +         version = "0.3.4";
+             src = self.outPath;
+             vendorHash = lib.fakeHash;
+             meta = { };
+           };
+         });
+   ```
+
+2. Then build the package with Nix:
+
+   ```sh
+   nix build .#default
+   ```
+
+3. It will show an error on the hash, so update `vendorHash` to the value shown in
+   the output.
+
+   ```diff lang="nix" title="flake.nix"
+         packages = eachSystem (pkgs: {
+           default = pkgs.buildGoModule {
+             ...intensionaly omitted
+             src = self.outPath;
+             # Set the value shown from nix build
+    -        vendorHash = lib.fakeHash;
+    +        vendorHash = "sha256-7g261Jf6Qegfz7MnNbqo3Jc5Ft33qHXvst92laOrIY0=";
+             ...
+           };
+         });
+   ```
+
+4. It is also recommended to push your artifacts to a binary cache server and
+   add its settings to the `flake.nix`:
+
+   ```nix title="flake.nix"
+     nixConfig = {
+       extra-substituters = [
+         # Use your cachix account
+         "https://akirak.cachix.org"
+       ];
+       extra-trusted-public-keys = [
+         # Use a public key for your binary cache
+         "akirak.cachix.org-1:WJrEMdV1dYyALkOdp/kAECVZ6nAODY5URN05ITFHC+M="
+       ];
+     };
+   ```
+
+{% /steps %}
+
+### Creating a justfile for local workflows
+
+You can create the following `justfile` for convenience.
+
+```just title="justfile"
+build:
+    go build
+
+run:
+    go run main.go
+```

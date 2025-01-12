@@ -1,0 +1,26 @@
+---
+title: Nix Flake Templates
+description: A documentation site for Nix flake templates.
+tableOfContents: false
+template: splash
+hero:
+  tagline: Quickly set up a reproducible development environment with Nix.
+  actions:
+    - text: Get started
+      link: /flake-templates/getting-started
+      icon: right-arrow
+    - text: Browse the template repository
+      link: https://github.com/akirak/flake-templates
+      icon: external
+      variant: minimal
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+## How to set up a repository for
+
+<CardGrid>
+	  <LinkCard title="Rust executable" href="recipes/rust/executable" />
+	  <LinkCard title="Web development with TypeScript" href="recipes/typescript/web-framework" />
+	  <LinkCard title="OCaml" href="recipes/ocaml/generic" />
+</CardGrid>

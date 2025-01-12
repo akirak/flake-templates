@@ -26,7 +26,7 @@ concise.
 
 > [!IMPORTANT]
 > I have built a web site which describes how to use these templates.
-> Check out [the web site](https://akirak.github.io/flake-templates-doc/)
+> Check out [the web site](https://akirak.github.io/flake-templates/)
 > for detailed instructions.
 
 ### [minimal](minimal/flake.nix)

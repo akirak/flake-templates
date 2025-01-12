@@ -1,0 +1,201 @@
+---
+title: Developing an OCaml project with Dune and Nix
+---
+
+In this tutorial, you will learn how to initialize an OCaml project that can be
+developed using `dune`.
+
+## Initialize a new project
+
+{% aside type="caution" %}
+If you are trying to add `flake.nix` to an existing project, please skip this
+section.
+{% /aside %}
+
+{% steps %}
+
+1. Make `dune` executable available:
+
+   ```shell
+   nix shell nixpkgs#dune_3
+   ```
+
+2. Scaffold a new project using `dune`:
+
+   ```shell
+   dune init proj 'package_name' 'your-new-project'
+   ```
+
+3. Enter the project directory:
+
+   ```shell
+   cd 'your-new-project'
+   ```
+
+{% /steps %}
+
+
+## Add flake.nix to the project
+
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#ocaml
+   ```
+
+2. Open `flake.nix` and set the `pname` and `version` of the package to be built, e.g.:
+
+   ```diff lang="nix"
+          default = ocamlPackages.buildDunePackage {
+   -        pname = throw "Name your OCaml package";
+   +        pname = "hello";
+   -        version = throw "Version your OCaml package";
+   +        version = "0.1";
+            duneVersion = "3";
+            src = self.outPath;
+   ```
+
+3. The template includes a custom `.envrc` for OCaml. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+{% /steps %}
+
+## Developing
+
+Once the Nix shell is enabled, you can use `dune` inside the project directory,
+as you would do in a normal OCaml project.
+
+### Adding OCaml dependencies
+
+To add library dependencies to your OCaml project, follow this instruction. In
+this example, we will be adding `cmdliner` as a new dependency.
+
+{% steps %}
+
+1. Add the libraries to `propagatedBuildInputs` (or `checkInputs` if it's a test
+   dependency) attribute to your package:
+
+   ```diff lang="nix" title="flake.nix"
+             default = ocamlPackages.buildDunePackage {
+               ...
+               src = self.outPath;
+               propagatedBuildInputs = with ocamlPackages; [
+                 base
+                 core
+                 core_unix
+   +             cmdliner
+               ];
+             };
+   ```
+
+2. Add them to `depends` field of your `package` in the `dune-project` file:
+
+   ```diff lang="dune" title="dune-project"
+   (package
+    (name hello)
+    (allow_empty)
+    (depends
+     (ocaml (>= 4.08.0))
+     (dune (>= 3.16))
+   +  (cmdliner (>= 1.3.0))
+     (alcotest :with-test)))
+   ```
+
+3. Also add them to `libraries` field of a suitable stanza in the relevant
+   `dune` file.
+
+   ```diff lang="dune" title="lib/dune"
+   (library
+    (public_name hello)
+    (name hello)
+   - (libraries unix)
+   + (libraries unix cmdliner)
+    )
+   ```
+
+{% /steps %}
+
+### Generating documentation for the dependencies
+
+To generate documentation of the dependencies, use `odig`.
+
+{% steps %}
+
+1. Run the following command to generate a documentation:
+
+   ```
+   odig odoc
+   ```
+
+   Or use a `justfile` recipe bundled in the template:
+
+   ```sh
+   just odig-odoc
+   ```
+
+2. To search through the documentation, you can run a local instance of
+   [sherlodoc](https://doc.sherlocode.com/) or open a generated HTML file
+   directly.
+
+{% /steps %}
+
+#### Running sherlodoc
+
+To run sherlodoc, follow this instruction.
+
+{% steps %}
+
+1. Enable `sherlodoc` in the `flake.nix`:
+
+   ```diff lang="nix" title="flake.nix"
+         devShells = eachSystem (
+           { pkgs, ocamlPackages, ... }:
+           {
+             default = pkgs.mkShell {
+               inputsFrom = [ self.packages.${pkgs.system}.default ];
+               buildInputs = (
+                 with ocamlPackages;
+                 [
+                   ocaml-lsp
+                   ocamlformat
+                   ocp-indent
+                   ...
+   -               # (sherlodoc.override { enableServe = true; })
+   +               (sherlodoc.override { enableServe = true; })
+                 ]
+               )
+               # ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
+               ;
+             };
+           }
+         );
+   ```
+
+2. Run `sherlodoc index` on `*.odocl` files. The template contains a
+`justfile` recipe, so you can just run:
+
+   ```sh
+   just sherlodoc-index
+   ```
+
+3. To browse the documentation, run:
+
+   ```sh
+   sherlodoc serve
+   ```
+
+   or
+
+   ```sh
+   just sherlodoc-serve
+   ```
+
+{% /steps %}
+
+For a detailed description, consult [the
+documentation of sherlodoc](https://github.com/art-w/sherlodoc?tab=readme-ov-file#local-usage).
