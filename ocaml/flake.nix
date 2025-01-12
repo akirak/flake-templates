@@ -1,44 +1,36 @@
 {
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nix-ocaml/nix-overlays";
     systems.url = "github:nix-systems/default";
-
-    ocaml-overlays.url = "github:nix-ocaml/nix-overlays";
   };
 
   outputs =
     {
-      self,
       systems,
       nixpkgs,
-      ocaml-overlays,
+      self,
       ...
-    }@inputs:
+    }:
     let
-      inherit (nixpkgs) lib;
-
       eachSystem =
         f:
         nixpkgs.lib.genAttrs (import systems) (
           system:
-          let
-            pkgs = nixpkgs.legacyPackages.${system}.extend ocaml-overlays.overlays.default;
-          in
-          f {
-            inherit pkgs system;
-            # You can set the OCaml version to a particular release. Also, you
-            # may have to pin some packages to a particular revision if the
-            # devshell fail to build. This should be resolved in the upstream.
-            ocamlPackages = pkgs.ocaml-ng.ocamlPackages_latest;
-          }
+          f (
+            nixpkgs.legacyPackages.${system}.extend (
+              _self: super: {
+                # You can set the OCaml version to a particular release. Also, you
+                # may have to pin some packages to a particular revision if the
+                # devshell fail to build. This should be resolved in the upstream.
+                ocamlPackages = super.ocaml-ng.ocamlPackages_latest;
+              }
+            )
+          )
         );
     in
     {
-      ocamlPackages = eachSystem ({ ocamlPackages, ... }: ocamlPackages);
-
       packages = eachSystem (
-        { pkgs, ocamlPackages, ... }:
-        {
+        pkgs: with pkgs; {
           default = ocamlPackages.buildDunePackage {
             pname = throw "Name your OCaml package";
             version = throw "Version your OCaml package";
@@ -70,31 +62,28 @@
         }
       );
 
-      devShells = eachSystem (
-        { pkgs, ocamlPackages, ... }:
-        {
-          default = pkgs.mkShell {
-            inputsFrom = [ self.packages.${pkgs.system}.default ];
-            buildInputs = (
-              with ocamlPackages;
-              [
-                ocaml-lsp
-                ocamlformat
-                ocp-indent
-                utop
-                # Needed for generating documentation
-                opam
-                odoc
-                odig
-                # This may fail to build, so it is turned off by default.
-                # (sherlodoc.override { enableServe = true; })
-              ]
-            )
-            # Enable file watcher.
-            # ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
-            ;
-          };
-        }
-      );
+      devShells = eachSystem (pkgs: {
+        default = pkgs.mkShell {
+          inputsFrom = [ self.packages.${pkgs.system}.default ];
+          packages = (
+            with pkgs.ocamlPackages;
+            [
+              ocaml-lsp
+              ocamlformat
+              ocp-indent
+              utop
+              # Needed for generating documentation
+              opam
+              odoc
+              odig
+              # This may fail to build, so it is turned off by default.
+              # (sherlodoc.override { enableServe = true; })
+            ]
+          )
+          # Enable file watcher.
+          # ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
+          ;
+        };
+      });
     };
 }
