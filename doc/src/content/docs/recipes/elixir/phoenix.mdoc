@@ -1,0 +1,109 @@
+---
+title: Developing an Elixir Phoenix application
+description: How to develop an Elixir Phoenix with a Nix flake template
+---
+In this tutorial, you will learn how to add `flake.nix` to an Elixir Phoenix
+project.
+
+## Initialize a new project
+
+{% aside type="caution" %}
+If you are trying to add `flake.nix` to an existing project, please skip this
+section.
+{% /aside %}
+
+{% steps %}
+
+1. Make `mix` executable available:
+
+   ```shell
+   nix shell nixpkgs#elixir
+   ```
+
+2. Install the scaffolder for Phoenix using `mix archive.install` command. You need
+to do this only once per machine:
+
+   ```shell
+   mix archive.install hex phx_new
+   ```
+
+3. Use `mix phx.new` to scaffold a new project with your preferred options:
+
+   ```shell
+   mix phx.new 'your_new_project' --no-ecto
+   ```
+
+   {% aside type="tip" %}
+   Phoenix provides various options for initializing a project.
+   Check out the help:
+
+   ```shell
+   mix help phx.new
+   ```
+   {% /aside %}
+
+4. Enter the directory:
+
+   ```shell
+   cd 'your_new_project'
+   ```
+
+{% /steps %}
+
+## Add flake.nix to the project
+
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#elixir-app
+   ```
+
+2. Open `flake.nix` and set the Erlang and Elixir versions:
+
+   ```diff lang="nix" title="flake.nix"
+     let
+       # Set the Erlang version
+   -    erlangVersion = "erlang_26";
+   +    erlangVersion = "erlang_27";
+       # Set the Elixir version
+   -    elixirVersion = "elixir_1_15";
+   +    elixirVersion = "elixir_1_17";
+     in
+   ```
+
+3. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+4. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+{% /steps %}
+
+### Switch the language server
+
+[Lexical](https://github.com/lexical-lsp/lexical/) is the default language
+server for Elixir, but you can change it to a different one:
+
+```diff lang="nix" title="flake.nix"
+[
+  erlang
+  elixir
+  # You are likely to need Node.js if you develop a Phoenix
+  # application.
+  nodejs
+  # Add the language server of your choice.
+-  inputs.lexical.packages.${system}.default
++  elixir-ls
+  # I once added Hex via a Nix development shell, but now I install
+  # and upgrade it using Mix. Hex installed using Nix can cause an
+  # issue if you manage Elixir dependencies using Mix.
+]
+```

@@ -1,0 +1,31 @@
+---
+title: Developing a Zig CLI application
+---
+
+## Initialize a new project
+
+TODO
+
+## Add flake.nix to the project
+
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#zig
+   ```
+
+2. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+3. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+{% /steps %}

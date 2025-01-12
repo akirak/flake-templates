@@ -1,0 +1,68 @@
+---
+title: Developing a Gleam application
+description: How to develop a server-side web application in Gleam with a Nix flake template
+---
+In this tutorial, you will learn how to add `flake.nix` to a Gleam project.
+
+## Initialize a new project
+
+{% aside type="caution" %}
+If you are trying to add `flake.nix` to an existing project, please skip this
+section.
+{% /aside %}
+
+{% steps %}
+
+1. Make `gleam` executable available:
+
+   ```shell
+   nix shell nixpkgs#gleam
+   ```
+
+2. Run `gleam new` to scaffold a new project:
+
+   ```shell
+   gleam new --skip-github 'your_new_project'
+   ```
+
+   By default, `gleam new` generates `.github` directory containing a CI workflow
+   for running tests, but we don't need it as we will install Gleam using Nix.
+
+3. Enter the directory:
+
+   ```shell
+   cd 'your_new_project'
+   ```
+
+{% /steps %}
+
+## Add flake.nix to the project
+
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#gleam
+   ```
+
+2. Open `flake.nix` and update the Erlang version to the current one:
+
+   ```diff lang="nix" title="flake.nix"
+   -    erlang_version = "erlang_26";
+   +    erlang_version = "erlang_27";
+   ```
+
+3. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+4. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+{% /steps %}

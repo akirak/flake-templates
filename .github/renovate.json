@@ -20,6 +20,11 @@
       "automerge": true
     },
     {
+      "matchUpdateTypes": ["patch", "pin", "digest", "minor"],
+      "groupName": "Patches",
+      "automerge": true
+    },
+    {
       "matchUpdateTypes": [
         "lockFileMaintenance"
       ],
