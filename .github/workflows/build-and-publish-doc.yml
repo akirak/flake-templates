@@ -3,15 +3,13 @@ name: Build and publish documentation
 on:
   workflow_dispatch:
   pull_request:
-    paths-ignore:
-      - '*.md'
-      - '.github/**'
+    paths:
+      - 'doc/**'
   push:
     branches:
       - master
-    paths-ignore:
-      - '*.md'
-      - '.github/**'
+    paths:
+      - 'doc/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
