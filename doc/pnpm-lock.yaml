@@ -27,8 +27,8 @@ importers:
         specifier: ^0.33.0
         version: 0.33.5
       starlight-theme-catppuccin:
-        specifier: ^1.0.3
-        version: 1.0.3(@astrojs/starlight@0.30.6(astro@5.1.5(rollup@4.30.1)(typescript@5.7.3)(yaml@2.6.0)))(astro@5.1.5(rollup@4.30.1)(typescript@5.7.3)(yaml@2.6.0))
+        specifier: ^2.0.0
+        version: 2.0.0(@astrojs/starlight@0.30.6(astro@5.1.5(rollup@4.30.1)(typescript@5.7.3)(yaml@2.6.0)))(astro@5.1.5(rollup@4.30.1)(typescript@5.7.3)(yaml@2.6.0))
       typescript:
         specifier: ^5.6.3
         version: 5.7.3
@@ -1904,11 +1904,11 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  starlight-theme-catppuccin@1.0.3:
-    resolution: {integrity: sha512-QnFut3qqm5o2YmeN5okAFxlH+9b0SirMpQJOdCFeafTzoaIkgySH1Q1oFnVVk+qL4jKxQXqX+muJ8fTL0k+FmA==}
+  starlight-theme-catppuccin@2.0.0:
+    resolution: {integrity: sha512-bc7Rx6z6arTN7qykavedUiuhtAMcwBv/Hg3M36mk/AYFoDa890lJ7aKuUxVr0pxpnDm8sWvKEf+XyFyc/HjJlw==}
     peerDependencies:
-      '@astrojs/starlight': ^0.28.0
-      astro: ^4.0.0
+      '@astrojs/starlight': ^0.30.0
+      astro: ^5.0.0
 
   stream-replace-string@2.0.0:
     resolution: {integrity: sha512-TlnjJ1C0QrmxRNrON00JvaFFlNh5TTG00APw23j74ET7gkQpTASi6/L2fuiav8pzK715HXtUeClpBTw2NPSn6w==}
@@ -4794,7 +4794,7 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-theme-catppuccin@1.0.3(@astrojs/starlight@0.30.6(astro@5.1.5(rollup@4.30.1)(typescript@5.7.3)(yaml@2.6.0)))(astro@5.1.5(rollup@4.30.1)(typescript@5.7.3)(yaml@2.6.0)):
+  starlight-theme-catppuccin@2.0.0(@astrojs/starlight@0.30.6(astro@5.1.5(rollup@4.30.1)(typescript@5.7.3)(yaml@2.6.0)))(astro@5.1.5(rollup@4.30.1)(typescript@5.7.3)(yaml@2.6.0)):
     dependencies:
       '@astrojs/starlight': 0.30.6(astro@5.1.5(rollup@4.30.1)(typescript@5.7.3)(yaml@2.6.0))
       astro: 5.1.5(rollup@4.30.1)(typescript@5.7.3)(yaml@2.6.0)
