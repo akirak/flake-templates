@@ -22,6 +22,10 @@
     {
       "matchUpdateTypes": ["patch", "pin", "digest", "minor"],
       "groupName": "Patches",
+      "extends": [
+        "schedule:automergeDaily",
+        "schedule:weekly"
+      ],
       "automerge": true
     },
     {
