@@ -46,7 +46,7 @@
       checks = eachSystem (pkgs: {
         # Throws an error if any of the source files are not correctly formatted
         # when you run `nix flake check --print-build-logs`. Useful for CI
-        formatting = treefmtEval.${pkgs.system}.config.build.check self;
+        treefmt = treefmtEval.${pkgs.system}.config.build.check self;
       });
     };
 }
