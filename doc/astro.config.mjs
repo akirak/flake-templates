@@ -93,6 +93,15 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Formatting",
+              items: [
+                {
+                  label: "treefmt-nix",
+                  slug: "patterns/formatting/treefmt-nix",
+                },
+              ],
+            },
           ],
         },
         {

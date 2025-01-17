@@ -50,8 +50,9 @@ workflow instead in addition to the build workflow.
 ## Also consider
 - Update the actions automatically by setting up Renovate. This is already
   included in the template, so you don't need extra steps for configuration.
-- The template also ships with a workflow for checking formats using
-  treefmt-nix. It should work out of the box if your flake supports it, but
-  otherwise it will fail. Check out the documentation for details.
+- The template also ships with a workflow for [checking formats using
+  treefmt-nix](/flake-templates/patterns/formatting/treefmt-nix). It should work
+  out of the box if your flake supports it, but otherwise it will fail. Check
+  out the documentation for details.
 - Use [nix-fast-build](https://github.com/Mic92/nix-fast-build) if you are
   trying to build a flake containing several outputs with shared dependencies.
