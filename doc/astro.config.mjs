@@ -83,7 +83,17 @@ export default defineConfig({
         },
         {
           label: "Patterns",
-          slug: "patterns",
+          items: [
+            {
+              label: "Continuous Integration",
+              items: [
+                {
+                  label: "GitHub Actions",
+                  slug: "patterns/ci/github-actions",
+                },
+              ],
+            },
+          ],
         },
         {
           label: "Resources",
