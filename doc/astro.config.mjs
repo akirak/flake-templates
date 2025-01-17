@@ -73,7 +73,6 @@ export default defineConfig({
                   label: "TypeScript web application (with a framework)",
                   slug: "recipes/typescript/web-framework",
                 },
-                // { label: "Library", slug: "recipes/typescript/library" },
               ],
             },
             {
