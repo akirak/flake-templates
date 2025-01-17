@@ -102,6 +102,15 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Updating dependencies",
+              items: [
+                {
+                  label: "Renovate Bot",
+                  slug: "patterns/updating/renovate",
+                },
+              ],
+            },
           ],
         },
         {
