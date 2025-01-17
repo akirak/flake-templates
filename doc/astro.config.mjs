@@ -83,7 +83,35 @@ export default defineConfig({
         },
         {
           label: "Patterns",
-          slug: "patterns",
+          items: [
+            {
+              label: "Continuous Integration",
+              items: [
+                {
+                  label: "GitHub Actions",
+                  slug: "patterns/ci/github-actions",
+                },
+              ],
+            },
+            {
+              label: "Formatting",
+              items: [
+                {
+                  label: "treefmt-nix",
+                  slug: "patterns/formatting/treefmt-nix",
+                },
+              ],
+            },
+            {
+              label: "Updating dependencies",
+              items: [
+                {
+                  label: "Renovate Bot",
+                  slug: "patterns/updating/renovate",
+                },
+              ],
+            },
+          ],
         },
         {
           label: "Resources",

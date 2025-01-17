@@ -1,0 +1,59 @@
+---
+title: Continuous Integration on GitHub Actions
+---
+
+This tutorial explains how to set up a basic continuous integration workflow on
+[GitHub Actions](https://docs.github.com/en/actions) using Nix for package
+building. By building your package with Nix and uploading it to a binary cache,
+you'll make it easily accessible to users via the `nix run` command. This
+process streamlines package distribution and installation.
+
+The workflow builds the default Nix package defined in your flake using the
+following third-party actions:
+
+- [install-nix-action](https://github.com/cachix/install-nix-action). There are
+  alternatives to this.
+- [Cachix](https://www.cachix.org/) via
+  [cachix-action](https://github.com/cachix/cachix-action) for Nix binary cache.
+
+Note that there are some alternative hosted services for Nix CI. If the provided
+setup doesn't satisfy your requirements, you might consider the following
+options:
+
+- [Garnix](https://garnix.io/)
+- [nixbuild.net](https://nixbuild.net/)
+## Building packages with Nix
+
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#meta
+   ```
+
+2. Adjust the `.github/workflows/nix-build.yml` file to match your project
+   requirements.
+
+3. Get an authentication token on Cachix and save it as a secret variable
+   `CACHIX_AUTH_TOKEN` in your project.
+
+{% /steps %}
+
+## Running tests
+To run tests using a contained environment in Nix, use `checkPhase` and set
+`doCheck = true`. Consult the builder documentation to see if it has any
+built-in check.
+
+If you'd rather avoid running tests within Nix's sandbox, create a separate
+workflow instead in addition to the build workflow.
+## Also consider
+- Update the actions automatically by [setting up
+  Renovate](/flake-templates/patterns/updating/renovate). This is already
+  included in the template, so you don't need extra steps for configuration.
+- The template also ships with a workflow for [checking formats using
+  treefmt-nix](/flake-templates/patterns/formatting/treefmt-nix). It should work
+  out of the box if your flake supports it, but otherwise it will fail. Check
+  out the documentation for details.
+- Use [nix-fast-build](https://github.com/Mic92/nix-fast-build) if you are
+  trying to build a flake containing several outputs with shared dependencies.

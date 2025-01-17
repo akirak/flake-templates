@@ -1,0 +1,46 @@
+---
+title: Checking formatting using treefmt-nix on GitHub Actions
+---
+
+This tutorial explains how to check formatting on GitHub Actions using
+[treefmt-nix](https://github.com/numtide/treefmt-nix).
+## Add a treefmt-nix configuration
+Some of the flake templates, including `treefmt`, integrates treefmt-nix out of
+the box. You don't have to add a configuration in this case.
+
+Otherwise, please add a configuration to your flake manually by consulting [the
+documentation](https://github.com/numtide/treefmt-nix?tab=readme-ov-file#flakes).
+They also provide a flake-parts module, which you can use to set up the thing
+more easily.
+
+Once set up, your project should support reformatting the entire project by
+running the following command:
+
+```shell
+nix fmt
+```
+
+On CI, you can run the following command to check formatting without making
+modifications:
+
+```shell
+nix build ".#checks.$(nix eval --expr builtins.currentSystem --impure --raw).treefmt"
+```
+
+## Add a GitHub workflow for running the check
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#meta
+   ```
+
+2. Adjust the `.github/workflows/nix-format.yml` file to match your project
+   requirements. In particular, you may have to tweak the triggers (in `on`
+   section).
+
+{% /steps %}
+
+With [the renovate configuration](/flake-templates/patterns/updating/renovate)
+shipped by the template, the actions will be automatically updated.
