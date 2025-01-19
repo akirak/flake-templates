@@ -1,0 +1,35 @@
+name: Check license
+
+on:
+  pull_request:
+    # This ignore list does not cover the entire set of irrelevant files, but it
+    # saves resources in many cases.
+    paths-ignore:
+      - '.github/**'
+      - '*.md'
+      - '**/*.lock'
+      - '**/*.json'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: tj-actions/changed-files@v45
+        id: changed-files
+        with:
+          files_ignore: |
+            /*.md
+            **/*.lock
+            **/*.json
+            doc/*.*
+            dev/**
+            .github/**
+
+      - uses: cachix/install-nix-action@v30
+
+      - run: nix profile install nixpkgs#reuse
+
+      - name: Check license
+        run: 'reuse lint-file ${{ steps.changed-files.outputs.all_changed_files }}'
