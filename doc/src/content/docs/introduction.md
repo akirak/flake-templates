@@ -1,4 +1,6 @@
 ---
+# SPDX-FileCopyrightText: 2024-2025 Akira Komamura
+# SPDX-License-Identifier: CC-BY-SA-4.0
 title: Introduction to Flake Templates
 ---
 Hello, this site provides instructions for setting up a development environment

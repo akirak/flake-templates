@@ -1,4 +1,6 @@
 ---
+# SPDX-FileCopyrightText: 2024-2025 Akira Komamura
+# SPDX-License-Identifier: CC-BY-SA-4.0
 title: Emacs
 description: How to set up Emacs for using Nix flakes.
 ---
