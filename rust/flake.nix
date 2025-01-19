@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2024-2025 Akira Komamura
+# SPDX-License-Identifier: Unlicense
 {
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";

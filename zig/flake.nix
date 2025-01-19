@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2024-2025 Akira Komamura
+# SPDX-License-Identifier: Unlicense
 {
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

@@ -1,4 +1,6 @@
 ---
+# SPDX-FileCopyrightText: 2024-2025 Akira Komamura
+# SPDX-License-Identifier: CC-BY-SA-4.0
 title: Resources
 description: A collection of resources related to developing a project with Nix flakes.
 ---

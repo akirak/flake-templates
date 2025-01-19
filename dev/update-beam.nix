@@ -1,6 +1,9 @@
 /*
   This script helps the user keep Erlang (erlangRxx) and Elixir (elixir_x_xx)
   to their latest versions. It performs simple regexp substitutions in flake.nix.
+
+  SPDX-FileCopyrightText: 2022-2025 Akira Komamura
+  SPDX-License-Identifier: MIT
 */
 {
   lib,
