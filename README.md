@@ -282,6 +282,18 @@ Also see [nix3.el](https://github.com/emacs-twist/nix3.el), which
 provides `nix3-flake-new` and `nix3-flake-init` commands for running a
 flake template quickly from inside Emacs.
 
+## License
+This repository uses different licenses depending on the files. The specific
+license applicable to a file or group of files is indicated in the file headers
+or in the [LICENSES](LICENSES/) directory.
+
+- The templates are released under the UNLICENSE.
+  See [LICENSES/UNLICENSE](LICENSES/Unlicense.txt) for more details.
+- The documentation is licensed under Attribution-ShareAlike 4.0 International
+(CC-BY-SA-4.0).
+- Some files are released under the MIT License.
+## Contributing
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 ## Other template repositories and alternatives
 
 The following is a list of template repositories I found on GitHub:
