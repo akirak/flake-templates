@@ -1,27 +1,29 @@
 # Nix Flake Templates
 
 This is a collection of [Nix flake](https://nixos.wiki/wiki/Flakes) templates I
-use in my personal projects. Most of them provide development shells (i.e.
-`devShells.*`), but I may add further instructions for production builds in the
-future.
+use in my personal projects. Each template basically provides a development
+shell. Some additionally provide a formatter that can be used on CI. There is [a
+companion website](https://akirak.github.io/flake-templates/), which provides
+instructions for usage. Production builds in Nix are supported for some
+programming languages, based on my experiences.
 
-I use these templates on NixOS, so they don't assume any non-Nix dependencies.
-They should work on any platform. Basically, each template contains:
+I use these templates on NixOS, so they don't assume any non-Nix dependencies,
+such as shared libraries on the system. They should work on any platform that
+supports Nix. Basically, each development shell contains:
 
 - A programming language implementation (compiler and build system)
 - A language server
 
-Most of the modern programming languages provide a scaffolding command
-(typically as `new`/`init` sub-command), so most of my templates are minimalist.
-They also don't contain DevOps things (e.g. CI, non-default formatting and
-linting, and other conformance-related settings), as such settings can be
-opinionated.
+Most modern programming languages provide a scaffolding command (e.g. `npm
+create`, `cargo new`, etc.), so most of my templates should be used as a
+complement. They also don't ship DevOps things (e.g. CI, non-default formatting
+and linting, and other conformance-related settings) out of the box, as such
+settings can be opinionated.
 
 For maintaining a complex flake configuration, I would suggest use of
 [flake-parts](https://github.com/hercules-ci/flake-parts/). Actually, I am using
 flake-parts in some of these templates where it makes the configuration more
 concise.
-
 ## List of templates in this repository
 
 > [!IMPORTANT]
