@@ -13,9 +13,12 @@
   };
 
   # Add settings for your binary cache.
-  nixConfig =
-    {
-    };
+  # nixConfig = {
+  #   extra-substituters = [
+  #   ];
+  #   extra-trusted-public-keys = [
+  #   ];
+  # };
 
   outputs =
     inputs@{ nixpkgs, flake-parts, ... }:

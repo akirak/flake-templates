@@ -11,14 +11,14 @@
   };
 
   # Configure a binary cache for your executable(s).
-  nixConfig = {
-    extra-substituters =
-      [
-      ];
-    extra-trusted-public-keys =
-      [
-      ];
-  };
+  # nixConfig = {
+  #   extra-substituters =
+  #     [
+  #     ];
+  #   extra-trusted-public-keys =
+  #     [
+  #     ];
+  # };
 
   outputs =
     {
