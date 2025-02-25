@@ -18,7 +18,7 @@
     {
       devShells = eachSystem (pkgs: {
         default = pkgs.mkShell {
-          buildInputs = [
+          packages = [
             pkgs.nodejs
 
             # Alternatively, you can use a specific major version of Node.js
