@@ -6,24 +6,30 @@ description: How to develop a web application in TypeScript with a Nix flake tem
 ---
 
 In this tutorial, you will learn how to add `flake.nix` to a TypeScript web
-application.
+application using `node-typescript` template in the repository.
 
 ## Initialize a new project
+
+{% aside type="note" %}
+
+In this section, we will be using a framework-specific scaffolder to initialize
+a project. Nowadays, it is also common for web developers to use an AI
+prototyping tools such as [v0](https://v0.dev/),
+[Loveable](https://lovable.dev/), [replit](https://replit.com/),
+[bolt.new](https://bolt.new/), and [Claude](https://claude.ai/new). If you have
+used one of those tools to initialize your project, you may still be able to use
+the template to add a Nix-based environment, so proceed to the next section.
+
+{% /aside %}
 
 {% aside type="note" %}
 If you are adding `flake.nix` to an existing project, you can skip this section.
 {% /aside %}
 
-We will be using a framework-specific scaffolder to initialize a project. An
-alternative way is to use an external service such as
-[StackBlitz](https://stackblitz.com/) and [Bolt.new](https://bolt.new/). The
-flake template should work the same way, but I don't provide any specific
-support for those services.
-
 {% steps %}
 
-1. We need one of `npm`, `yarn`, `pnpm`, or `bun`. Both `npm` and `bun` are
-available directly from Nixpkgs.
+1. You will need one of `npm`, `yarn`, `pnpm`, or `bun`. Both `npm` and `bun`
+are available directly from Nixpkgs.
 
    If you prefer `yarn` or `pnpm`, you will probably need both `yarn`/`pnpm` and
 `npm`. To make the multiple packages available, you can use the classic
@@ -81,9 +87,38 @@ project. Below are some links:
    nix flake init github:akirak/flake-templates#node-typescript
    ```
 
-2. Open `flake.nix` and comment out `yarn`, `pnpm`, or `bun` in the
-`buildInputs` field of the default shell, depending on the package manager of
-your choice.
+2. If the `package.json` in the repository contains `packageManager` section,
+   [corepack](https://github.com/nodejs/corepack) installs the program
+   automatically.
+
+   Here is an example `packageManager` specification in `package.json`:
+
+   ```json
+    "packageManager": "pnpm@10.4.0+sha512.6b849d0787d97f8f4e1f03a9b8ff8f038e79e153d6f11ae539ae7c435ff9e796df6a862c991502695c7f9e8fac8aeafc1ac5a8dab47e36148d183832d886dd52",
+   ```
+
+   The `flake.nix` should contain `corepack` package in the development shell:
+
+   ```nix
+    {
+      devShells = eachSystem (pkgs: {
+        default = pkgs.mkShell {
+          buildInputs = [
+            ...
+
+            # Use corepack to install npm/pnpm/yarn as specified in package.json
+            pkgs.corepack
+
+            ...
+          ];
+        };
+      });
+    };
+   ```
+
+   Alternatively, you can install `yarn`, `pnpm`, or `bun` directly using Nix.
+Open `flake.nix` and comment out the corresponding package name in the `package`
+field of the default shell, depending on the package manager of your choice.
 
    ```diff lang="nix" title="flake.nix"
          devShells = eachSystem (pkgs: {
@@ -100,6 +135,9 @@ your choice.
            };
          });
    ```
+
+   There are several other options available. See the comments in the generated
+   `flake.nix`.
 
 3. Add `.envrc`:
 
