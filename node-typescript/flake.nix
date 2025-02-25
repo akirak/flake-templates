@@ -3,13 +3,17 @@
 {
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    systems.url = "github:nix-systems/default";
+
+    # Support a particular subset of the Nix systems
+    # systems.url = "github:nix-systems/default";
   };
 
   outputs =
-    { systems, nixpkgs, ... }@inputs:
+    { nixpkgs, ... }:
     let
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      eachSystem =
+        f:
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
     in
     {
       devShells = eachSystem (pkgs: {
