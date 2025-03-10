@@ -13,7 +13,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/markdoc": "^0.12.0",
     "@astrojs/starlight": "^0.32.0",
-    "@astrojs/starlight-markdoc": "^0.2.0",
+    "@astrojs/starlight-markdoc": "^0.3.0",
     "astro": "^5.0.0",
     "sharp": "^0.33.0",
     "starlight-theme-catppuccin": "^2.0.0",
