@@ -4,7 +4,7 @@ This is a collection of [Nix flake](https://nixos.wiki/wiki/Flakes) templates I
 use in my personal projects. Each template basically provides a development
 shell. Some additionally provide a formatter that can be used on CI. There is [a
 companion website](https://akirak.github.io/flake-templates/), which provides
-instructions for usage. Production builds in Nix are supported for some
+instructions for usage. It also supports building packages in pure Nix for some
 programming languages, based on my experiences.
 
 I use these templates on NixOS, so they don't assume any non-Nix dependencies,
