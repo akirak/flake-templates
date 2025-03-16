@@ -16,16 +16,16 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-      - uses: tj-actions/changed-files@dcc7a0cba800f454d79fff4b993e8c3555bcc0a8 # v45
-        id: changed-files
-        with:
-          files_ignore: |
-            /*.md
-            **/*.lock
-            **/*.json
-            doc/*.*
-            dev/**
-            .github/**
+      # - uses: tj-actions/changed-files@dcc7a0cba800f454d79fff4b993e8c3555bcc0a8 # v45
+      #   id: changed-files
+      #   with:
+      #     files_ignore: |
+      #       /*.md
+      #       **/*.lock
+      #       **/*.json
+      #       doc/*.*
+      #       dev/**
+      #       .github/**
 
       - uses: cachix/install-nix-action@91a071959513ca103b54280ac0bef5b825791d4d # v31
 
