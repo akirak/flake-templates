@@ -4,7 +4,7 @@
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    systems.url = "github:nix-systems/default";
+    # systems.url = "github:nix-systems/default";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
@@ -34,7 +34,7 @@
       rustProfile = "default";
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = import inputs.systems;
+      systems = nixpkgs.lib.systems.flakeExposed;
 
       imports = [
         inputs.treefmt-nix.flakeModule

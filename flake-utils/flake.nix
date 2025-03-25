@@ -3,7 +3,7 @@
 {
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    systems.url = "github:nix-systems/default";
+    # systems.url = "github:nix-systems/default";
   };
 
   outputs =
@@ -11,9 +11,8 @@
       self,
       nixpkgs,
       flake-utils,
-      systems,
     }:
-    flake-utils.lib.eachSystem (import systems) (
+    flake-utils.lib.eachSystem nixpkgs.lib.systems.flakeExposed (
       system:
       let
         pkgs = import nixpkgs { inherit system; };

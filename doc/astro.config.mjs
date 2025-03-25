@@ -111,6 +111,10 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Using nix-systems",
+              slug: "patterns/nix-systems",
+            },
           ],
         },
         {

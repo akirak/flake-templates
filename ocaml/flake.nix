@@ -3,12 +3,11 @@
 {
   inputs = {
     nixpkgs.url = "github:nix-ocaml/nix-overlays";
-    systems.url = "github:nix-systems/default";
+    # systems.url = "github:nix-systems/default";
   };
 
   outputs =
     {
-      systems,
       nixpkgs,
       self,
       ...
@@ -16,7 +15,7 @@
     let
       eachSystem =
         f:
-        nixpkgs.lib.genAttrs (import systems) (
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
           system:
           f (
             nixpkgs.legacyPackages.${system}.extend (

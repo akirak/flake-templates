@@ -3,7 +3,7 @@
 {
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    systems.url = "github:nix-systems/default";
+    # systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
     # Lexical is an alternative LSP server. There are several options for Elixir
     # LSP. See https://gist.github.com/Nezteb/dc63f1d5ad9d88907dd103da2ca000b1
@@ -16,7 +16,6 @@
     {
       self,
       nixpkgs,
-      systems,
       flake-parts,
       ...
     }@inputs:
@@ -27,7 +26,7 @@
       elixirVersion = "elixir_1_15";
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = import systems;
+      systems = nixpkgs.lib.systems.flakeExposed;
 
       imports = [ inputs.process-compose-flake.flakeModule ];
 
