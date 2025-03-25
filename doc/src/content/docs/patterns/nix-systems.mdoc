@@ -1,0 +1,46 @@
+---
+# SPDX-FileCopyrightText: 2025 Akira Komamura
+# SPDX-License-Identifier: CC-BY-SA-4.0
+title: Using nix-systems
+---
+
+For some reasons, you might want to limit the target systems of your flake.
+Most templates use `lib.systems.flakeExposed` from nixpkgs to specify the target
+systems, but your Nix packages may not be supported on some of the systems.
+It would be possible to explicitly list the target systems in your flake, but
+that can be a restriction to its consumers.
+
+With [nix-systems](https://github.com/nix-systems/nix-systems), you can specify
+the default target systems, while allowing users to override the setting at
+their discretion.
+
+To use nix-systems, follow these steps:
+
+{% steps %}
+
+1. Add `systems` input to your flake.nix:
+
+   ```nix
+     inputs = {
+       ...
+   +   systems.url = "github:nix-systems/default";
+     };
+   ```
+
+2. Make `systems` input visible in the `outputs` scope in the flake.nix:
+
+   ```diff lang="nix" title="flake.nix"
+   - outputs = { nixpkgs, ... }:
+   + outputs = { nixpkgs, systems, ... }:
+   ```
+
+3. Replace `nixpkgs.lib.systems.flakeExposed` with `(import systems)`:
+
+   ```diff lang="nix" title="flake.nix"
+      eachSystem =
+        f:
+   -    nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
+   +    nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+   ```
+
+{% /steps %}
