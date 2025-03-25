@@ -3,13 +3,13 @@
 {
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    systems.url = "github:nix-systems/default";
+    # systems.url = "github:nix-systems/default";
   };
 
   outputs =
-    { systems, nixpkgs, ... }@inputs:
+    { nixpkgs, ... }@inputs:
     let
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      eachSystem = f: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
 
       erlang_version = "erlang_25";
     in

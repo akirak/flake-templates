@@ -3,11 +3,11 @@
 {
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    systems.url = "github:nix-systems/default";
+    # systems.url = "github:nix-systems/default";
   };
 
   outputs =
-    { nixpkgs, systems, ... }@inputs:
+    { nixpkgs, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -18,7 +18,7 @@
 
       eachSystem =
         f:
-        nixpkgs.lib.genAttrs (import systems) (
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
           system:
           f (
             import nixpkgs {
