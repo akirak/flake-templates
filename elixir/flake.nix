@@ -14,7 +14,7 @@
       # Set the Erlang version
       erlangVersion = "erlang_27";
       # Set the Elixir version
-      elixirVersion = "elixir_1_15";
+      elixirVersion = "elixir_1_18";
 
       eachSystem =
         f:
