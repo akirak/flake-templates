@@ -15,7 +15,7 @@
     "@astrojs/starlight": "^0.32.0",
     "@astrojs/starlight-markdoc": "^0.3.0",
     "astro": "^5.0.0",
-    "sharp": "^0.33.0",
+    "sharp": "^0.34.0",
     "starlight-theme-catppuccin": "^2.0.0",
     "typescript": "^5.6.3"
   }
