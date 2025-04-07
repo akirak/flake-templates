@@ -12,7 +12,7 @@
       inherit (nixpkgs) lib;
 
       # Set the Erlang version
-      erlangVersion = "erlang_25";
+      erlangVersion = "erlang_27";
       # Set the Elixir version
       elixirVersion = "elixir_1_15";
 
