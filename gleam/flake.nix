@@ -9,9 +9,11 @@
   outputs =
     { nixpkgs, ... }@inputs:
     let
-      eachSystem = f: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
+      eachSystem =
+        f:
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
 
-      erlang_version = "erlang_25";
+      erlang_version = "erlang_27";
     in
     {
       packages = eachSystem (pkgs: { });

@@ -21,9 +21,9 @@
     }@inputs:
     let
       # Set the Erlang version
-      erlangVersion = "erlang_25";
+      erlangVersion = "erlang_27";
       # Set the Elixir version
-      elixirVersion = "elixir_1_15";
+      elixirVersion = "elixir_1_18";
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = nixpkgs.lib.systems.flakeExposed;
