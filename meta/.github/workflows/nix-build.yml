@@ -27,6 +27,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
+          # - ubuntu-24.04-arm
           - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -43,4 +44,15 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: Build the package
-        run: nix build
+        run: nix build -L
+
+      # Use this if the flake exposes multiple packages to build.
+      # See https://github.com/NixOS/nix/issues/7165
+
+      # - name: Build the packages
+      #   run: nix build ".#packages.$(nix eval --expr builtins.currentSystem --impure --raw).*" -L --option keep-going true
+
+      # Alternatively, you can run `nix flake check` to perform multiple checks.
+
+      # - name: Check the flake
+      #   run: nix flake check -L --option keep-going true

@@ -42,6 +42,39 @@ options:
 
 {% /steps %}
 
+## Building multiple packages and performing extra checks
+
+{% aside type="note" %}
+The commands described in this section is also contained as comments in
+`nix-build.yml`.
+{% /aside %}
+
+By default, the CI workflow `nix-build.yml` only builds the default package of
+the flake:
+
+```shell
+nix build -L
+```
+
+If your flake exposes multiple packages, you can use the following command
+instead to build all packages for each platform:
+
+```shell
+nix build ".#packages.$(nix eval --expr builtins.currentSystem --impure --raw).*" -L --option keep-going true
+```
+
+An alternative way is to add the packages to `checks` and run `nix flake check`:
+
+```shell
+nix flake check -L --option keep-going true
+```
+
+`keep-going` option inverses the default behavior of fail-fast, which is
+convenient for CI.
+
+Also see the following issue for updates:
+[nix build --all: build all packages in a flake · Issue #7165 · NixOS/nix · GitHub](https://github.com/NixOS/nix/issues/7165)
+
 ## Running tests
 To run tests using a contained environment in Nix, use `checkPhase` and set
 `doCheck = true`. Consult the builder documentation to see if it has any
