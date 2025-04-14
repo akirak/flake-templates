@@ -13,9 +13,13 @@ export default defineConfig({
     starlight({
       title: "Nix Flake Templates",
       plugins: [catppuccinTheme()],
-      social: {
-        github: "https://github.com/akirak/flake-templates",
-      },
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href:  "https://github.com/akirak/flake-templates",
+        }
+      ],
       sidebar: [
         {
           label: "Introduction",
