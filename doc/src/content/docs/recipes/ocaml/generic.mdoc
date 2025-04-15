@@ -58,7 +58,13 @@ If you are adding `flake.nix` to an existing project, you can skip this section.
             src = self.outPath;
    ```
 
-3. The template includes a custom `.envrc` for OCaml. Allow direnv:
+3. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+4. Allow direnv:
 
    ```shell
    direnv allow
@@ -127,13 +133,7 @@ To generate documentation of the dependencies, use `odig`.
 
 {% steps %}
 
-1. Run the following command to generate a documentation:
-
-   ```
-   odig odoc
-   ```
-
-   Or use a `justfile` recipe bundled in the template:
+1. To generate a documentation, use a `justfile` recipe bundled in the template:
 
    ```sh
    just odig-odoc
@@ -184,13 +184,7 @@ To run sherlodoc, follow this instruction.
    just sherlodoc-index
    ```
 
-3. To browse the documentation, run:
-
-   ```sh
-   sherlodoc serve
-   ```
-
-   or
+3. To browse the documentation, use a justfile recipe:
 
    ```sh
    just sherlodoc-serve
