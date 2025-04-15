@@ -1,5 +1,11 @@
 # SPDX-FileCopyrightText: 2024-2025 Akira Komamura
 # SPDX-License-Identifier: Unlicense
+
+# The default cache path is immutable when odig is installed using Nix
+export ODIG_CACHE_DIR := justfile_directory() + "/_build/default/.odig"
+# Using _build directory may not be properly allowed for storing user contents
+export SHERLODOC_DB := justfile_directory() + "/_build/default/.sherlodoc.marshal"
+
 odig-odoc:
     odig odoc
 
