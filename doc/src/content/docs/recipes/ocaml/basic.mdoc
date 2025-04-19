@@ -5,19 +5,20 @@ title: Adding a Nix-based environment for OCaml
 description: This document describes how to add a Nix-based development environment for OCaml, using ocaml-basic template from github:akirak/flake-templates.
 ---
 
-In this tutorial, you will learn how to add a basic development environment for
-OCaml. Contrary to [ocaml-dune
-template](/flake-templates/recipes/ocaml/generic-dune), this is more intended to
-help you explore an existing OCaml code base. In this setup, ocaml-lsp provides
-useful hints on type information, jump. It is easier to set up than the other
-template, and it works whether the project uses dune or not.
+In this tutorial, you will learn how to set up a basic development environment
+for OCaml. Unlike the [ocaml-dune
+template](/flake-templates/recipes/ocaml/generic-dune), this approach is
+designed to help you explore an existing OCaml codebase. In this setup,
+ocaml-lsp provides useful hints on type information and navigation. It is easier
+to set up than the other template, and it should work whether or not the project
+uses dune.
 
 {% aside type="note" %}
 
-This document doesn't explain how to initialize a new OCaml project without
-Dune, because it is either unrecommended for a large project or should be
-trivial otherwise. For starting a new project, follow [the instruction with
-ocaml-dune template](/flake-templates/recipes/ocaml/generic-dune).
+This document won't explain how to initialize a new OCaml project without Dune,
+because generally Dune is the way, and other paths would be either
+project-specific or trivial. For starting a new project, follow [the instruction
+with ocaml-dune template](/flake-templates/recipes/ocaml/generic-dune).
 
 {% /aside %}
 
