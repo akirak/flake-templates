@@ -39,8 +39,8 @@
           path = ./go;
           description = "A minimal environment for Go with support for Go module";
         };
-        ocaml = {
-          path = ./ocaml;
+        ocaml-dune = {
+          path = ./ocaml-dune;
           description = "A flake template for development with OPAM and Dune";
         };
         rust = {

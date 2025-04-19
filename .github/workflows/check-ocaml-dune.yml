@@ -1,16 +1,16 @@
-name: Check ocaml
+name: Check ocaml-dune
 
 on:
   push:
     paths:
       # Set this to the directory of the template
-      - ocaml/**
-      - .github/workflows/check-ocaml.yml
+      - ocaml-dune/**
+      - .github/workflows/check-ocaml-dune.yml
   workflow_dispatch:
   workflow_call:
 
 concurrency:
-  group: check-ocaml-${{ github.ref }}
+  group: check-ocaml-dune-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -39,7 +39,7 @@ jobs:
 
       - name: Use the template
         run: |
-          nix flake new -t ./tmp#ocaml work
+          nix flake new -t ./tmp#ocaml-dune work
 
       - name: Prepare the project
         working-directory: work
