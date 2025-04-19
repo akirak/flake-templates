@@ -1,0 +1,42 @@
+name: Check python-uv-simple
+
+on:
+  push:
+    paths:
+      # Set this to the directory of the template
+      - python-uv-simple/**
+      - .github/workflows/check-python-uv-simple.yml
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@d1ca217b388ee87b2507a9a93bf01368bde7cec2 # v31
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            flake-registry =  https://raw.githubusercontent.com/akirak/flake-pins/master/registry.json
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          path: ./tmp
+
+      - run: nix flake new -t ./tmp#python-uv-simple ./work
+
+      - name: Prepare the project
+        working-directory: work
+        run: |
+          git init
+          git add .
+
+      - name: Check executables
+        run: |
+          nix develop -L --command python --version
+          nix develop -L --command uv --version
+        working-directory: work
