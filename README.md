@@ -129,6 +129,16 @@ See also [the Nixpkgs
 manual](https://nixos.org/manual/nixpkgs/unstable/#sec-language-ocaml) for
 concrete information.
 
+### [ocaml-basic](ocaml-basic/)
+
+If you are trying to explore an existing OCaml code base, this template may be
+helpful. It is easier to set up than `ocaml-dune` template, and it still
+includes ocaml-lsp. You can use it whether your project uses dune or not:
+
+``` bash
+nix flake init -t github:akirak/flake-templates#ocaml-basic
+```
+
 ### [rust](rust/)
 
 This is a template for a simple Rust project with a single executable package.
