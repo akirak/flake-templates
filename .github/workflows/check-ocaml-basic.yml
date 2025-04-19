@@ -40,5 +40,5 @@ jobs:
       - name: Check executables
         run: |
           nix develop -L --command ocamlc --version
-          nix develop -L --command ocaml-lsp --version
+          nix develop -L --command ocamllsp --version
         working-directory: work
