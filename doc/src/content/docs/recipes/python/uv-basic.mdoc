@@ -1,0 +1,109 @@
+---
+# SPDX-FileCopyrightText: 2025 Akira Komamura
+# SPDX-License-Identifier: CC-BY-SA-4.0
+title: Python development with uv and Nix
+description: How to set up a basic environment for developing a Python application with uv
+---
+
+In this tutorial, you will learn how to set up a development environment for
+Python.
+
+In the environment, you can use [uv](https://docs.astral.sh/uv/) for package
+management [BasedPyright](https://github.com/DetachHead/basedpyright) as the
+language server. It is basic but sufficient for navigating an existing code base
+with LSP, and can be effortlessly added to an existing project.
+
+## Initialize a new project
+
+{% aside type="note" %}
+If you are adding `flake.nix` to an existing project, you can skip this section.
+{% /aside %}
+
+{% steps %}
+
+1. Make `uv` executable available:
+
+   ```shell
+   nix shell nixpkgs#uv
+   ```
+
+2. Use `uv init` to create a new project:
+
+   ```shell
+   uv init sample_app --bare
+   ```
+
+3. Enter the directory:
+
+   ```shell
+   cd 'sample_app'
+   ```
+
+{% /steps %}
+
+Below are extra steps to create a minimal
+[Streamlit](https://docs.streamlit.io/) application.
+Actual steps would be dependent on the type of application you are creating.
+
+{% steps %}
+
+1. Add streamlit to the Python project:
+
+   ```shell
+   uv add streamlit
+   ```
+
+2. Create `app.py`:
+
+   ```shell
+   import streamlit as st
+
+   _ = st.title("My First Streamlit App with uv")
+   st.write("Hello, Streamlit!")
+   ```
+
+{% /steps %}
+
+## Add flake.nix to the project
+
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#python-uv-simple
+   ```
+
+2. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+3. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+{% /steps %}
+
+For the sample streamlit application, also add `pkgs.streamlit` to the
+development shell in `flake.nix`.
+
+## Developing
+
+Use `uv` to develop the Python project as you would normally do without Nix.
+
+Depending on the dependencies of your Python project, you might need to take
+extra steps. Follow [instructions in the NixOS
+Wiki](https://wiki.nixos.org/wiki/Python#Python_development_environments_with_Nix).
+
+To build the project with Nix, follow the instructions in [Nixpkgs Reference
+Manual](https://nixos.org/manual/nixpkgs/unstable/#developing-with-python).
+
+The sample streamlit application can be run with the following command:
+
+```shell
+streamlit run app.py
+```

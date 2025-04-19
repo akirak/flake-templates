@@ -68,6 +68,10 @@ export default defineConfig({
               ],
             },
             {
+              label: "Python",
+              items: [{ label: "Uv (basic)", slug: "recipes/python/uv-basic" }],
+            },
+            {
               label: "Rust",
               items: [{ label: "Rust executable", slug: "recipes/rust/executable" }],
             },

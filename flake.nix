@@ -47,6 +47,10 @@
           path = ./ocaml-dune;
           description = "A flake template for development with OPAM and Dune";
         };
+        python-uv-simple = {
+          path = ./python-uv-simple;
+          description = "A simple Python development environment with uv";
+        };
         rust = {
           path = ./rust;
           description = "Rust toolchain";
