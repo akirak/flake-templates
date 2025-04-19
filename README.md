@@ -110,7 +110,7 @@ It includes Node, TypeScript, and typescript-language-server as `buildInputs` of
 the development shell. You can tweak these settings to suit your needs, e.g. to
 use yarn or pnpm.
 
-### [ocaml](ocaml/)
+### [ocaml-dune](ocaml-dune/)
 
 This flake.nix lets you use [Dune](https://dune.build/) for your development
 workflow but also allows to build your package using Nix.
@@ -118,7 +118,7 @@ It depends on [the overlay from
 nix-ocaml](https://github.com/nix-ocaml/nix-overlays).
 
 ``` bash
-nix flake init -t github:akirak/flake-templates#ocaml
+nix flake init -t github:akirak/flake-templates#ocaml-dune
 ```
 
 You will define your OCaml dependencies in `propagatedBuildInputs` of the dune
@@ -128,6 +128,16 @@ manually install packages using `opam` for development.
 See also [the Nixpkgs
 manual](https://nixos.org/manual/nixpkgs/unstable/#sec-language-ocaml) for
 concrete information.
+
+### [ocaml-basic](ocaml-basic/)
+
+If you are trying to explore an existing OCaml code base, this template may be
+helpful. It is easier to set up than `ocaml-dune` template, and it still
+includes ocaml-lsp. You can use it whether your project uses dune or not:
+
+``` bash
+nix flake init -t github:akirak/flake-templates#ocaml-basic
+```
 
 ### [rust](rust/)
 

@@ -1,16 +1,16 @@
-name: Check ocaml
+name: Check ocaml-basic
 
 on:
   push:
     paths:
       # Set this to the directory of the template
-      - ocaml/**
-      - .github/workflows/check-ocaml.yml
+      - ocaml-basic/**
+      - .github/workflows/check-ocaml-basic.yml
   workflow_dispatch:
   workflow_call:
 
 concurrency:
-  group: check-ocaml-${{ github.ref }}
+  group: check-ocaml-basic-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -33,23 +33,12 @@ jobs:
         with:
           path: ./tmp
 
-      - name: Initialize a Dune project
-        run: |
-          nix run nixpkgs#dune_3 -- init project hello work
-
       - name: Use the template
         run: |
-          nix flake new -t ./tmp#ocaml work
-
-      - name: Prepare the project
-        working-directory: work
-        run: |
-          sed -i 's/throw "Name your OCaml package"/"hello"/' flake.nix
-          sed -i 's/throw "Version your OCaml package"/"0.1"/' flake.nix
-          git init
-          git add .
+          nix flake new -t ./tmp#ocaml-basic work
 
       - name: Check executables
         run: |
           nix develop -L --command ocamlc --version
+          nix develop -L --command ocaml-lsp --version
         working-directory: work

@@ -1,0 +1,55 @@
+---
+# SPDX-FileCopyrightText: 2025 Akira Komamura
+# SPDX-License-Identifier: CC-BY-SA-4.0
+title: Adding a Nix-based environment for OCaml
+description: This document describes how to add a Nix-based development environment for OCaml, using ocaml-basic template from github:akirak/flake-templates.
+---
+
+In this tutorial, you will learn how to add a basic development environment for
+OCaml. Contrary to [ocaml-dune
+template](/flake-templates/recipes/ocaml/generic-dune), this is more intended to
+help you explore an existing OCaml code base. In this setup, ocaml-lsp provides
+useful hints on type information, jump. It is easier to set up than the other
+template, and it works whether the project uses dune or not.
+
+{% aside type="note" %}
+
+This document doesn't explain how to initialize a new OCaml project without
+Dune, because it is either unrecommended for a large project or should be
+trivial otherwise. For starting a new project, follow [the instruction with
+ocaml-dune template](/flake-templates/recipes/ocaml/generic-dune).
+
+{% /aside %}
+
+## Add flake.nix to the project
+
+{% steps %}
+
+1. Initialize the template from the root directory of the project:
+
+   ```shell
+   nix flake init github:akirak/flake-templates#ocaml-basic
+   ```
+
+   The `flake.nix` contains comments for adding an alternative build system such
+   as GNU Make. If you are trying to build the project, add a required program
+   to the development shell.
+
+2. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+3. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+{% /steps %}
+
+## Developing
+
+The template is basic and intended for existing projects. For development,
+follow instructions specific to your project.
