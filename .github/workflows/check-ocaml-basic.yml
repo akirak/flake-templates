@@ -1,0 +1,44 @@
+name: Check ocaml-basic
+
+on:
+  push:
+    paths:
+      # Set this to the directory of the template
+      - ocaml-basic/**
+      - .github/workflows/check-ocaml-basic.yml
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: check-ocaml-basic-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@d1ca217b388ee87b2507a9a93bf01368bde7cec2 # v31
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            flake-registry =  https://raw.githubusercontent.com/akirak/flake-pins/master/registry.json
+
+      - uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad # v16
+        with:
+          name: akirak
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          pushFilter: '-source$'
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          path: ./tmp
+
+      - name: Use the template
+        run: |
+          nix flake new -t ./tmp#ocaml-basic work
+
+      - name: Check executables
+        run: |
+          nix develop -L --command ocamlc --version
+          nix develop -L --command ocaml-lsp --version
+        working-directory: work
