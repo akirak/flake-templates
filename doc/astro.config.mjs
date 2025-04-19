@@ -64,6 +64,7 @@ export default defineConfig({
               label: "OCaml",
               items: [
                 { label: "Generic Dune project", slug: "recipes/ocaml/generic-dune" },
+                { label: "Basic", slug: "recipes/ocaml/basic" },
               ],
             },
             {
