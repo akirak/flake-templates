@@ -35,6 +35,7 @@
               ocaml-lsp
               ocamlformat
               ocp-indent
+              utop
               # Comment out this line if the project uses opam.
               # opam
             ])
