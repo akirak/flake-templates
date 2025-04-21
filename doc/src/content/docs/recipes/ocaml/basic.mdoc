@@ -32,9 +32,10 @@ with ocaml-dune template](/flake-templates/recipes/ocaml/generic-dune).
    nix flake init github:akirak/flake-templates#ocaml-basic
    ```
 
-   The `flake.nix` contains comments for adding an alternative build system such
-   as GNU Make. If you are trying to build the project, add a required program
-   to the development shell.
+   Open `flake.nix` and review the packages under the default development shell.
+   It contains comments for optional dependencies such as `ocamlbuild`, GNU
+   Make, and gdb. Depending on the project, you might want to enable some of
+   them.
 
 2. Add `.envrc`:
 
