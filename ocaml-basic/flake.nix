@@ -36,13 +36,16 @@
               ocamlformat
               ocp-indent
               utop
-              # Comment out this line if the project uses opam.
+              # Optional; Enable one of these dependencies if your project uses
+              # it.
+              # ocamlbuild
               # opam
             ])
             # Although Make isn't a strict requirement for development with
             # OCaml, many projects uses it as the build system.
             # ++ [
             #   pkgs.gnumake
+            #   pkgs.gdb
             # ]
           );
         };
