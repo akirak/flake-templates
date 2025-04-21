@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/markdoc": "^0.13.0",
-    "@astrojs/starlight": "^0.33.0",
-    "@astrojs/starlight-markdoc": "^0.3.0",
+    "@astrojs/markdoc": "^0.14.0",
+    "@astrojs/starlight": "^0.34.0",
+    "@astrojs/starlight-markdoc": "^0.4.0",
     "astro": "^5.0.0",
     "sharp": "^0.34.0",
     "starlight-theme-catppuccin": "^2.0.0",
