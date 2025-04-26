@@ -163,10 +163,10 @@ this example. We will be adding `alcotest` and `qcheck` as test dependencies.
 
             doCheck = true;
 
-      +     checkInputs = with ocamlPackages; [
-      +       alcotest
-      +       qcheck-core
-      +     ];
+    +       checkInputs = with ocamlPackages; [
+    +         alcotest
+    +         qcheck-core
+    +       ];
           };
    ```
 
@@ -182,10 +182,10 @@ this example. We will be adding `alcotest` and `qcheck` as test dependencies.
      (ocaml (>= 4.08.0))
      (dune (>= 3.16))
      (cmdliner (>= 1.3.0))
-    + ; test-only dependency
-    + (alcotest :with-test)
-    + ; test-only dependency with a version constraint
-    + (qcheck-core (and :with-test (>= 0.19)))
+   +  ; test-only dependency
+   +  (alcotest :with-test)
+   +  ; test-only dependency with a version constraint
+   +  (qcheck-core (and :with-test (>= 0.19)))
      ...
      ))
    ```
