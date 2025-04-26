@@ -136,6 +136,74 @@ this example, we will be adding `cmdliner` as a new dependency.
 
 {% /steps %}
 
+### Adding OCaml dependencies for testing
+
+To add dependencies for testing that are not required for production, follow
+this example. We will be adding `alcotest` and `qcheck` as test dependencies.
+
+{% steps %}
+
+1. In `flake.nix`, set `doCheck` to `true` in the arguments to
+   `buildDunePackage`:
+
+   ```diff lang="nix" title="flake.nix"
+          default = ocamlPackages.buildDunePackage {
+            ...
+
+   +        doCheck = true;
+          };
+   ```
+
+2. Also in the arguments, add `checkInputs` field which should be a list of
+   test-only dependencies:
+
+   ```diff lang="nix" title="flake.nix"
+          default = ocamlPackages.buildDunePackage {
+            ...
+
+            doCheck = true;
+
+      +     checkInputs = with ocamlPackages; [
+      +       alcotest
+      +       qcheck-core
+      +     ];
+          };
+   ```
+
+3. If your `dune-project` file contains one or more `package` entries, add the
+   dependencies to `depends` field of relevant package. The dependencies should
+   have `:with-test` option:
+
+   ```diff lang="dune" title="dune-project"
+   (package
+    (name hello)
+    (allow_empty)
+    (depends
+     (ocaml (>= 4.08.0))
+     (dune (>= 3.16))
+     (cmdliner (>= 1.3.0))
+    + ; test-only dependency
+    + (alcotest :with-test)
+    + ; test-only dependency with a version constraint
+    + (qcheck-core (and :with-test (>= 0.19)))
+     ...
+     ))
+   ```
+
+4. Also add the dependencies to the `dune` file for testing (typically
+   `test/dune`):
+
+   ```diff lang="dune" title="test/dune"
+   (test
+    (name test_hello)
+   + (libraries
+   +   alcotest
+   +   qcheck-core)
+    )
+   ```
+
+{% /steps %}
+
 ### Generating documentation for the dependencies
 
 To generate documentation of the dependencies, use `odig`.
