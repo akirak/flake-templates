@@ -1,4 +1,3 @@
-# SPDX-FileCopyrightText: 2023-2025 Akira Komamura
 # SPDX-License-Identifier: Unlicense
 {
   inputs = {
