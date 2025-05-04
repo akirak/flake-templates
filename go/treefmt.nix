@@ -1,4 +1,3 @@
-# SPDX-FileCopyrightText: 2024 Akira Komamura
 # SPDX-License-Identifier: Unlicense
 {
   projectRootFile = "treefmt.nix";
