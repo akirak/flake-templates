@@ -8,8 +8,8 @@ instructions for usage. Some templates also support building packages in pure
 Nix.
 
 I use these templates on NixOS, so they don't assume any non-Nix dependencies,
-such as shared libraries on the system. They should work on any platform that
-supports Nix. Basically, each development shell contains:
+such as shared libraries on a specific Linux/Mac system. They should work on any
+platform that supports Nix. Basically, each development shell contains:
 
 - A programming language implementation (compiler and build system)
 - A language server
