@@ -13,10 +13,14 @@ process streamlines package distribution and installation.
 The workflow builds the default Nix package defined in your flake using the
 following third-party actions:
 
-- [install-nix-action](https://github.com/cachix/install-nix-action). There are
-  alternatives to this.
-- [Cachix](https://www.cachix.org/) via
-  [cachix-action](https://github.com/cachix/cachix-action) for Nix binary cache.
+- [nix-quick-install-action](https://github.com/nixbuild/nix-quick-install-action)
+  to install Nix.
+- [cache-nix-action](https://github.com/nix-community/cache-nix-action) to save
+  the Nix store to the GitHub Actions cache to reduce time spent on downloading
+  dependencies.
+- Optionally, you can enable
+  [cachix-action](https://github.com/cachix/cachix-action), so you can download
+  the artifacts built on CI to your machines as Nix binary cache.
 
 Note that there are some alternative hosted services for Nix CI. If the provided
 setup doesn't satisfy your requirements, you might consider the following
@@ -37,8 +41,70 @@ options:
 2. Adjust the `.github/workflows/nix-build.yml` file to match your project
    requirements.
 
-3. Get an authentication token on Cachix and save it as a secret variable
+3. Optionally, you can enable uploading to Cachix. Edit
+   `.github/actions/setup/action.yml` and uncomment relevant sections:
+
+   ```yaml
+   inputs:
+     cachix-name:
+       description: Name of the Cachix account
+       required: false
+       default: akirak
+     cachix-token:
+       description: Auth token for cachix
+       required: true
+   ```
+
+   ```yaml
+       - uses: cachix/cachix-action@v16
+         with:
+           name: ${{ inputs.cachix-name }}
+           authToken: '${{ inputs.cachix-token }}'
+   ```
+
+   Get an authentication token on Cachix and save it as a secret variable
    `CACHIX_AUTH_TOKEN` in your project.
+
+   In each workflow in `.github/workflows` directory, pass the auth token to the
+   action:
+
+   ```yaml
+         - name: Set up Nix
+           uses: ./.github/actions/setup
+           with:
+             cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+   ```
+
+4. To save more assets to the cache (e.g. packages of a language-native package
+   system), edit `.github/actions/setup/action.yml` and add their file paths to
+   `paths` option and tweak `primary-key` as needed:
+
+   ```yaml
+      - name: Restore the package cache
+        uses: nix-community/cache-nix-action@135667ec418502fa5a3598af6fb9eb733888ce6a # v6
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size-linux: 1G
+          paths: |
+            node_modules/.pnpm
+     ```
+
+5. To add more Nix-based workflows, just use the `./.github/actions/setup`
+   action:
+
+   ```yaml
+   jobs:
+     some-nix-job:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+
+         - name: Set up Nix
+           uses: ./.github/actions/setup
+           # with:
+           #   cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+   ```
 
 {% /steps %}
 

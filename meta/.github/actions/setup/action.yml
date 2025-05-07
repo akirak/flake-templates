@@ -1,0 +1,37 @@
+name: Set up Nix
+
+description: Set up Nix with a GH-native cache enabled
+
+# inputs:
+#   cachix-name:
+#     description: Name of the Cachix account
+#     required: false
+#     default: akirak
+#   cachix-token:
+#     description: Auth token for cachix
+#     required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: nixbuild/nix-quick-install-action@5bb6a3b3abe66fd09bbf250dce8ada94f856a703 # v30
+      with:
+        nix_conf: |
+          keep-env-derivations = true
+          keep-outputs = true
+
+    - name: Restore the package cache
+      uses: nix-community/cache-nix-action@135667ec418502fa5a3598af6fb9eb733888ce6a # v6
+      with:
+        primary-key: nix-${{ runner.os }}-${{ hashFiles('**/flake.lock') }}
+        restore-prefixes-first-match: nix-${{ runner.os }}-
+        gc-max-store-size-linux: 1G
+        # Optionally, you can add extra paths saved to the cache.
+        #
+        # paths: |
+        #   node_modules/.pnpm
+
+    # - uses: cachix/cachix-action@v16
+    #   with:
+    #     name: ${{ inputs.cachix-name }}
+    #     authToken: '${{ inputs.cachix-token }}'
