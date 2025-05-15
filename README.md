@@ -1,5 +1,7 @@
 # Nix Flake Templates
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/akirak/flake-templates)
+
 This is a collection of [Nix flake](https://nixos.wiki/wiki/Flakes) templates I
 use in my personal projects. Each template basically provides a development
 shell. Some additionally provide a formatter that can be used on CI. There is [a
