@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Unlicense
 name: Set up Nix
 
 description: Set up Nix with a GH-native cache enabled
