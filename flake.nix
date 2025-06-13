@@ -35,6 +35,10 @@
           path = ./node-typescript;
           description = "Toolchain for TypeScript frontend projects";
         };
+        typescript-effect = {
+          path = ./typescript-effect;
+          description = "Common settings for Effect-TS projects";
+        };
         go = {
           path = ./go;
           description = "A minimal environment for Go with support for Go module";

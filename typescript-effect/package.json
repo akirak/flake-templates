@@ -1,0 +1,45 @@
+// Delete this comment for this package.json to work
+// SPDX-License-Identifier: Unlicense
+{
+  "name": "my-effect-app",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@10.12.1",
+  "sideEffects": false,
+  "scripts": {
+    "dev": "tsx --watch --env-file=.env src/main.ts",
+    "build": "tsup",
+    "typecheck": "tsc -b tsconfig.json",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix .",
+    "lint-staged": "lint-staged",
+    "test": "vitest run",
+    "prepare": "lefthook install"
+  },
+  "dependencies": {
+    "@effect/cli": "^0.63.10",
+    "@effect/platform": "^0.84.9",
+    "@effect/platform-node": "^0.85.14",
+    "effect": "^3.16.5"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.14.1",
+    "@effect/language-service": "^0.19.0",
+    "@types/node": "^24.0.1",
+    "eslint": "^9.28.0",
+    "eslint-plugin-format": "^1.0.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "lefthook": "^1.11.13",
+    "lint-staged": "^16.1.0",
+    "tsup": "^8.4.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,yaml}": [
+      "eslint --fix"
+    ]
+  }
+}

@@ -1,0 +1,83 @@
+# SPDX-License-Identifier: Unlicense
+name: Lint, build and publish
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Set up Nix
+        uses: ./.github/actions/setup
+        with:
+          cache-key: ""
+
+      - name: Check TypeScript types
+        run: nix develop -L -c pnpm run typecheck
+
+      - name: Run eslint
+        run: nix develop -L -c pnpm run lint
+
+  # test-e2e:
+  #   strategy:
+  #     matrix:
+  #       include:
+  #         - os: ubuntu-latest
+  #           browser: chromium
+
+  #         - os: ubuntu-latest
+  #           browser: firefox
+
+  #         # - os: macos-latest
+  #         #   browser: chromium
+
+  #         # - os: macos-latest
+  #         #   browser: webkit
+
+  #   runs-on: ${{ matrix.os }}
+
+  #   steps:
+  #     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+  #     - name: Set up Nix
+  #       uses: ./.github/actions/setup
+  #       with:
+  #         cache-key: ${{ matrix.browser }}
+
+  #     - name: Build the production assets
+  #       run: nix develop -L -c pnpm run build
+
+  #     - name: Install Playwright browser
+  #       # npm (provided by GitHub Actions) is a more reliable way to install a
+  #       # browser that can be used on the platform.
+  #       run: |
+  #         if [[ "${{ matrix.browser }}" = chromium ]]
+  #         then
+  #           npx playwright install --with-deps ${{ matrix.browser }} --only-shell
+  #         else
+  #           npx playwright install --with-deps ${{ matrix.browser }}
+  #         fi
+
+  #     - name: Run e2e tests
+  #       run: |
+  #         CI=true NODE_ENV=production \
+  #           nix develop -L .#node-build \
+  #           -c pnpm run test-e2e --project=${{ matrix.browser }}
+
+  #     - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+  #       if: ${{ !cancelled() }}
+  #       with:
+  #         name: playwright-report-${{ matrix.os }}-${{ matrix.browser }}
+  #         path: playwright-report/
+  #         retention-days: 30
