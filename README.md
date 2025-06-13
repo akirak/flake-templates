@@ -114,9 +114,10 @@ use yarn or pnpm.
 
 ### [typescript-effect](typescript-effect/)
 
-This is a more opinionated boilerplate than `node-typescript`. I use it the
-settings my recent TypeScript projects with [Effect](https://effect.website/).
-Besides the basics in `node-typescript`,, it contains:
+This is a more opinionated boilerplate than `node-typescript`. I have been using
+[Effect](https://effect.website/) in my personal TypeScript projects recently,
+and this template contains the common settings for those projects. Besides the
+basics in `node-typescript`, it contains:
 
 - A basic `package.json` and `tsconfig.json` to let you create a CLI application
   quickly. If your framework initializes these files beforehand, they will not
