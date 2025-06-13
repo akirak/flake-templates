@@ -1,0 +1,37 @@
+name: Check typescript-effect
+
+on:
+  push:
+    paths:
+    - typescript-effect/**
+    - .github/workflows/check-typescript-effect.yml
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: check-typescript-effect-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: cachix/install-nix-action@17fe5fb4a23ad6cbbe47d6b3f359611ad276644c # v31
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      with:
+        path: ./tmp
+    - run: nix flake new -t ./tmp#typescript-effect ./work
+    - name: Prepare the project
+      working-directory: work
+      run: |
+        git init
+        git add .
+
+    - run: nix develop -L -c tsc --version
+      working-directory: work
+    - run: nix develop -L -c typescript-language-server --version
+      working-directory: work
