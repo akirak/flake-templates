@@ -112,6 +112,22 @@ It includes Node, TypeScript, and typescript-language-server as `buildInputs` of
 the development shell. You can tweak these settings to suit your needs, e.g. to
 use yarn or pnpm.
 
+### [typescript-effect](typescript-effect/)
+
+This is a more opinionated boilerplate than `node-typescript`. I use it the
+settings my recent TypeScript projects with [Effect](https://effect.website/).
+Besides the basics in `node-typescript`,, it contains:
+
+- A basic `package.json` and `tsconfig.json` to let you create a CLI application
+  quickly. If your framework initializes these files beforehand, they will not
+  be added to your project. Yet this `package.json` integrates lefthook and
+  lint-staged out of the box, so you can use it as a reference.
+- An ESlint configuration based on
+  [antfu/eslint-config](https://github.com/antfu/eslint-config), with specific
+  rules disabled for nicely integrating with Effect.
+- A GitHub Actions workflow with Nix cache enabled.
+- Some stubs for easily adding Playwright executables.
+
 ### [ocaml-dune](ocaml-dune/)
 
 This flake.nix lets you use [Dune](https://dune.build/) for your development
