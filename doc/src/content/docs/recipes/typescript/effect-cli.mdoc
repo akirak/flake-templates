@@ -1,0 +1,148 @@
+---
+# SPDX-FileCopyrightText: 2025 Akira Komamura
+# SPDX-License-Identifier: CC-BY-SA-4.0
+title: Command Line Application with Effect
+description: How to initialize an Effect CLI application from a Nix flake template
+---
+
+In this tutorial, you will learn how to create a command-line application using
+`typescript-effect` template in the repository. It is an opinionated template
+with convenient tooling.
+
+The initialized project will be a complete development environment with the
+following dependencies:
+
+This template provides:
+
+- [Effect](https://effect.website/)
+- ESLint (based on [antfu's config](https://github.com/antfu/eslint-config))
+- Build tool: tsup for bundling
+- Development tools: tsx for hot-reloading, lefthook for git hooks
+- Package manager: pnpm via corepack. You can easily switch to Bun
+
+With some tweaks, you can also create a server application.
+
+## Initialize a new project
+
+{% aside type="note" %}
+
+The template provides a boilerplate for a complete application containing
+`package.json`.
+
+{% /aside %}
+
+{% steps %}
+
+1. Create a new directory for your project:
+
+   ```shell
+   nix flake new -t github:akirak/flake-templates#typescript-effect my-app
+   ```
+
+2. Enter the directory:
+
+   ```shell
+   cd my-app
+   ```
+
+3. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+4. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+5. Update the dependencies:
+
+   ```shell
+   pnpm update
+   ```
+
+6. Tweak the generated configuration files to suit your preferences.
+
+{% /steps %}
+
+## Understanding the template structure
+
+The template includes a minimal example CLI application in `src/main.ts`.
+
+Key configuration files:
+
+- **`package.json`**: Pre-configured scripts for development, building, linting, and type checking
+- **`tsconfig.json`**: TypeScript configuration with Effect Language Service plugin
+- **`eslint.config.js`**: ESLint setup using @antfu/eslint-config with Effect-specific overrides
+- **`lefthook.yml`**: Git hooks for pre-commit linting and pre-push type checking
+
+## Developing
+
+### Running the example
+
+The template includes a simple "hello" command that you can run:
+
+```shell
+# Run in development mode with hot-reloading
+pnpm dev hello --name World
+
+# Or run with tsx directly
+tsx src/main.ts hello --name World
+```
+
+{% aside type="note" %}
+
+By default, the `dev` command loads `.env` file in the project root. The command
+will fail unless you create the file. If you don't need environment variables,
+delete the flag from the corresponding `scripts` entry in `package.json`.
+
+{% /aside %}
+
+
+### Common development tasks
+
+```shell
+# Type checking
+pnpm typecheck
+
+# Linting
+pnpm lint
+
+# Fix linting issues
+pnpm lint-fix
+
+# Run tests (when added)
+pnpm test
+
+# Build the application
+pnpm build
+```
+
+### Customizing for your needs
+
+1. Playwright support: The flake includes optional Playwright browser testing
+   support. Enable it by setting `enablePlaywright = true` in `flake.nix`.
+   Also uncomment the relevant section in the generated GitHub workflow.
+
+2. Frontend development: The ESLint config includes commented-out sections for
+   React and TanStack Router support. Uncomment these if building a frontend
+   application.
+
+### Tips for Effect development
+
+- The template disables several ESLint rules that conflict with Effect's coding
+  style (like `array-callback-return` and `no-lone-blocks`)
+- The TypeScript configuration includes the Effect Language Service plugin for
+  better IDE support
+
+## Next steps
+
+- Explore the [Effect documentation](https://effect.website/docs/introduction)
+  to learn more about the library
+- Check out [@effect/cli
+  documentation](https://effect.website/docs/packages/cli/introduction) for
+  building complex CLI applications
+- Add testing with vitest (already configured in package.json but the
+  dependencies hasn't been added)

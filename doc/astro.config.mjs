@@ -82,6 +82,10 @@ export default defineConfig({
                   label: "TypeScript web application (with a framework)",
                   slug: "recipes/typescript/web-framework",
                 },
+                {
+                  label: "Effect CLI application",
+                  slug: "recipes/typescript/effect-cli",
+                },
               ],
             },
             {
