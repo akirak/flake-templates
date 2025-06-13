@@ -116,8 +116,13 @@ use yarn or pnpm.
 
 This is a more opinionated boilerplate than `node-typescript`. I have been using
 [Effect](https://effect.website/) in my personal TypeScript projects recently,
-and this template contains the common settings for those projects. Besides the
-basics in `node-typescript`, it contains:
+and this template contains the common settings for those projects.
+
+``` bash
+nix flake init -t github:akirak/flake-templates#typescript-effect
+```
+
+Besides the basics in `node-typescript`, it contains:
 
 - A basic `package.json` and `tsconfig.json` to let you create a CLI application
   quickly. If your framework initializes these files beforehand, they will not
