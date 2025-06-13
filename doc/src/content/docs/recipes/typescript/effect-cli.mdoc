@@ -57,13 +57,24 @@ The template provides a boilerplate for a complete application containing
    direnv allow
    ```
 
-5. Update the dependencies:
+5. Delete the license header comment from `package.json`:
+
+   ```diff
+   - // Delete this comment for this package.json to work
+   - // SPDX-License-Identifier: Unlicense
+   {
+     "name": "my-effect-app",
+     ...
+   }
+   ```
+
+6. Update the dependencies:
 
    ```shell
    pnpm update
    ```
 
-6. Tweak the generated configuration files to suit your preferences.
+7. Tweak the generated configuration files to suit your preferences.
 
 {% /steps %}
 
