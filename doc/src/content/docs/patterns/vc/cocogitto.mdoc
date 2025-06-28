@@ -1,0 +1,62 @@
+---
+# SPDX-FileCopyrightText: 2025 Akira Komamura
+# SPDX-License-Identifier: CC-BY-SA-4.0
+title: Ensuring conventional commits using Cocogitto
+---
+
+This tutorial explains how to configure
+[cocogitto](https://docs.cocogitto.io/)to verify commits in your repository to
+conform to [conventional commits](https://www.conventionalcommits.org/).
+## Add cocogitto to your repository
+Cocogitto is available from Nixpkgs as `cocogitto` package. You can add it to
+the dev shell of your `flake.nix`:
+
+```diff lang="nix"
+  devShells = {
+     default = pkgs.mkShell {
+       packages = [
+         pkgs.nodePackages.typescript
+         pkgs.nodePackages.typescript-language-server
++        pkgs.cocogitto
+       ];
+     };
+  };
+```
+
+Then generate `cog.toml`:
+
+```sh
+cog init
+```
+
+## Integrating Git hooks
+
+Cocogitto has a built-in functionality to install git hooks (see [the
+documentation](https://docs.cocogitto.io/guide/git_hooks.html).)
+
+This section describes how to integrate cocogitto into other git-hook
+frameworks.
+
+### git-hooks.nix
+
+TODO: [git-hooks.nix](https://github.com/cachix/git-hooks.nix) currently doesn't
+support cocogitto out of the box. It supports
+[conform](https://github.com/edmundhung/conform) which is an alternative to
+cocogitto, so it would be possible to cocogitto.
+
+### Lefthook
+
+If you are using [Lefthook](https://lefthook.dev/), add the following snippet to
+`lefthook.yml` to verify commits in `commit-msg` hook:
+
+```yaml
+commit-msg:
+  runner: bash
+  commands:
+    cog:
+      run: |
+        cog verify --file {1}
+```
+
+## More information
+Follow [the user guide](https://docs.cocogitto.io/guide/init.html) for details.

@@ -125,6 +125,15 @@ export default defineConfig({
               ],
             },
             {
+              label: "Conventional Commits",
+              items: [
+                {
+                  label: "cocogitto",
+                  slug: "patterns/vc/cocogitto",
+                },
+              ],
+            },
+            {
               label: "Using nix-systems",
               slug: "patterns/nix-systems",
             },
