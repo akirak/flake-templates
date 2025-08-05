@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import catppuccinTheme from "starlight-theme-catppuccin";
 import markdoc from "@astrojs/markdoc";
+import starlightLlmsTxt from "starlight-llms-txt";
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,7 +13,10 @@ export default defineConfig({
     markdoc(),
     starlight({
       title: "Nix Flake Templates",
-      plugins: [catppuccinTheme()],
+      plugins: [
+        starlightLlmsTxt(),
+        catppuccinTheme(),
+      ],
       social: [
         {
           icon: "github",
