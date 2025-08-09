@@ -1,0 +1,39 @@
+name: Check java
+
+on:
+  push:
+    paths:
+      # Set this to the directory of the template
+      - java/**
+      - .github/workflows/check-java.yml
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: check-java-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@c134e4c9e34bac6cab09cf239815f9339aaaf84e # v31
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            flake-registry =  https://raw.githubusercontent.com/akirak/flake-pins/master/registry.json
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          path: ./tmp
+      - run: nix flake new -t ./tmp#java ./work
+      - name: Prepare the project
+        working-directory: work
+        run: |
+          git init
+          git add .
+
+      - name: Check executables
+        run: |
+          nix develop -L --command javac --version
+        working-directory: work
