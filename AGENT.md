@@ -83,6 +83,8 @@ Most templates follow this pattern:
 - `flake.nix`: Main flake configuration
 - Language-specific config files (e.g., `treefmt.nix`, `tsconfig.json`)
 - Optional: justfile, package.json, or other build configuration
+- Each language-specific template should have at least one corresponding
+  documentation in `/doc`
 
 ## Special Templates
 
@@ -99,3 +101,8 @@ When modifying templates, test them by:
 2. Enter development shell: `nix develop`
 3. Verify language tools are available
 4. Run any included formatters/linters
+
+## Documentation
+
+- Documentations should be specific to project types
+- Link to each documentation from `/doc/astro.config.mjs`
