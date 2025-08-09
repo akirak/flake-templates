@@ -39,7 +39,11 @@
         {
           # You can use `extend' to extend the packages with an overlay (or use
           # `import inputs.nixpkgs { ... }`).
-          _module.args.pkgs = inputs'.nixpkgs.legacyPackages;
+          _module.args.pkgs = inputs'.nixpkgs.legacyPackages.${system};
+
+          devShells.default = pkgs.mkShell {
+            packages = [ ];
+          };
         };
     };
 }
