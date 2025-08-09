@@ -59,6 +59,10 @@
           path = ./rust;
           description = "Rust toolchain";
         };
+        java = {
+          path = ./java;
+          description = "Basic Java project";
+        };
         elixir = {
           path = ./elixir;
           description = "Simple Elixir project";

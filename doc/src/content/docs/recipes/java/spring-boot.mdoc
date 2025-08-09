@@ -1,0 +1,56 @@
+---
+# SPDX-FileCopyrightText: 2025 Akira Komamura
+# SPDX-License-Identifier: CC-BY-SA-4.0
+title: Developing a Spring Boot application
+---
+
+In this tutorial, you will learn how to create a Spring Boot application using
+Spring Initializr and add `flake.nix` for development.
+
+## Initialize a Spring Boot project
+
+{% steps %}
+
+1. Go to [Spring Initializr](https://start.spring.io/) and configure your project.
+   This example chooses Gradle (Kotlin) and the Java language.
+   You can also add dependencies as needed.
+   Click *Generate* to download the project as a ZIP file.
+
+2. Extract the ZIP file to your desired location:
+
+   ```shell
+   unzip demo.zip
+   cd demo
+   ```
+
+{% /steps %}
+
+## Add flake.nix to the project
+
+{% steps %}
+
+1. Initialize the Java template from the root directory of the Spring Boot project:
+
+   ```shell
+   nix flake init -t github:akirak/flake-templates#java
+   ```
+
+2. Ensure the JDK version in your `flake.nix` matches your project requirement:
+
+   ```nix title="flake.nix"
+     jdk = pkgs.openjdk21_headless;
+   ```
+
+3. Add `.envrc`:
+
+   ```shell title=".envrc"
+   use flake
+   ```
+
+4. Allow direnv:
+
+   ```shell
+   direnv allow
+   ```
+
+{% /steps %}

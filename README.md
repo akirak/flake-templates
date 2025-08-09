@@ -264,6 +264,15 @@ This flake provides a minimal development environment for
 nix flake init -t github:akirak/flake-templates#zig
 ```
 
+### [java](java/)
+
+This flake provides a basic development environment for Java. It primarily
+supports Gradle Kotlin but can be adapted to other environments.
+
+``` bash
+nix flake init -t github:akirak/flake-templates#java
+```
+
 ### [meta](meta/)
 
 This is a set of common metadata files for GitHub projects, such as
