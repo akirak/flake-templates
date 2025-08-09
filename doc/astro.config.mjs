@@ -65,6 +65,12 @@ export default defineConfig({
               items: [{ label: "Go executable", slug: "recipes/go/executable" }],
             },
             {
+              label: "Java",
+              items: [
+                { label: "Spring Boot application", slug: "recipes/java/spring-boot" },
+              ],
+            },
+            {
               label: "OCaml",
               items: [
                 { label: "Generic Dune project", slug: "recipes/ocaml/generic-dune" },
