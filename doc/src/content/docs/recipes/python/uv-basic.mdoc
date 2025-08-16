@@ -87,7 +87,12 @@ projects. Below is just an example for this flake template.
 
    ```shell title=".envrc"
    use flake
+   # Load the Python environment
+   source .venv/bin/activate
    ```
+
+   If you are using a shell other than bash/zsh, adapt `.venv/bin/activate`
+   accordingly.
 
 3. Allow direnv:
 
