@@ -6,9 +6,6 @@
 
 import antfu from "@antfu/eslint-config"
 
-// For frontend projects
-// import jsxA11y from "eslint-plugin-jsx-a11y"
-
 // TanStack Router/Start
 // import pluginRouter from "@tanstack/eslint-plugin-router"
 
@@ -37,8 +34,6 @@ export default antfu({
     "unicorn/throw-new-error": "off",
   },
 },
-  // jsxA11y.flatConfigs.recommended,
-
   // TanStack Router
   // pluginRouter.configs["flat/recommended"],
 
