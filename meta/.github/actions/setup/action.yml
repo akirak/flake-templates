@@ -15,7 +15,7 @@ description: Set up Nix with a GH-native cache enabled
 runs:
   using: composite
   steps:
-    - uses: nixbuild/nix-quick-install-action@1f095fee853b33114486cfdeae62fa099cda35a9 # v33
+    - uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035 # v34
       with:
         nix_conf: |
           keep-env-derivations = true
