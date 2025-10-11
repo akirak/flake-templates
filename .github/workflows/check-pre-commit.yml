@@ -33,5 +33,6 @@ jobs:
           git init
           git add .
 
-      - run: nix develop -L --command pre-commit --version
+      - name: Check the hook
+        run: nix develop -L --command test .pre-commit-config.yaml
         working-directory: work
