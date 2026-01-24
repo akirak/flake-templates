@@ -71,6 +71,12 @@ export default defineConfig({
               ],
             },
             {
+              label: "Lean 4",
+              items: [
+                { label: "lean4-nix (external)", slug: "recipes/lean4/lenianiva" },
+              ],
+            },
+            {
               label: "OCaml",
               items: [
                 { label: "Generic Dune project", slug: "recipes/ocaml/generic-dune" },
