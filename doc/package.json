@@ -10,14 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/markdoc": "^0.15.0",
-    "@astrojs/starlight": "^0.37.0",
-    "@astrojs/starlight-markdoc": "^0.5.0",
-    "astro": "^5.0.0",
-    "sharp": "^0.34.0",
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/markdoc": "^0.15.10",
+    "@astrojs/starlight": "^0.37.4",
+    "@astrojs/starlight-markdoc": "^0.5.1",
+    "astro": "^5.16.15",
+    "sharp": "^0.34.5",
     "starlight-llms-txt": "^0.7.0",
     "starlight-theme-catppuccin": "^2.0.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.9.3"
   }
 }
