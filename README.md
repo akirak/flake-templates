@@ -352,6 +352,10 @@ or in the [LICENSES](LICENSES/) directory.
 ## Contributing
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 ## Other template repositories and alternatives
+Here is a list of recommendations for specific use cases:
+
+- [lenianiva/lean4-nix](https://github.com/lenianiva/lean4-nix) provides flake
+  templates for Lean 4.
 
 The following is a list of template repositories I found on GitHub:
 
