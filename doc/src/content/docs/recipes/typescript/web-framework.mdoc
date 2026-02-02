@@ -26,56 +26,47 @@ the template to add a Nix-based environment, so proceed to the next section.
 If you are adding `flake.nix` to an existing project, you can skip this section.
 {% /aside %}
 
-{% steps %}
-
-1. You will need one of `npm`, `yarn`, `pnpm`, or `bun`. Both `npm` and `bun`
+You will need one of `npm`, `yarn`, `pnpm`, or `bun`. Both `npm` and `bun`
 are available directly from Nixpkgs.
 
-   If you prefer `yarn` or `pnpm`, you will probably need both `yarn`/`pnpm` and
+If you prefer `yarn` or `pnpm`, you will probably need both `yarn`/`pnpm` and
 `npm`. To make the multiple packages available, you can use the classic
 `nix-shell` command, or use a devshell in [my personal
 repository](https://github.com/akirak/flake-pins/).
 
-   {% tabs %}
-   {% tabitem label="npm" %}
-   ```shell
-   nix shell nixpkgs#nodejs
-   ```
-   {% /tabitem %}
-   {% tabitem label="yarn" %}
-   ```shell
-   nix-shell -p yarn -p nodejs
-   ```
-   or
-   ```shell
-   nix develop github:akirak/flake-pins#yarn
-   ```
-   {% /tabitem %}
-   {% tabitem label="pnpm" %}
-   ```shell
-   nix-shell -p pnpm -p nodejs
-   ```
-   or
-   ```shell
-   nix develop github:akirak/flake-pins#pnpm
-   ```
-   {% /tabitem %}
-   {% tabitem label="bun" %}
-   ```shell
-   nix shell nixpkgs#bun
-   ```
-   {% /tabitem %}
-   {% /tabs %}
+{% tabs %}
+{% tabitem label="npm" %}
+```shell
+nix shell nixpkgs#nodejs
+```
+{% /tabitem %}
 
-2. Then follow an instruction for the framework of your choice to initialize the
+{% tabitem label="yarn" %}
+  ```shell
+  nix-shell -p yarn -p nodejs
+  ```
+{% /tabitem %}
+
+{% tabitem label="pnpm" %}
+```shell
+nix-shell -p pnpm -p nodejs
+```
+{% /tabitem %}
+
+{% tabitem label="bun" %}
+  ```shell
+  nix shell nixpkgs#bun
+  ```
+{% /tabitem %}
+{% /tabs %}
+
+Follow an instruction for the framework of your choice to initialize the
 project. Below are some links:
 
-   - [Install and set up Astro | Docs](https://docs.astro.build/en/install-and-setup/)
-   - [Getting Started: Installation | Next.js](https://nextjs.org/docs/app/getting-started/installation)
-   - [Installation · Get Started with Nuxt](https://nuxt.com/docs/getting-started/installation)
-   - [Creating a project • Docs • Svelte](https://svelte.dev/docs/kit/creating-a-project)
-
-{% /steps %}
+- [Install and set up Astro | Docs](https://docs.astro.build/en/install-and-setup/)
+- [Getting Started: Installation | Next.js](https://nextjs.org/docs/app/getting-started/installation)
+- [Installation · Get Started with Nuxt](https://nuxt.com/docs/getting-started/installation)
+- [Creating a project • Docs • Svelte](https://svelte.dev/docs/kit/creating-a-project)
 
 ## Add flake.nix to the project
 
