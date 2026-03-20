@@ -32,6 +32,19 @@ export default antfu({
     "no-empty": "off",
     // Don't insert `new` into `extends Data.TaggedError` declarations.
     "unicorn/throw-new-error": "off",
+    // Avoid this until it is supported well
+    "e18e/prefer-array-to-sorted": "off",
+    // Harmful for EFfect-TS codebase
+    "antfu/top-level-function": "off",
+  },
+}, {
+  files: [
+    "**/*.jsx",
+    "**/*.tsx",
+  ],
+  rules: {
+    // Enforce the rewrite to `function` keyword only in JSX components
+    "antfu/top-level-function": "error",
   },
 },
   // TanStack Router
