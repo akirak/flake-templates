@@ -21,6 +21,12 @@ runs:
           keep-env-derivations = true
           keep-outputs = true
 
+    - name: Prepare writable cache directories
+      shell: bash
+      run: |
+        mkdir -p "${RUNNER_TEMP}/.cache/nix"
+        echo "XDG_CACHE_HOME=${RUNNER_TEMP}/.cache" >> "$GITHUB_ENV"
+
     - name: Restore the package cache
       uses: nix-community/cache-nix-action@b426b118b6dc86d6952988d396aa7c6b09776d08 # v7
       with:
