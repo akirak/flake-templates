@@ -1,5 +1,8 @@
 name: Run all check workflows
 
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
   repository_dispatch:
