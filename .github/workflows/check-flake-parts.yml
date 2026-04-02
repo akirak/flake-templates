@@ -16,6 +16,8 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
     - uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31
       with:
