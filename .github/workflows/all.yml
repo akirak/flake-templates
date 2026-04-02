@@ -25,8 +25,11 @@ jobs:
   check-node-typescript:
     uses: ./.github/workflows/check-node-typescript.yml
 
-  check-ocaml:
-    uses: ./.github/workflows/check-ocaml.yml
+  check-ocaml-basic:
+    uses: ./.github/workflows/check-ocaml-basic.yml
+
+  check-ocaml-dune:
+    uses: ./.github/workflows/check-ocaml-dune.yml
 
   check-pre-commit:
     uses: ./.github/workflows/check-pre-commit.yml
