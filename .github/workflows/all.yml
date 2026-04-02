@@ -13,11 +13,20 @@ jobs:
   check-elixir:
     uses: ./.github/workflows/check-elixir.yml
 
+  check-flake-parts:
+    uses: ./.github/workflows/check-flake-parts.yml
+
   check-flake-utils:
     uses: ./.github/workflows/check-flake-utils.yml
 
   check-gleam:
     uses: ./.github/workflows/check-gleam.yml
+
+  check-go:
+    uses: ./.github/workflows/check-go.yml
+
+  check-java:
+    uses: ./.github/workflows/check-java.yml
 
   check-minimal:
     uses: ./.github/workflows/check-minimal.yml
@@ -34,8 +43,17 @@ jobs:
   check-pre-commit:
     uses: ./.github/workflows/check-pre-commit.yml
 
+  check-python-uv-simple:
+    uses: ./.github/workflows/check-python-uv-simple.yml
+
   check-rust:
     uses: ./.github/workflows/check-rust.yml
 
   check-treefmt:
     uses: ./.github/workflows/check-treefmt.yml
+
+  check-typescript-effect:
+    uses: ./.github/workflows/check-typescript-effect.yml
+
+  check-zig:
+    uses: ./.github/workflows/check-zig.yml
