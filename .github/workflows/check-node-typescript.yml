@@ -8,6 +8,9 @@ on:
   workflow_dispatch:
   workflow_call:
 
+permissions:
+  contents: read
+
 concurrency:
   group: check-node-typescript-${{ github.ref }}
   cancel-in-progress: true
