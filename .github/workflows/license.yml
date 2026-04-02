@@ -1,5 +1,8 @@
 name: Check license
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     # This ignore list does not cover the entire set of irrelevant files, but it
