@@ -4,3 +4,4 @@
 result
 flake.lock
 !/dev/flake.lock
+!/doc/flake.lock

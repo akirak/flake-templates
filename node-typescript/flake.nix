@@ -35,8 +35,12 @@
             # pkgs.bun
 
             # Required to enable the language server
-            pkgs.nodePackages.typescript
-            pkgs.nodePackages.typescript-language-server
+            pkgs.typescript
+            pkgs.typescript-language-server
+
+            # Alternatively, you can use the language server of the preview
+            # version of TypeScript.
+            # pkgs.typescript-go
 
             # Python is required on NixOS if the dependencies require node-gyp
 
