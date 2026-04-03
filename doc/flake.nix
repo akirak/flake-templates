@@ -25,11 +25,10 @@
     {
       devShells = eachSystem (pkgs: {
         default = pkgs.mkShell {
-          buildInputs = [
+          packages = [
             pkgs.nodejs
-            pkgs.pnpm
-            pkgs.typescript
-            pkgs.typescript-language-server
+            pkgs.corepack
+            pkgs.typescript-go
           ];
         };
       });
