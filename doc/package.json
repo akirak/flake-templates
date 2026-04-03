@@ -10,11 +10,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.6",
-    "@astrojs/markdoc": "^0.15.10",
-    "@astrojs/starlight": "^0.37.4",
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/markdoc": "^0.15.11",
+    "@astrojs/starlight": "^0.37.7",
     "@astrojs/starlight-markdoc": "^0.5.1",
-    "astro": "^5.16.15",
+    "astro": "^5.18.1",
     "sharp": "^0.34.5",
     "starlight-llms-txt": "^0.7.0",
     "starlight-theme-catppuccin": "^2.0.0",

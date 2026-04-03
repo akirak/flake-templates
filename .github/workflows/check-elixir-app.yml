@@ -1,5 +1,8 @@
 name: Check elixir-app
 
+permissions:
+  contents: read
+
 on:
   push:
     paths:

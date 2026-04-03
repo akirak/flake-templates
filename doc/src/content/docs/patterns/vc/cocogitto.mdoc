@@ -16,8 +16,8 @@ the dev shell of your `flake.nix`:
   devShells = {
      default = pkgs.mkShell {
        packages = [
-         pkgs.nodePackages.typescript
-         pkgs.nodePackages.typescript-language-server
+         pkgs.typescript
+         pkgs.typescript-language-server
 +        pkgs.cocogitto
        ];
      };
