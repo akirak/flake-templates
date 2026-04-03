@@ -36,6 +36,8 @@
               ++ [
                 pkgs.typescript
                 pkgs.typescript-language-server
+                # The faster language server of the preview version.
+                # pkgs.typescript-go
               ]
               ++
                 # For e2e testing
