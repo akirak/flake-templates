@@ -34,8 +34,8 @@
             packages =
               buildDeps
               ++ [
-                pkgs.nodePackages.typescript
-                pkgs.nodePackages.typescript-language-server
+                pkgs.typescript
+                pkgs.typescript-language-server
               ]
               ++
                 # For e2e testing
