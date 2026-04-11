@@ -26,6 +26,12 @@ jobs:
       - name: Prepare patch directory
         run: mkdir -p generated-patches
 
+      - name: Search Elixir packages
+        run: |
+          nix search --json --inputs-from github:akirak/flake-pins \
+            nixpkgs elixir \
+            > elixir-packages.json
+
       - name: Generate Elixir version patches
         uses: openai/codex-action@v1
         with:

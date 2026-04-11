@@ -15,8 +15,9 @@ Requirements:
 - Do not commit changes.
 
 Recommended workflow:
-1. Use `nix search --inputs-from github:akirak/flake-pins nixpkgs elixir`
-   to inspect available packages.
+1. Read elixir-packages.json, which should be created beforehand using `nix
+   search --json nixpkgs elixir` because you can't run Nix inside a sandbox, to
+   inspect available packages.
 2. Update the files in place.
 3. If `git diff -- elixir/flake.nix elixir-app/flake.nix` is non-empty,
    save it as `generated-patches/elixir-version-updates.patch`.
