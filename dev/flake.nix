@@ -32,10 +32,6 @@
       );
     in
     {
-      packages = eachSystem (pkgs: {
-        update-beam = nixpkgs.legacyPackages.${pkgs.system}.callPackage ./update-beam.nix { };
-      });
-
       formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
       checks = eachSystem (pkgs: {

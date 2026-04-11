@@ -26,15 +26,6 @@ jobs:
           cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update Erlang and Elixir
-        run: nix run ./dev#update-beam --update-input nixpkgs --no-write-lock-file
-        continue-on-error: true
-        id: updated
-
-      - name: Roll back if there is no modification
-        run: git reset --hard ${{ github.sha }}
-        if: ${{ steps.updated.outcome == 'failure' }}
-
       - uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8
         with:
           commit-message: 'Update'
