@@ -61,18 +61,32 @@ to do this only once per machine:
    nix flake init -t github:akirak/flake-templates#elixir-app
    ```
 
-2. Open `flake.nix` and set the Erlang and Elixir versions:
+2. Open `flake.nix` and choose the BEAM package set and Elixir version:
 
    ```diff lang="nix" title="flake.nix"
      let
-       # Set the Erlang version
-   -    erlangVersion = "erlang_26";
-   +    erlangVersion = "erlang_27";
+       # Select the Erlang/OTP package set from nixpkgs
+   -    beamVersion = "beam27Packages";
+   +    beamVersion = "beam28Packages";
        # Set the Elixir version
-   -    elixirVersion = "elixir_1_15";
-   +    elixirVersion = "elixir_1_18";
+   -    elixirVersion = "elixir_1_19";
+   +    elixirVersion = "elixir_1_20";
      in
    ```
+
+   The template maintains Erlang and Elixir versions through `nixpkgs` BEAM
+   packages:
+
+   - `beamVersion` selects a BEAM package set such as `beam28Packages`.
+     `erlang` is taken from that package set, so the exact Erlang/OTP release is
+     maintained by the pinned `nixpkgs` revision in your `flake.lock`.
+   - `elixirVersion` selects the Elixir package from the same BEAM package set,
+     such as `elixir_1_20`.
+
+   When you update `nixpkgs`, the concrete patch versions of Erlang and Elixir
+   can change even if these attribute names stay the same. To move to a newer
+   major Erlang line, update `beamVersion`. To move to a newer Elixir release,
+   update `elixirVersion` to an attribute available in that BEAM package set.
 
 3. Add `.envrc`:
 
