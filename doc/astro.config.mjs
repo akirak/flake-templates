@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-import catppuccinTheme from "starlight-theme-catppuccin";
+import catppuccinTheme from "@catppuccin/starlight";
 import markdoc from "@astrojs/markdoc";
 import starlightLlmsTxt from "starlight-llms-txt";
 
