@@ -22,8 +22,6 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          extra_nix_config:
-            flake-registry =  https://raw.githubusercontent.com/akirak/flake-pins/master/registry.json
 
       - name: Prepare patch directory
         run: mkdir -p generated-patches
