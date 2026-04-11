@@ -5,9 +5,6 @@ on:
     - cron: '0 4 * * 5'
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -15,6 +12,10 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
@@ -39,8 +40,8 @@ jobs:
           commit-message: 'Update'
           # Use a fine-grained personal access token that can trigger other
           # workflows
-          token: ${{ secrets.PAT_FOR_PR }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           base: master
-          title: 'chore: Update flake inputs'
+          title: 'chore: Update the dependencies'
           branch: create-pull-request/update
           labels: automation,update
