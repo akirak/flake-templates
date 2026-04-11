@@ -20,9 +20,9 @@
     }@inputs:
     let
       # Set the Erlang version
-      erlangVersion = "erlang_27";
+      beamVersion = "beam28Packages";
       # Set the Elixir version
-      elixirVersion = "elixir_1_18";
+      elixirVersion = "elixir_1_20";
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = nixpkgs.lib.systems.flakeExposed;
@@ -47,8 +47,8 @@
               (
                 final: _:
                 let
-                  erlang = final.beam.interpreters.${erlangVersion};
-                  beamPackages = final.beam.packages.${erlangVersion};
+                  beamPackages = final.${beamVersion};
+                  erlang = beamPackages.erlang;
                   elixir = beamPackages.${elixirVersion};
                 in
                 {
