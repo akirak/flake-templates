@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2023-2025 Akira Komamura
+# SPDX-FileCopyrightText: 2023-2026 Akira Komamura
 # SPDX-License-Identifier: MIT
 {
   inputs = {
@@ -27,15 +27,11 @@
         pkgs:
         treefmt-nix.lib.evalModule pkgs {
           projectRootFile = "flake.nix";
-          programs.nixfmt-rfc-style.enable = true;
+          programs.nixfmt.enable = true;
         }
       );
     in
     {
-      packages = eachSystem (pkgs: {
-        update-beam = nixpkgs.legacyPackages.${pkgs.system}.callPackage ./update-beam.nix { };
-      });
-
       formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
       checks = eachSystem (pkgs: {

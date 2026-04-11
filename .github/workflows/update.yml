@@ -5,9 +5,6 @@ on:
     - cron: '0 4 * * 5'
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -15,6 +12,10 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -25,22 +26,27 @@ jobs:
           cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update Erlang and Elixir
-        run: nix run ./dev#update-beam --update-input nixpkgs --no-write-lock-file
-        continue-on-error: true
-        id: updated
+      - name: Update flake.lock files
+        shell: bash
+        run: |
+          set -euo pipefail
 
-      - name: Roll back if there is no modification
-        run: git reset --hard ${{ github.sha }}
-        if: ${{ steps.updated.outcome == 'failure' }}
+          while IFS= read -r lockfile; do
+            dir=$(dirname "$lockfile")
+            echo "Updating $lockfile"
+            (
+              cd "$dir"
+              nix flake update
+            )
+          done < <(find . -name flake.lock -type f | sort)
 
       - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
           commit-message: 'Update'
           # Use a fine-grained personal access token that can trigger other
           # workflows
-          token: ${{ secrets.PAT_FOR_PR }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           base: master
-          title: 'chore: Update flake inputs'
+          title: 'chore: Update the dependencies'
           branch: create-pull-request/update
           labels: automation,update
