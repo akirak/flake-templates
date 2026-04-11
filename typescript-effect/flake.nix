@@ -1,7 +1,11 @@
 # SPDX-License-Identifier: Unlicense
 {
+  inputs = {
+    tsgo-effect.url = "github:Effect-TS/tsgo";
+  };
+
   outputs =
-    { nixpkgs, ... }:
+    { nixpkgs, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -13,6 +17,8 @@
       devShells = eachSystem (
         pkgs:
         let
+          inherit (pkgs.stdenv.hostPlatform) system;
+
           buildDeps = [
             pkgs.nodejs
             pkgs.corepack
@@ -35,9 +41,7 @@
               buildDeps
               ++ [
                 pkgs.typescript
-                pkgs.typescript-language-server
-                # The faster language server of the preview version.
-                # pkgs.typescript-go
+                inputs.tsgo-effect.packages.${system}.default
               ]
               ++
                 # For e2e testing
