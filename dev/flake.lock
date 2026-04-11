@@ -24,11 +24,11 @@
     },
     "src": {
       "locked": {
-        "lastModified": 1775906722,
-        "narHash": "sha256-eVulCkGsFQPGPMdkJfsMWNbHsioE9w7SYOYeA0zuBsY=",
+        "lastModified": 1775907295,
+        "narHash": "sha256-EsTaZ9xFe/tZf+PiaTQVPwMMBUhg7AdzSW7/E65Pfyc=",
         "owner": "akirak",
         "repo": "flake-templates",
-        "rev": "eaaaa4fa551503c697f8198b6f4e0b15fbe0afd0",
+        "rev": "3ac36cdfb1f4ae06601999299236b66be9e71993",
         "type": "github"
       },
       "original": {
