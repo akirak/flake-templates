@@ -26,6 +26,20 @@ jobs:
           cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Update flake.lock files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          while IFS= read -r lockfile; do
+            dir=$(dirname "$lockfile")
+            echo "Updating $lockfile"
+            (
+              cd "$dir"
+              nix flake update
+            )
+          done < <(find . -name flake.lock -type f | sort)
+
       - uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8
         with:
           commit-message: 'Update'
