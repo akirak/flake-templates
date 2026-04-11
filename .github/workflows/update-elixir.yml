@@ -1,0 +1,83 @@
+name: "Update the Elixir version"
+
+on:
+  schedule:
+    - cron: '0 4 4 * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prepare-elixir-version-patches:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config:
+            flake-registry =  https://raw.githubusercontent.com/akirak/flake-pins/master/registry.json
+
+      - name: Prepare patch directory
+        run: mkdir -p generated-patches
+
+      - name: Generate Elixir version patches
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          codex-args: --full-auto
+          prompt-file: .github/skills/update-elixir-versions/SKILL.md
+          sandbox: workspace-write
+
+      - name: Upload generated patches
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: elixir-version-patches
+          path: generated-patches/
+          if-no-files-found: ignore
+
+  update:
+    needs: prepare-elixir-version-patches
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Download generated patches
+        uses: actions/download-artifact@v4
+        with:
+          name: elixir-version-patches
+          path: generated-patches
+        continue-on-error: true
+
+      - name: Apply generated patches
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if compgen -G 'generated-patches/*.patch' > /dev/null; then
+            git apply generated-patches/*.patch
+          fi
+
+      - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        with:
+          commit-message: 'chore: Update the Elixir version'
+          # Use a fine-grained personal access token that can trigger other
+          # workflows
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: master
+          title: 'Update the Elixir version'
+          branch: create-pull-request/update-elixir
+          labels: automation,update

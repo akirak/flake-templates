@@ -1,4 +1,4 @@
-name: Update
+name: "Update flake.lock"
 
 on:
   schedule:
@@ -42,11 +42,11 @@ jobs:
 
       - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
-          commit-message: 'Update'
+          commit-message: 'chore(nix): Update flake.lock'
           # Use a fine-grained personal access token that can trigger other
           # workflows
           token: ${{ secrets.GITHUB_TOKEN }}
           base: master
-          title: 'chore: Update the dependencies'
-          branch: create-pull-request/update
+          title: 'Update flake.lock'
+          branch: create-pull-request/update-flake-lock
           labels: automation,update
