@@ -1,0 +1,31 @@
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+      time: "04:00"
+      timezone: Asia/Tokyo
+    labels:
+      - automation
+      - dependencies
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /doc
+    schedule:
+      interval: weekly
+      day: monday
+      time: "04:30"
+      timezone: Asia/Tokyo
+    labels:
+      - automation
+      - dependencies
+    groups:
+      npm-dependencies:
+        patterns:
+          - "*"
