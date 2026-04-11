@@ -7,13 +7,16 @@ inputs:
   cachix-token:
     description: Auth token for cachix
     required: true
+  github-token:
+    description: GitHub token for actions that need repository API access
+    required: true
 
 runs:
   using: composite
   steps:
     - uses: cachix/install-nix-action@v31
       with:
-        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+        github_access_token: ${{ inputs.github-token }}
         extra_nix_config:
           flake-registry =  https://raw.githubusercontent.com/akirak/flake-pins/master/registry.json
 
