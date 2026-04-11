@@ -11,14 +11,14 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
-    "@astrojs/markdoc": "^0.15.11",
-    "@astrojs/starlight": "^0.37.7",
-    "@astrojs/starlight-markdoc": "^0.5.1",
-    "astro": "^5.18.1",
+    "@astrojs/markdoc": "^1.0.3",
+    "@astrojs/starlight": "^0.38.3",
+    "@astrojs/starlight-markdoc": "^0.6.0",
+    "astro": "^6.1.5",
     "sharp": "^0.34.5",
-    "starlight-llms-txt": "^0.7.0",
+    "starlight-llms-txt": "^0.8.0",
     "starlight-theme-catppuccin": "^2.0.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "pnpm": {
     "overrides": {
