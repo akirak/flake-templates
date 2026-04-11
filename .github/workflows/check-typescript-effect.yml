@@ -3,8 +3,8 @@ name: Check typescript-effect
 on:
   push:
     paths:
-    - typescript-effect/**
-    - .github/workflows/check-typescript-effect.yml
+      - typescript-effect/**
+      - .github/workflows/check-typescript-effect.yml
   workflow_dispatch:
   workflow_call:
 
@@ -18,20 +18,20 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-    - uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31
-      with:
-        extra_nix_config: |
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-      with:
-        path: ./tmp
-    - run: nix flake new -t ./tmp#typescript-effect ./work
-    - name: Prepare the project
-      working-directory: work
-      run: |
-        git init
-        git add .
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+        with:
+          path: ./tmp
+      - run: nix flake new -t ./tmp#typescript-effect ./work
+      - name: Prepare the project
+        working-directory: work
+        run: |
+          git init
+          git add .
 
-    - run: nix develop -L -c tsgo --version
-      working-directory: work
+      - run: nix develop -L -c tsgo --version
+        working-directory: work

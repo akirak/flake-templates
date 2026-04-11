@@ -17,29 +17,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
-    - uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31
-      with:
-        extra_nix_config: |
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-    - name: Update Erlang and Elixir
-      run: nix run ./dev#update-beam --update-input nixpkgs --no-write-lock-file
-      continue-on-error: true
-      id: updated
+      - name: Update Erlang and Elixir
+        run: nix run ./dev#update-beam --update-input nixpkgs --no-write-lock-file
+        continue-on-error: true
+        id: updated
 
-    - name: Roll back if there is no modification
-      run: git reset --hard ${{ github.sha }}
-      if: ${{ steps.updated.outcome == 'failure' }}
+      - name: Roll back if there is no modification
+        run: git reset --hard ${{ github.sha }}
+        if: ${{ steps.updated.outcome == 'failure' }}
 
-    - uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8
-      with:
-        commit-message: 'Update'
-        # Use a fine-grained personal access token that can trigger other
-        # workflows
-        token: ${{ secrets.PAT_FOR_PR }}
-        base: master
-        title: 'chore: Update flake inputs'
-        branch: create-pull-request/update
-        labels: automation,update
+      - uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8
+        with:
+          commit-message: 'Update'
+          # Use a fine-grained personal access token that can trigger other
+          # workflows
+          token: ${{ secrets.PAT_FOR_PR }}
+          base: master
+          title: 'chore: Update flake inputs'
+          branch: create-pull-request/update
+          labels: automation,update
