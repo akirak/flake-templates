@@ -42,7 +42,7 @@ jobs:
 
       - name: Upload generated patches
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: elixir-version-patches
           path: generated-patches/
@@ -60,7 +60,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       - name: Download generated patches
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: elixir-version-patches
           path: generated-patches
