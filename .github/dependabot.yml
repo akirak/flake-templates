@@ -14,6 +14,7 @@ updates:
       github-actions:
         patterns:
           - "*"
+    versioning-strategy: "lockfile-only"
 
   - package-ecosystem: npm
     directory: /doc
