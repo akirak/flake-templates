@@ -81,6 +81,7 @@ jobs:
           fi
 
       - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        id: cpr
         with:
           commit-message: 'chore: Update the Elixir version'
           token: ${{ steps.generate-token.outputs.token }}
@@ -88,3 +89,11 @@ jobs:
           title: 'Update the Elixir version'
           branch: create-pull-request/update-elixir
           labels: automation,update
+
+      - name: Auto-merge
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        run: |
+          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} \
+            --delete-branch --merge --auto
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
