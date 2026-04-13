@@ -56,7 +56,7 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/create-github-app-token@v2
+      - uses: actions/create-github-app-token@v3
         id: generate-token
         with:
           app-id: ${{ secrets.CREATE_PR_APP_ID }}
