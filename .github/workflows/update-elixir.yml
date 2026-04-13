@@ -53,10 +53,15 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
 
     steps:
+      - uses: actions/create-github-app-token@v2
+        id: generate-token
+        with:
+          app-id: ${{ secrets.CREATE_PR_APP_ID }}
+          private-key: ${{ secrets.CREATE_PR_APP_PRIVATE_KEY }}
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       - name: Download generated patches
@@ -78,9 +83,7 @@ jobs:
       - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
           commit-message: 'chore: Update the Elixir version'
-          # Use a fine-grained personal access token that can trigger other
-          # workflows
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
           base: master
           title: 'Update the Elixir version'
           branch: create-pull-request/update-elixir
