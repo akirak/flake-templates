@@ -167,9 +167,8 @@ nix flake init -t github:akirak/flake-templates#ocaml-basic
 
 This template contains a simple development environment for Python with
 [uv](https://docs.astral.sh/uv/) as the package manager and
-[BasedPyright](https://github.com/DetachHead/basedpyright) as the language
-server. It is basic but sufficient for LSP, and can be effortlessly added to an
-existing project:
+[ty](https://docs.astral.sh/ty/) for type checking. It can be effortlessly
+added to an existing project:
 
 ``` bash
 nix flake init -t github:akirak/flake-templates#python-uv-simple
