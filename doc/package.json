@@ -12,14 +12,14 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
-    "@astrojs/markdoc": "^1.0.3",
-    "@astrojs/starlight": "^0.38.3",
+    "@astrojs/markdoc": "^1.0.4",
+    "@astrojs/starlight": "^0.38.4",
     "@astrojs/starlight-markdoc": "^0.6.0",
     "@catppuccin/starlight": "^2.0.1",
-    "astro": "^6.1.7",
+    "astro": "^6.1.9",
     "sharp": "^0.34.5",
-    "starlight-llms-txt": "^0.8.0",
-    "typescript": "^6.0.2"
+    "starlight-llms-txt": "^0.8.1",
+    "typescript": "^6.0.3"
   },
   "pnpm": {
     "overrides": {
