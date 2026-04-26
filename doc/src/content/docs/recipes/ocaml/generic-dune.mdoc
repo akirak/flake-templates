@@ -232,12 +232,11 @@ To run sherlodoc, follow this instruction.
 
    ```diff lang="nix" title="flake.nix"
          devShells = eachSystem (
-           { pkgs, ocamlPackages, ... }:
-           {
+           system: pkgs: {
              default = pkgs.mkShell {
-               inputsFrom = [ self.packages.${pkgs.stdenv.hostPlatform.system}.default ];
+               inputsFrom = [ self.packages.${system}.default ];
                buildInputs = (
-                 with ocamlPackages;
+                 with pkgs.ocamlPackages;
                  [
                    ocaml-lsp
                    ocamlformat

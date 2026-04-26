@@ -92,7 +92,7 @@ project. Below are some links:
 
    ```nix
     {
-      devShells = eachSystem (pkgs: {
+      devShells = eachSystem (_system: pkgs: {
         default = pkgs.mkShell {
           buildInputs = [
             ...
@@ -112,7 +112,7 @@ Open `flake.nix` and comment out the corresponding package name in the `package`
 field of the default shell, depending on the package manager of your choice.
 
    ```diff lang="nix" title="flake.nix"
-         devShells = eachSystem (pkgs: {
+         devShells = eachSystem (_system: pkgs: {
            default = pkgs.mkShell {
              buildInputs = [
                pkgs.nodejs
