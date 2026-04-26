@@ -39,8 +39,8 @@ To use nix-systems, follow these steps:
    ```diff lang="nix" title="flake.nix"
       eachSystem =
         f:
-   -    nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
-   +    nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+   -    nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f system nixpkgs.legacyPackages.${system});
+   +    nixpkgs.lib.genAttrs (import systems) (system: f system nixpkgs.legacyPackages.${system});
    ```
 
 {% /steps %}

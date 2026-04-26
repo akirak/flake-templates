@@ -16,7 +16,7 @@
         f:
         nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
           system:
-          f (
+          f system (
             nixpkgs.legacyPackages.${system}.extend (
               _self: super: {
                 # You can set the OCaml version to a particular release. Also, you
@@ -30,7 +30,7 @@
     in
     {
       packages = eachSystem (
-        pkgs: with pkgs; {
+        _system: pkgs: with pkgs; {
           default = ocamlPackages.buildDunePackage {
             pname = throw "Name your OCaml package";
             version = throw "Version your OCaml package";
@@ -62,9 +62,9 @@
         }
       );
 
-      devShells = eachSystem (pkgs: {
+      devShells = eachSystem (system: pkgs: {
         default = pkgs.mkShell {
-          inputsFrom = [ self.packages.${pkgs.system}.default ];
+          inputsFrom = [ self.packages.${system}.default ];
           packages = (
             with pkgs.ocamlPackages;
             [

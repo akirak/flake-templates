@@ -53,7 +53,7 @@ To expose the program as a Nix flake package, comment out the stub inside
 1. Adapt `pname` and `version` to match your package information:
 
    ```diff lang="nix" title="flake.nix"
-         packages = eachSystem (pkgs: {
+         packages = eachSystem (_system: pkgs: {
            default = pkgs.buildGoModule {
    -         pname = "hello";
    +         pname = "your-go-program";
@@ -77,7 +77,7 @@ To expose the program as a Nix flake package, comment out the stub inside
    the output.
 
    ```diff lang="nix" title="flake.nix"
-         packages = eachSystem (pkgs: {
+         packages = eachSystem (_system: pkgs: {
            default = pkgs.buildGoModule {
              ...intensionaly omitted
              src = self.outPath;
