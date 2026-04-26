@@ -19,7 +19,7 @@
         f:
         nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
           system:
-          f (
+          f system (
             import nixpkgs {
               inherit system;
               overlays = [
@@ -41,10 +41,10 @@
         );
     in
     {
-      # packages = eachSystem (pkgs:
+      # packages = eachSystem (_system: pkgs:
       # );
 
-      devShells = eachSystem (pkgs: {
+      devShells = eachSystem (_system: pkgs: {
         default = pkgs.mkShell {
           buildInputs = with pkgs; [
             erlang

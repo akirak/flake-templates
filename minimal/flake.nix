@@ -8,14 +8,18 @@
   outputs =
     { nixpkgs, ... }@inputs:
     let
-      eachSystem = f: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
+      eachSystem =
+        f:
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+          system: f system nixpkgs.legacyPackages.${system}
+        );
     in
     {
-      packages = eachSystem (pkgs: {
+      packages = eachSystem (_system: pkgs: {
         hello = pkgs.hello;
       });
 
-      devShells = eachSystem (pkgs: {
+      devShells = eachSystem (_system: pkgs: {
         default = pkgs.mkShell {
           buildInputs = with pkgs; [
             # Add development dependencies here

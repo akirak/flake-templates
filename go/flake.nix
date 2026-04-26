@@ -29,35 +29,42 @@
     let
       inherit (nixpkgs) lib;
       eachSystem =
-        f: lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
+        f:
+        lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f system nixpkgs.legacyPackages.${system});
 
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+      treefmtEval = eachSystem (_system: pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
       # Build executables. See https://nixos.org/manual/nixpkgs/stable/#sec-language-go
-      packages = eachSystem (pkgs: {
-        # default = pkgs.buildGoModule {
-        #   pname = "hello";
-        #   version = builtins.substring 0 8 (self.lastModifiedDate or "19700101");
-        #   src = self.outPath;
-        #   vendorHash = lib.fakeHash;
-        #   meta = { };
-        # };
-      });
+      packages = eachSystem (
+        system: pkgs: {
+          # default = pkgs.buildGoModule {
+          #   pname = "hello";
+          #   version = builtins.substring 0 8 (self.lastModifiedDate or "19700101");
+          #   src = self.outPath;
+          #   vendorHash = lib.fakeHash;
+          #   meta = { };
+          # };
+        }
+      );
 
-      devShells = eachSystem (pkgs: {
-        default = pkgs.mkShell {
-          packages = [
-            pkgs.go
-            pkgs.gopls
-          ];
-        };
-      });
+      devShells = eachSystem (
+        system: pkgs: {
+          default = pkgs.mkShell {
+            packages = [
+              pkgs.go
+              pkgs.gopls
+            ];
+          };
+        }
+      );
 
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
+      formatter = eachSystem (system: pkgs: treefmtEval.${system}.config.build.wrapper);
 
-      checks = eachSystem (pkgs: {
-        treefmt = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
-      });
+      checks = eachSystem (
+        system: pkgs: {
+          treefmt = treefmtEval.${system}.config.build.check self;
+        }
+      );
     };
 }

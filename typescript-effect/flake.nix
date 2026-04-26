@@ -11,14 +11,14 @@
 
       eachSystem =
         f:
-        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+          system: f system nixpkgs.legacyPackages.${system}
+        );
     in
     {
       devShells = eachSystem (
-        pkgs:
+        system: pkgs:
         let
-          inherit (pkgs.stdenv.hostPlatform) system;
-
           buildDeps = [
             pkgs.nodejs
             pkgs.corepack

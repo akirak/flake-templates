@@ -19,16 +19,18 @@
     let
       eachSystem =
         f:
-        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+          system: f system nixpkgs.legacyPackages.${system}
+        );
 
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+      treefmtEval = eachSystem (_system: pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
-      packages = eachSystem (pkgs: {
+      packages = eachSystem (_system: pkgs: {
         # default = pkgs.hello;
       });
 
-      devShells = eachSystem (pkgs: {
+      devShells = eachSystem (_system: pkgs: {
         default = pkgs.mkShell (
           with pkgs;
           {
@@ -40,12 +42,12 @@
       });
 
       # Run `nix fmt [FILE_OR_DIR]...` to execute formatters configured in treefmt.nix.
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
+      formatter = eachSystem (system: _pkgs: treefmtEval.${system}.config.build.wrapper);
 
-      checks = eachSystem (pkgs: {
+      checks = eachSystem (system: _pkgs: {
         # Throws an error if any of the source files are not correctly formatted
         # when you run `nix flake check --print-build-logs`. Useful for CI
-        treefmt = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
+        treefmt = treefmtEval.${system}.config.build.check self;
       });
     };
 }

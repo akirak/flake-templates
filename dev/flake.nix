@@ -21,10 +21,11 @@
       ...
     }@inputs:
     let
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      eachSystem =
+        f: nixpkgs.lib.genAttrs (import systems) (system: f system nixpkgs.legacyPackages.${system});
 
       treefmtEval = eachSystem (
-        pkgs:
+        system: pkgs:
         treefmt-nix.lib.evalModule pkgs {
           projectRootFile = "flake.nix";
           programs.nixfmt.enable = true;
@@ -32,10 +33,12 @@
       );
     in
     {
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
+      formatter = eachSystem (system: pkgs: treefmtEval.${system}.config.build.wrapper);
 
-      checks = eachSystem (pkgs: {
-        treefmt = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
-      });
+      checks = eachSystem (
+        system: pkgs: {
+          treefmt = treefmtEval.${system}.config.build.check self;
+        }
+      );
     };
 }

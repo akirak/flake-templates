@@ -12,7 +12,7 @@
         f:
         nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
           system:
-          f (
+          f system (
             nixpkgs.legacyPackages.${system}.extend (
               _self: super: {
                 # You can set the OCaml version to a particular release. Also, you
@@ -25,7 +25,7 @@
         );
     in
     {
-      devShells = eachSystem (pkgs: {
+      devShells = eachSystem (_system: pkgs: {
         default = pkgs.mkShell {
           # If your project isn't using dune, it probably still depends on make,
           # opam, or something else.

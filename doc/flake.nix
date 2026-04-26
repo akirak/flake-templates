@@ -18,12 +18,12 @@
       ...
     }:
     let
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f system nixpkgs.legacyPackages.${system});
 
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+      treefmtEval = eachSystem (_system: pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
-      devShells = eachSystem (pkgs: {
+      devShells = eachSystem (_system: pkgs: {
         default = pkgs.mkShell {
           packages = [
             pkgs.nodejs
@@ -33,10 +33,10 @@
         };
       });
 
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
+      formatter = eachSystem (system: _pkgs: treefmtEval.${system}.config.build.wrapper);
 
-      checks = eachSystem (pkgs: {
-        treefmt = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
+      checks = eachSystem (system: _pkgs: {
+        treefmt = treefmtEval.${system}.config.build.check self;
       });
     };
 }

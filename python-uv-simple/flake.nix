@@ -10,10 +10,12 @@
     let
       eachSystem =
         f:
-        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+          system: f system nixpkgs.legacyPackages.${system}
+        );
     in
     {
-      devShells = eachSystem (pkgs: {
+      devShells = eachSystem (_system: pkgs: {
         default = pkgs.mkShell {
           buildInputs = [
             pkgs.python3
