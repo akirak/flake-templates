@@ -14,8 +14,6 @@ updates:
       github-actions:
         patterns:
           - "*"
-    cooldown:
-      default-days: 3
 
   - package-ecosystem: npm
     directory: /doc
