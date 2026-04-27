@@ -33,7 +33,7 @@ jobs:
             > elixir-packages.json
 
       - name: Generate Elixir version patches
-        uses: openai/codex-action@v1
+        uses: openai/codex-action@v1.6
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           codex-args: --full-auto
