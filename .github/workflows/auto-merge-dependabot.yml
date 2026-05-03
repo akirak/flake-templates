@@ -35,7 +35,7 @@ jobs:
       - name: Merge
         if: steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'
         run: |
-          gh pr merge "$PR_URL" --delete-branch --merge --auto
+          gh pr merge "$PR_URL" --delete-branch --squash --auto
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
