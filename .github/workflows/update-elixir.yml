@@ -94,6 +94,6 @@ jobs:
         if: steps.cpr.outputs.pull-request-operation == 'created'
         run: |
           gh pr merge ${{ steps.cpr.outputs.pull-request-number }} \
-            --delete-branch --merge --auto
+            --delete-branch --squash --auto
         env:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
