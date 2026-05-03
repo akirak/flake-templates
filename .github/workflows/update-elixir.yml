@@ -80,10 +80,22 @@ jobs:
             git apply generated-patches/*.patch
           fi
 
+      - name: Get the app user ID
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/${{ steps.generate-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+
+      - name: Get the app user string
+        id: get-user-string
+        run: echo "string=${{ steps.generate-token.outputs.app-slug }}[bot] <${{ steps.get-user-id.outputs.user-id }}+${{ steps.generate-token.outputs.app-slug }}[bot]@users.noreply.github.com>"  >> "$GITHUB_OUTPUT"
+
       - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         id: cpr
         with:
           commit-message: 'chore: Update the Elixir version'
+          committer: ${{ steps.get-user-string.outputs.string }}
+          author: ${{ steps.get-user-string.outputs.string }}
           token: ${{ steps.generate-token.outputs.token }}
           base: master
           title: 'Update the Elixir version'
