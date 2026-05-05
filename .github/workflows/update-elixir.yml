@@ -1,4 +1,4 @@
-name: "Update the Elixir version"
+name: "Update the Erlang and Elixir versions"
 
 on:
   schedule:
@@ -37,7 +37,7 @@ jobs:
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           codex-args: --full-auto
-          prompt-file: .github/skills/update-elixir-versions/SKILL.md
+          prompt-file: .github/skills/update-beam-versions/SKILL.md
           sandbox: workspace-write
 
       - name: Upload generated patches
