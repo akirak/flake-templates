@@ -14,31 +14,36 @@
           system: f system nixpkgs.legacyPackages.${system}
         );
 
-      erlang_version = "erlang_27";
+      beamVersion = "beam28Packages";
     in
     {
       packages = eachSystem (_system: pkgs: { });
 
-      devShells = eachSystem (_system: pkgs: {
-        default = pkgs.mkShell {
-          buildInputs =
-            with pkgs;
-            (
-              [
-                gleam
-                beam.interpreters.${erlang_version}
-                beam.packages.${erlang_version}.rebar3
-              ]
-              ++ lib.optional stdenv.isLinux inotify-tools
-              ++ (lib.optionals stdenv.isDarwin (
-                with darwin.apple_sdk.frameworks;
+      devShells = eachSystem (
+        _system: pkgs: {
+          default = pkgs.mkShell {
+            buildInputs =
+              let
+                beamPackages = pkgs.${beamVersion};
+              in
+              with pkgs;
+              (
                 [
-                  CoreFoundation
-                  CoreServices
+                  gleam
+                  beamPackages.erlang
+                  beamPackages.rebar3
                 ]
-              ))
-            );
-        };
-      });
+                ++ lib.optional stdenv.isLinux inotify-tools
+                ++ (lib.optionals stdenv.isDarwin (
+                  with darwin.apple_sdk.frameworks;
+                  [
+                    CoreFoundation
+                    CoreServices
+                  ]
+                ))
+              );
+          };
+        }
+      );
     };
 }
