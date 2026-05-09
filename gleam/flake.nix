@@ -8,6 +8,8 @@
   outputs =
     { nixpkgs, ... }@inputs:
     let
+      inherit (nixpkgs) lib;
+
       eachSystem =
         f:
         nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
@@ -22,26 +24,22 @@
       devShells = eachSystem (
         _system: pkgs: {
           default = pkgs.mkShell {
-            buildInputs =
-              let
-                beamPackages = pkgs.${beamVersion};
-              in
-              with pkgs;
-              (
-                [
-                  gleam
-                  beamPackages.erlang
-                  beamPackages.rebar3
-                ]
-                ++ lib.optional stdenv.isLinux inotify-tools
-                ++ (lib.optionals stdenv.isDarwin (
-                  with darwin.apple_sdk.frameworks;
-                  [
-                    CoreFoundation
-                    CoreServices
-                  ]
-                ))
-              );
+            buildInputs = [
+              pkgs.gleam
+              pkgs.${beamVersion}.erlang
+              pkgs.${beamVersion}.rebar3
+              pkgs.nodejs
+              pkgs.corepack
+              pkgs.typescript-go
+            ]
+            ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
+            ++ (lib.optionals pkgs.stdenv.isDarwin (
+              with pkgs.darwin.apple_sdk.frameworks;
+              [
+                CoreFoundation
+                CoreServices
+              ]
+            ));
           };
         }
       );
