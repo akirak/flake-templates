@@ -15,14 +15,16 @@
         );
     in
     {
-      devShells = eachSystem (_system: pkgs: {
-        default = pkgs.mkShell {
-          buildInputs = [
-            pkgs.python3
-            pkgs.uv
-            pkgs.basedpyright
-          ];
-        };
-      });
+      devShells = eachSystem (
+        _system: pkgs: {
+          default = pkgs.mkShell {
+            buildInputs = [
+              pkgs.python3
+              pkgs.uv
+              pkgs.basedpyright
+            ];
+          };
+        }
+      );
     };
 }
