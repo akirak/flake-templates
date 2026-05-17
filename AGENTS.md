@@ -86,6 +86,14 @@ Most templates follow this pattern:
 - Each language-specific template should have at least one corresponding
   documentation in `/doc`
 
+## Licensing
+
+- Add SPDX license headers to every file that supports comments.
+- Ensure every file in the repository is covered by `REUSE.toml`, including
+  files that cannot contain license headers.
+- When adding, moving, or deleting files, update `REUSE.toml` in the same
+  change so REUSE coverage remains complete.
+
 ## Special Templates
 
 - **typescript-effect**: Opinionated setup with Effect-TS, ESLint, lefthook

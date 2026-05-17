@@ -9,6 +9,12 @@ permissions:
 
 jobs:
   merge:
+    # dependabot-metadata fails on non-dependabot PRs, so this guard is still
+    # necessary.
+    if: | # zizmor: ignore[bot-conditions]
+      github.actor == 'dependabot[bot]'
+      && github.event.pull_request.user.login == 'dependabot[bot]'
+
     runs-on: ubuntu-latest
 
     permissions:

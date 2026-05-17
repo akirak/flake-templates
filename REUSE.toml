@@ -1,0 +1,16 @@
+version = 1
+SPDX-PackageName = "flake-templates"
+SPDX-PackageSupplier = "Akira Komamura"
+SPDX-PackageDownloadLocation = "https://github.com/akirak/flake-templates"
+
+[[annotations]]
+path = [".github/**", ".gitattributes", ".gitignore", "AGENTS.md", "CONTRIBUTING.md", "README.md", "dev/flake.lock", "dev/flake.nix", "doc/.editorconfig", "doc/.envrc", "doc/.gitignore", "doc/.vscode/**", "doc/astro.config.mjs", "doc/flake.lock", "doc/markdoc.config.mjs", "doc/package.json", "doc/pnpm-lock.yaml", "doc/public/favicon.svg", "doc/src/env.d.ts", "doc/tsconfig.json", "LICENSES/**", "meta/.github/**", "meta/.gitignore"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2021-2026 Akira Komamura"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["elixir/**", "elixir-app/**", "flake-parts/**", "flake-utils/**", "gleam/**", "go/**", "java/**", "minimal/**", "node-typescript/**", "ocaml-dune/**", "pre-commit/**", "python-uv-simple/**", "rust/**", "treefmt/**", "typescript-effect/**", "zig/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2021-2026 Akira Komamura"
+SPDX-License-Identifier = "Unlicense"
