@@ -7,6 +7,16 @@ description: How to develop an Elixir Phoenix with a Nix flake template
 In this tutorial, you will learn how to add `flake.nix` to an Elixir Phoenix
 project.
 
+{% aside type="note" %}
+[nix-beam-flakes](https://github.com/elixir-tools/nix-beam-flakes) provides
+flake templates for Elixir projects. Its `phoenix` template may be more
+recommended than the template used in these instructions.
+
+   ```shell
+   nix flake init -t github:elixir-tools/nix-beam-flakes#phoenix
+   ```
+{% /aside %}
+
 ## Initialize a new project
 
 {% aside type="note" %}
