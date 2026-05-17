@@ -17,7 +17,7 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/create-github-app-token@v3
+      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
         id: generate-token
         with:
           app-id: ${{ secrets.CREATE_PR_APP_ID }}
@@ -26,6 +26,8 @@ jobs:
           permission-pull-requests: write
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
 
       - name: Set up Nix
         uses: ./.github/actions/setup-nix
@@ -49,13 +51,17 @@ jobs:
 
       - name: Get the app user ID
         id: get-user-id
-        run: echo "user-id=$(gh api "/users/${{ steps.generate-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        run: echo "user-id=$(gh api \"/users/${APP_SLUG}[bot]\" --jq .id)" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          APP_SLUG: ${{ steps.generate-token.outputs.app-slug }}
 
       - name: Get the app user string
         id: get-user-string
-        run: echo "string=${{ steps.generate-token.outputs.app-slug }}[bot] <${{ steps.get-user-id.outputs.user-id }}+${{ steps.generate-token.outputs.app-slug }}[bot]@users.noreply.github.com>"  >> "$GITHUB_OUTPUT"
+        run: echo "string=${APP_SLUG}[bot] <${USER_ID}+${APP_SLUG}[bot]@users.noreply.github.com>" >> "$GITHUB_OUTPUT"
+        env:
+          APP_SLUG: ${{ steps.generate-token.outputs.app-slug }}
+          USER_ID: ${{ steps.get-user-id.outputs.user-id }}
 
       - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         id: cpr
@@ -74,7 +80,8 @@ jobs:
       - name: Auto-merge
         if: steps.cpr.outputs.pull-request-operation == 'created'
         run: |
-          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} \
+          gh pr merge "$PR_NUMBER" \
             --delete-branch --squash --auto
         env:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
