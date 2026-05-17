@@ -15,16 +15,20 @@
         );
     in
     {
-      packages = eachSystem (_system: pkgs: {
-        hello = pkgs.hello;
-      });
+      packages = eachSystem (
+        _system: pkgs: {
+          hello = pkgs.hello;
+        }
+      );
 
-      devShells = eachSystem (_system: pkgs: {
-        default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            # Add development dependencies here
-          ];
-        };
-      });
+      devShells = eachSystem (
+        _system: pkgs: {
+          default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              # Add development dependencies here
+            ];
+          };
+        }
+      );
     };
 }

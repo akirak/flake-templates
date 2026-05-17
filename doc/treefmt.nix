@@ -29,7 +29,8 @@
             quoteStyle = "double";
             trailingComma = "all";
             semicolons = "always";
-          } // shared;
+          }
+          // shared;
         };
 
         json.formatter = shared;

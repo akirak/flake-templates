@@ -17,38 +17,40 @@
         );
     in
     {
-      devShells = eachSystem (_system: pkgs: {
-        default = pkgs.mkShell {
-          packages = [
-            pkgs.nodejs
+      devShells = eachSystem (
+        _system: pkgs: {
+          default = pkgs.mkShell {
+            packages = [
+              pkgs.nodejs
 
-            # Alternatively, you can use a specific major version of Node.js
+              # Alternatively, you can use a specific major version of Node.js
 
-            # pkgs.nodejs-22_x
+              # pkgs.nodejs-22_x
 
-            # Use corepack to install npm/pnpm/yarn as specified in package.json
-            pkgs.corepack
+              # Use corepack to install npm/pnpm/yarn as specified in package.json
+              pkgs.corepack
 
-            # To install a specific alternative package manager directly,
-            # comment out one of these to use an alternative package manager.
+              # To install a specific alternative package manager directly,
+              # comment out one of these to use an alternative package manager.
 
-            # pkgs.yarn
-            # pkgs.pnpm
-            # pkgs.bun
+              # pkgs.yarn
+              # pkgs.pnpm
+              # pkgs.bun
 
-            # Required to enable the language server
-            pkgs.typescript
-            pkgs.typescript-language-server
+              # Required to enable the language server
+              pkgs.typescript
+              pkgs.typescript-language-server
 
-            # Alternatively, you can use the language server of the preview
-            # version of TypeScript.
-            # pkgs.typescript-go
+              # Alternatively, you can use the language server of the preview
+              # version of TypeScript.
+              # pkgs.typescript-go
 
-            # Python is required on NixOS if the dependencies require node-gyp
+              # Python is required on NixOS if the dependencies require node-gyp
 
-            # pkgs.python3
-          ];
-        };
-      });
+              # pkgs.python3
+            ];
+          };
+        }
+      );
     };
 }

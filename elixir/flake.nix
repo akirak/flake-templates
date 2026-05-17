@@ -44,14 +44,16 @@
       # packages = eachSystem (_system: pkgs:
       # );
 
-      devShells = eachSystem (_system: pkgs: {
-        default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            erlang
-            elixir
-            elixir-ls
-          ];
-        };
-      });
+      devShells = eachSystem (
+        _system: pkgs: {
+          default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              erlang
+              elixir
+              elixir-ls
+            ];
+          };
+        }
+      );
     };
 }

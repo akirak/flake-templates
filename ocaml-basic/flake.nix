@@ -25,30 +25,32 @@
         );
     in
     {
-      devShells = eachSystem (_system: pkgs: {
-        default = pkgs.mkShell {
-          # If your project isn't using dune, it probably still depends on make,
-          # opam, or something else.
-          packages = (
-            (with pkgs.ocamlPackages; [
-              ocaml
-              ocaml-lsp
-              ocamlformat
-              ocp-indent
-              utop
-              # Optional; Enable one of these dependencies if your project uses
-              # it.
-              # ocamlbuild
-              # opam
-            ])
-            # Although Make isn't a strict requirement for development with
-            # OCaml, many projects uses it as the build system.
-            # ++ [
-            #   pkgs.gnumake
-            #   pkgs.gdb
-            # ]
-          );
-        };
-      });
+      devShells = eachSystem (
+        _system: pkgs: {
+          default = pkgs.mkShell {
+            # If your project isn't using dune, it probably still depends on make,
+            # opam, or something else.
+            packages = (
+              (with pkgs.ocamlPackages; [
+                ocaml
+                ocaml-lsp
+                ocamlformat
+                ocp-indent
+                utop
+                # Optional; Enable one of these dependencies if your project uses
+                # it.
+                # ocamlbuild
+                # opam
+              ])
+              # Although Make isn't a strict requirement for development with
+              # OCaml, many projects uses it as the build system.
+              # ++ [
+              #   pkgs.gnumake
+              #   pkgs.gdb
+              # ]
+            );
+          };
+        }
+      );
     };
 }

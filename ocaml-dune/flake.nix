@@ -62,28 +62,30 @@
         }
       );
 
-      devShells = eachSystem (system: pkgs: {
-        default = pkgs.mkShell {
-          inputsFrom = [ self.packages.${system}.default ];
-          packages = (
-            with pkgs.ocamlPackages;
-            [
-              ocaml-lsp
-              ocamlformat
-              ocp-indent
-              utop
-              # Needed for generating documentation
-              opam
-              odoc
-              odig
-              # This may fail to build, so it is turned off by default.
-              # (sherlodoc.override { enableServe = true; })
-            ]
-          )
-          # Enable file watcher.
-          # ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
-          ;
-        };
-      });
+      devShells = eachSystem (
+        system: pkgs: {
+          default = pkgs.mkShell {
+            inputsFrom = [ self.packages.${system}.default ];
+            packages = (
+              with pkgs.ocamlPackages;
+              [
+                ocaml-lsp
+                ocamlformat
+                ocp-indent
+                utop
+                # Needed for generating documentation
+                opam
+                odoc
+                odig
+                # This may fail to build, so it is turned off by default.
+                # (sherlodoc.override { enableServe = true; })
+              ]
+            )
+            # Enable file watcher.
+            # ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
+            ;
+          };
+        }
+      );
     };
 }
