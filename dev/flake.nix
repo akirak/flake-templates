@@ -21,6 +21,8 @@
       ...
     }@inputs:
     let
+      inherit (nixpkgs) lib;
+
       eachSystem =
         f: nixpkgs.lib.genAttrs (import systems) (system: f system nixpkgs.legacyPackages.${system});
 
@@ -31,13 +33,16 @@
           programs.nixfmt.enable = true;
         }
       );
+
+      src = lib.cleanSource inputs.src;
     in
     {
       formatter = eachSystem (system: pkgs: treefmtEval.${system}.config.build.wrapper);
 
       checks = eachSystem (
         system: pkgs: {
-          treefmt = treefmtEval.${system}.config.build.check self;
+          treefmt = treefmtEval.${system}.config.build.check src;
+
         }
       );
     };
