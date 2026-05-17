@@ -8,6 +8,8 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    git-hooks.url = "github:cachix/git-hooks.nix";
+
     # To be overridden during execution
     src.url = "github:akirak/flake-templates";
   };
@@ -43,6 +45,12 @@
         system: pkgs: {
           treefmt = treefmtEval.${system}.config.build.check src;
 
+          pre-commit-check = inputs.git-hooks.lib.${system}.run {
+            inherit src;
+            hooks = {
+              zizmor.enable = true;
+            };
+          };
         }
       );
     };
