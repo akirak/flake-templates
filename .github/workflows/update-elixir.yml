@@ -18,8 +18,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
 
-      - uses: cachix/install-nix-action@v31
+      - uses: cachix/install-nix-action@616559265b40713947b9c190a8ff4b507b5df49b # v31.10.4
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -33,7 +35,7 @@ jobs:
             > elixir-packages.json
 
       - name: Generate Elixir version patches
-        uses: openai/codex-action@v1.8
+        uses: openai/codex-action@e0fdf01220eb9a88167c4898839d273e3f2609d1 # v1.8
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           codex-args: --full-auto
@@ -42,7 +44,7 @@ jobs:
 
       - name: Upload generated patches
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: elixir-version-patches
           path: generated-patches/
@@ -56,16 +58,18 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/create-github-app-token@v3
+      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
         id: generate-token
         with:
           app-id: ${{ secrets.CREATE_PR_APP_ID }}
           private-key: ${{ secrets.CREATE_PR_APP_PRIVATE_KEY }}
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
 
       - name: Download generated patches
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           name: elixir-version-patches
           path: generated-patches
@@ -82,13 +86,17 @@ jobs:
 
       - name: Get the app user ID
         id: get-user-id
-        run: echo "user-id=$(gh api "/users/${{ steps.generate-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        run: echo "user-id=$(gh api \"/users/${APP_SLUG}[bot]\" --jq .id)" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          APP_SLUG: ${{ steps.generate-token.outputs.app-slug }}
 
       - name: Get the app user string
         id: get-user-string
-        run: echo "string=${{ steps.generate-token.outputs.app-slug }}[bot] <${{ steps.get-user-id.outputs.user-id }}+${{ steps.generate-token.outputs.app-slug }}[bot]@users.noreply.github.com>"  >> "$GITHUB_OUTPUT"
+        run: echo "string=${APP_SLUG}[bot] <${USER_ID}+${APP_SLUG}[bot]@users.noreply.github.com>" >> "$GITHUB_OUTPUT"
+        env:
+          APP_SLUG: ${{ steps.generate-token.outputs.app-slug }}
+          USER_ID: ${{ steps.get-user-id.outputs.user-id }}
 
       - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         id: cpr
@@ -105,7 +113,8 @@ jobs:
       - name: Auto-merge
         if: steps.cpr.outputs.pull-request-operation == 'created'
         run: |
-          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} \
+          gh pr merge "$PR_NUMBER" \
             --delete-branch --squash --auto
         env:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}

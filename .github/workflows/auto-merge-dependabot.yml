@@ -18,7 +18,7 @@ jobs:
       pull-requests: read
 
     steps:
-      - uses: actions/create-github-app-token@v3
+      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
         id: generate-token
         with:
           app-id: ${{ secrets.CREATE_PR_APP_ID }}
@@ -28,7 +28,7 @@ jobs:
 
       - name: Dependabot metadata
         id: dependabot-metadata
-        uses: dependabot/fetch-metadata@v3
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3
         with:
           github-token: ${{ github.token }}
 
