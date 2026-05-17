@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2021-2026 Akira Komamura
+# SPDX-License-Identifier: Unlicense
 {
   inputs.nixpkgs.url = "github:nix-ocaml/nix-overlays";
 
