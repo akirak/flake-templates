@@ -356,6 +356,8 @@ Here is a list of recommendations for specific use cases:
 
 - [lenianiva/lean4-nix](https://github.com/lenianiva/lean4-nix) provides flake
   templates for Lean 4.
+- [nix-beam-flakes](https://github.com/elixir-tools/nix-beam-flakes) provides
+  templates for Elixir.
 
 The following is a list of template repositories I found on GitHub:
 
