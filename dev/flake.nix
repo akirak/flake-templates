@@ -49,6 +49,7 @@
             inherit src;
             hooks = {
               zizmor.enable = true;
+              reuse.enable = true;
             };
           };
         }
