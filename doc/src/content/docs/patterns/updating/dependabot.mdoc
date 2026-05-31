@@ -7,8 +7,10 @@ title: Configure dependabot (via a skill)
 The flake-templates repository contains [init-dependabot](https://github.com/akirak/flake-templates/tree/master/skills/init-dependabot) skill which you can use to set up dependabot with the help of a coding agent.
 
 {% aside type="caution" %}
-The skill does not create GitHub App credentials for you. After reviewing the
-generated files, create a GitHub App manually and add these repository secrets:
+The skill also creates a GitHub Actions workflow that automatically merges
+dependabot PRs, but it does not create GitHub App credentials required for the
+workflow. After reviewing the generated files, create a GitHub App manually and
+add these repository secrets:
 
 - `CREATE_PR_APP_ID`
 - `CREATE_PR_APP_PRIVATE_KEY`
