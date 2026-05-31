@@ -149,9 +149,8 @@ built-in check.
 If you'd rather avoid running tests within Nix's sandbox, create a separate
 workflow instead in addition to the build workflow.
 ## Also consider
-- Update the actions automatically by [setting up
-  Renovate](/flake-templates/patterns/updating/renovate). This is already
-  included in the template, so you don't need extra steps for configuration.
+- Keep GitHub Actions updated with a dependency update tool such as Dependabot
+  if you don't want to update pinned action SHAs manually.
 - The template also ships with a workflow for [checking formats using
   treefmt-nix](/flake-templates/patterns/formatting/treefmt-nix). It should work
   out of the box if your flake supports it, but otherwise it will fail. Check

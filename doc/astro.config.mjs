@@ -41,6 +41,10 @@ export default defineConfig({
               label: "Editor support",
               items: [{ label: "Emacs", slug: "configuration/editor/emacs" }],
             },
+            {
+              label: "Agent skills",
+              slug: "configuration/agent-skills",
+            },
           ],
         },
         {
@@ -135,8 +139,8 @@ export default defineConfig({
               label: "Updating dependencies",
               items: [
                 {
-                  label: "Renovate Bot",
-                  slug: "patterns/updating/renovate",
+                  label: "Dependabot (via a skill)",
+                  slug: "patterns/updating/dependabot",
                 },
               ],
             },
@@ -157,7 +161,12 @@ export default defineConfig({
         },
         {
           label: "Resources",
-          slug: "resources",
+          items: [
+            {
+              label: "Overview",
+              slug: "resources",
+            },
+          ],
         },
       ],
     }),

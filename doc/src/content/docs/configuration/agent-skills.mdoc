@@ -1,0 +1,34 @@
+---
+# SPDX-FileCopyrightText: 2026 Akira Komamura
+# SPDX-License-Identifier: CC-BY-SA-4.0
+title: Agent Skills
+description: Agent skills shipped in this repository.
+---
+
+This repository contains agent skills that can be used with coding assistants.
+Each skill lives in its own directory under
+[skills](https://github.com/akirak/flake-templates/tree/master/skills) directory
+of this repository.
+
+## Available skills
+
+- [init-dependabot](https://github.com/akirak/flake-templates/tree/master/skills/init-dependabot):
+  Initializes Dependabot for a repository by installing a Dependabot
+  configuration and an auto-merge workflow, then adapting them to the target
+  project.
+
+## Installing skills
+
+There are several ways to install skills from this repository:
+
+- Using the built-in skill installer in your coding agent.
+- Using an imperative tool such as [vercel-labs/skills](https://github.com/vercel-labs/skills).
+- Installing skills declaratively in Nix with/without a framework such as [agent-skills-nix](https://github.com/Kyure-A/agent-skills-nix).
+
+I do not provide an officially recommended installation method.
+
+{% aside type="caution" %}
+Installing skills from third-party repositories can introduce security risks.
+Review each skill before installing it, and install only skills from sources
+you trust.
+{% /aside %}

@@ -1,0 +1,121 @@
+name: Auto-merge PR
+
+on:
+  pull_request:
+
+permissions:
+  {}
+
+concurrency:
+  group: merge
+
+jobs:
+  # Remove this job if the flake.nix doesn't depend on any hash value or the
+  # user prefers manual intervention in the process.
+  update:
+    runs-on: ubuntu-latest
+
+    if: |
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.fork == false
+
+    permissions:
+      contents: read
+      pull-requests: read
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.head_ref }}
+          persist-credentials: false
+
+      # Remove this step if the updating step doesn't require Nix.
+      # You may need to set up another third-party action instead.
+      - uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update
+        # FIXME: Replace this with any command you need to update the lock file
+        run: nix run nixpkgs#prefetch-npm-deps package-lock.json > npm-hash.txt
+
+      - id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          # Replace this with the user ID of the app.
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add npm-hash.txt
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit --no-verify -m "chore: Updated the npm hash"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        if: steps.commit.outputs.changed == 'true'
+        id: generate-token
+        with:
+          app-id: ${{ secrets.CREATE_PR_APP_ID }}
+          private-key: ${{ secrets.CREATE_PR_APP_PRIVATE_KEY }}
+          permission-contents: write
+
+      - if: steps.commit.outputs.changed == 'true'
+        env:
+          GITHUB_APP_TOKEN: ${{ steps.generate-token.outputs.token }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          git config credential.helper 'cache --timeout=300'
+          fill_credential() {
+            printf '%s\n' \
+              protocol=https \
+              host=github.com \
+              username=x-access-token \
+              "password=$GITHUB_APP_TOKEN" \
+              ''
+          }
+          trap 'fill_credential | git credential reject' EXIT
+          fill_credential | git credential approve
+          git push --no-verify origin "HEAD:$HEAD_REF"
+
+  merge:
+    # Remove this line if you remove the update job above.
+    needs: update
+
+    if: |
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.fork == false
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: read
+
+    steps:
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: generate-token
+        with:
+          app-id: ${{ secrets.CREATE_PR_APP_ID }}
+          private-key: ${{ secrets.CREATE_PR_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
+        with:
+          github-token: ${{ github.token }}
+
+      - name: Merge
+        if: |
+          steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'
+          || steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor'
+          || steps.dependabot-metadata.outputs.dependency-group == 'nixpkgs'
+        run: |
+          gh pr merge "$PR_URL" --delete-branch --merge --auto
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
