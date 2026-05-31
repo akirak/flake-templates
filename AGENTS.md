@@ -114,3 +114,4 @@ When modifying templates, test them by:
 
 - Documentations should be specific to project types
 - Link to each documentation from `/doc/astro.config.mjs`
+- The default branch of this repository is `master`.
