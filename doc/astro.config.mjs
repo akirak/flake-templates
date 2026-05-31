@@ -135,6 +135,10 @@ export default defineConfig({
               label: "Updating dependencies",
               items: [
                 {
+                  label: "Dependabot (via a skill)",
+                  slug: "patterns/updating/dependabot",
+                },
+                {
                   label: "Renovate Bot",
                   slug: "patterns/updating/renovate",
                 },
