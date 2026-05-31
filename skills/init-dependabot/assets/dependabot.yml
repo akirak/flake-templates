@@ -1,0 +1,53 @@
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+    groups:
+      patches:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+      # Use this if you prefer grouping all major updates into one.
+      #
+      # majors:
+      #   patterns:
+      #     - "*"
+    cooldown:
+      default-days: 3
+
+  # It is dangerous to update Nix flake inputs automatically. Basically, you
+  # should not automatically merge those dependabot PRs except for
+  # NixOS/nixpkgs.
+
+  # A configuration for updating only nixpkgs in flake.lock. If you trust
+  # NixOS/nixpkgs, you can automate these PRs automatically. This is suitable
+  # for repositories that only reference nixpkgs as the inputs.
+  - package-ecosystem: nix
+    directory: /
+    schedule:
+      # Set an interval to prevent updating nixpkgs too frequently
+      interval: weekly
+    allow:
+      - dependency-name: nixpkgs
+    groups:
+      nixpkgs:
+        patterns:
+          - nixpkgs
+
+  # An alternative configuration for Nix flake. Each flake input will get a
+  # separate dependabot PR every time, and you should update it manually.
+  # nixpkgs won't be updated. You will need another workflow for updating
+  # nixpkgs.
+  #
+  # - package-ecosystem: nix
+  #   directory: /
+  #   ignore:
+  #     - dependency-name: nixpkgs

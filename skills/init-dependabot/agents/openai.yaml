@@ -1,0 +1,7 @@
+interface:
+  display_name: "Init Dependabot"
+  short_description: "Install and tailor Dependabot templates"
+  default_prompt: "Use $init-dependabot to initialize Dependabot in this repository."
+
+policy:
+  allow_implicit_invocation: true
