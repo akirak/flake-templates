@@ -4,7 +4,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
-    # treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
   outputs =
@@ -14,7 +14,7 @@
 
       imports = [
         # inputs.flake-parts.flakeModules.partitions
-        # inputs.treefmt-nix.flakeModule
+        inputs.treefmt-nix.flakeModule
       ];
 
       # partitions.dev = {
@@ -43,6 +43,14 @@
 
           devShells.default = pkgs.mkShell {
             packages = [ ];
+          };
+
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs = {
+              nixfmt.enable = true;
+              zizmor.enable = true;
+            };
           };
         };
     };
