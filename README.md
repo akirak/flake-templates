@@ -55,7 +55,9 @@ nix flake init -t github:akirak/flake-templates#flake-utils
 
 ### [flake-parts](flake-parts/flake.nix)
 
-This is a boilerplate based on [flake-parts](https://flake.parts/).
+This is a boilerplate based on [flake-parts](https://flake.parts/). It also
+includes a basic [treefmt-nix](https://github.com/numtide/treefmt-nix)
+configuration, so you can run `nix fmt` and formatting checks out of the box.
 
 ``` bash
 nix flake init -t github:akirak/flake-templates#flake-parts
