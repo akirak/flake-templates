@@ -14,13 +14,13 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: cachix/install-nix-action@v31
+    - uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31.10.6
       with:
         github_access_token: ${{ inputs.github-token }}
         extra_nix_config:
           flake-registry =  https://raw.githubusercontent.com/akirak/flake-pins/master/registry.json
 
-    - uses: cachix/cachix-action@v17
+    - uses: cachix/cachix-action@02b16339eddcf6ea27126a830c7f1992855cae13 # v17
       with:
         name: akirak
         authToken: '${{ inputs.cachix-token }}'
