@@ -100,6 +100,7 @@
               actionlint.enable = true;
               nixfmt.enable = true;
               rustfmt.enable = true;
+              zizmor.enable = true;
             };
           };
         };

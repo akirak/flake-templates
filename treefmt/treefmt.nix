@@ -9,8 +9,7 @@
   programs.nixfmt.enable = true;
 
   # GitHub Actions
-  programs.yamlfmt.enable = true;
-  programs.actionlint.enable = true;
+  programs.zizmor.enable = true;
 
   # Markdown
   programs.mdformat.enable = true;
