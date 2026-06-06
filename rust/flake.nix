@@ -84,10 +84,15 @@
           );
 
           devShells.default = craneLib.devShell {
-            packages =
-              (commonArgs.nativeBuildInputs or [ ])
-              ++ (commonArgs.buildInputs or [ ])
-              ++ [ pkgs.rust-analyzer-unwrapped ];
+            inputsFrom = [
+              config.packages.default
+            ];
+
+            packages = [
+              pkgs.rust-analyzer-unwrapped
+              # If your repository is a polyglot project, add other dependencies
+              # such as corepack, typescript-go, etc.
+            ];
 
             RUST_SRC_PATH = "${
               pkgs.rust-bin.${rustChannel}.${rustVersion}.rust-src

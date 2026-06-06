@@ -24,17 +24,23 @@ jobs:
         with:
           persist-credentials: false
           path: ./tmp
+
       - name: Set up Nix
         uses: ./tmp/.github/actions/setup-nix
         with:
           cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: nix flake new -t ./tmp#rust ./work
-      - name: Prepare the project
+
+      - run: cargo new --bin ./work
+
+      - run: nix flake init -t ../tmp#rust
         working-directory: work
+
+      - name: Initialize the project
         run: |
-          git init
+          cargo build
           git add .
+        working-directory: work
 
       - name: Check executables
         run: |
