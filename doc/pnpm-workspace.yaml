@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: 2021-2026 Akira Komamura
+# SPDX-License-Identifier: MIT
+
+packages:
+  - .
+
+overrides:
+  yaml: ^2.8.3
+  esbuild: 0.28.1
