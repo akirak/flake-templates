@@ -20,10 +20,5 @@
     "sharp": "^0.35.1",
     "starlight-llms-txt": "^0.10.0",
     "typescript": "^6.0.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "yaml": "^2.8.3"
-    }
   }
 }
