@@ -1,0 +1,4 @@
+interface:
+  display_name: "Add OCaml Overlay Package"
+  short_description: "Add and verify OCaml packages in this flake"
+  default_prompt: "Use $add-ocaml-overlay-package to add an OCaml package to this flake and verify its Hydra build target."
