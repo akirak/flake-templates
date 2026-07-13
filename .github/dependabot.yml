@@ -26,8 +26,11 @@ updates:
       - automation
       - dependencies
     groups:
-      npm-dependencies:
+      patches:
         patterns:
           - "*"
+        update-types:
+          - minor
+          - patch
     cooldown:
       default-days: 3
