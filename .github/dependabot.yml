@@ -10,10 +10,6 @@ updates:
     labels:
       - automation
       - dependencies
-    groups:
-      github-actions:
-        patterns:
-          - "*"
 
   - package-ecosystem: npm
     directory: /doc
