@@ -41,10 +41,6 @@ export default defineConfig({
               label: "Editor support",
               items: [{ label: "Emacs", slug: "configuration/editor/emacs" }],
             },
-            {
-              label: "Agent skills",
-              slug: "configuration/agent-skills",
-            },
           ],
         },
         {
