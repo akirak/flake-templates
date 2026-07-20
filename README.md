@@ -282,11 +282,6 @@ This template contains basic GitHub workflows and other metadata files.
 ``` bash
 nix flake init -t github:akirak/flake-templates#meta
 ```
-### Agent skills
-This repository also contains agent skills:
-
-- [init-dependabot](skills/init-dependabot/): Initialize dependabot.yml and add
-  an auto-merge workflow.
 ## Editor integration
 
 ### Emacs
