@@ -32,8 +32,8 @@
               pkgs.corepack
               pkgs.typescript-go
             ]
-            ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
-            ++ (lib.optionals pkgs.stdenv.isDarwin (
+            ++ lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.inotify-tools
+            ++ (lib.optionals pkgs.stdenv.hostPlatform.isDarwin (
               with pkgs.darwin.apple_sdk.frameworks;
               [
                 CoreFoundation

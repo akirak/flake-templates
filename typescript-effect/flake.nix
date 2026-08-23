@@ -33,7 +33,7 @@
             # fontconfig_file = { fontDirectories = []; };
           };
 
-          browserProgram = if pkgs.stdenv.targetPlatform.isLinux then "chrome" else "Chromium";
+          browserProgram = if pkgs.stdenv.hostPlatform.isLinux then "chrome" else "Chromium";
         in
         {
           default = pkgs.mkShell {

@@ -31,8 +31,7 @@
                     elixir = beamPackages.${elixirVersion};
                   in
                   {
-                    inherit erlang elixir;
-                    inherit (beamPackages) elixir-ls hex;
+                    inherit erlang elixir beamPackages;
                   }
                 )
               ];
@@ -50,7 +49,7 @@
             buildInputs = with pkgs; [
               erlang
               elixir
-              elixir-ls
+              beamPackages.expert
             ];
           };
         }

@@ -82,7 +82,7 @@
               ]
             )
             # Enable file watcher.
-            # ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
+            # ++ lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.inotify-tools
             ;
           };
         }

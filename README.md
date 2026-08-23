@@ -226,7 +226,7 @@ Features:
 
 - It includes native dependencies for developing a Phoenix application such as
   node.js and a file watcher.
-- It includes [Lexical](https://github.com/lexical-lsp/lexical) LSP server, but
+- It includes [Expert](https://github.com/expert-lsp/expert) LSP server, but
   you can tweak the flake to use one of [the
   alternatives](https://gist.github.com/Nezteb/dc63f1d5ad9d88907dd103da2ca000b1).
 - It uses [flake-parts](https://flake.parts/) to organize the flake outputs. It

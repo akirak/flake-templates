@@ -4,9 +4,6 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    # Lexical is an alternative LSP server. There are several options for Elixir
-    # LSP. See https://gist.github.com/Nezteb/dc63f1d5ad9d88907dd103da2ca000b1
-    lexical.url = "github:lexical-lsp/lexical";
     # Use process-compose to manage background processes during development
     process-compose-flake.url = "github:Platonic-Systems/process-compose-flake";
   };
@@ -52,7 +49,7 @@
                   elixir = beamPackages.${elixirVersion};
                 in
                 {
-                  inherit erlang elixir;
+                  inherit erlang elixir beamPackages;
                   # Hex is not used in the devShell.
                   # inherit (beamPackages) hex;
                 }
@@ -74,16 +71,18 @@
                   # You are likely to need Node.js if you develop a Phoenix
                   # application.
                   nodejs
-                  # Add the language server of your choice.
-                  inputs.lexical.packages.${system}.default
+
+                  # Select a language server for Elixir.
+                  beamPackages.expert
+
                   # I once added Hex via a Nix development shell, but now I install
                   # and upgrade it using Mix. Hex installed using Nix can cause an
                   # issue if you manage Elixir dependencies using Mix.
                 ]
                 # Add a dependency for a file watcher if you develop a Phoenix
                 # application.
-                ++ lib.optional stdenv.isLinux inotify-tools
-                ++ (lib.optionals stdenv.isDarwin (
+                ++ lib.optional stdenv.hostPlatform.isLinux inotify-tools
+                ++ (lib.optionals stdenv.hostPlatform.isDarwin (
                   with darwin.apple_sdk.frameworks;
                   [
                     CoreFoundation
