@@ -114,7 +114,7 @@ to do this only once per machine:
 
 ### Switch the language server
 
-[Lexical](https://github.com/lexical-lsp/lexical/) is the default language
+[Expert](https://github.com/expert-lsp/expert) is the default language
 server for Elixir, but you can change it to a different one:
 
 ```diff lang="nix" title="flake.nix"
@@ -124,8 +124,8 @@ server for Elixir, but you can change it to a different one:
   # You are likely to need Node.js if you develop a Phoenix
   # application.
   nodejs
-  # Add the language server of your choice.
--  inputs.lexical.packages.${system}.default
+  # Expert is the default language server for Elixir.
+-  beamPackages.expert
 +  elixir-ls
   # I once added Hex via a Nix development shell, but now I install
   # and upgrade it using Mix. Hex installed using Nix can cause an
