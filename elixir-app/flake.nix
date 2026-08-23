@@ -81,8 +81,8 @@
                 ]
                 # Add a dependency for a file watcher if you develop a Phoenix
                 # application.
-                ++ lib.optional stdenv.isLinux inotify-tools
-                ++ (lib.optionals stdenv.isDarwin (
+                ++ lib.optional stdenv.hostPlatform.isLinux inotify-tools
+                ++ (lib.optionals stdenv.hostPlatform.isDarwin (
                   with darwin.apple_sdk.frameworks;
                   [
                     CoreFoundation
