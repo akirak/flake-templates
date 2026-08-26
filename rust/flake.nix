@@ -104,7 +104,12 @@
           };
 
           treefmt = {
-            projectRootFile = "Cargo.toml";
+            projectRootFile = "flake.nix";
+            settings.excludes = [
+              ".direnv/*"
+              "target/*"
+              # "node_modules/*"
+            ];
             programs = {
               actionlint.enable = true;
               nixfmt.enable = true;
