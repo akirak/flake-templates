@@ -59,6 +59,9 @@
               pkgs: pkgs.rust-bin.${rustChannel}.${rustVersion}.${rustProfile}
             );
             commonArgs = {
+              pname = throw "FIXME: Set pname in flake.nix";
+              version = throw "FIXME: Set a version in flake.nix";
+
               # Depending on your code base, you may have to customize the
               # source filtering to include non-standard files during the build.
               # See
