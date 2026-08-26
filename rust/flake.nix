@@ -88,6 +88,7 @@
 
           devShells.default = craneLib.devShell {
             inputsFrom = [
+              # Disable this when you first generate Cargo.lock
               config.packages.default
             ];
 
