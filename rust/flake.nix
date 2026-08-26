@@ -59,6 +59,10 @@
               pkgs: pkgs.rust-bin.${rustChannel}.${rustVersion}.${rustProfile}
             );
             commonArgs = {
+              # You may have to set the package name and the version explicitly.
+              # pname = "name_of_your_package";
+              # version = "version";
+
               # Depending on your code base, you may have to customize the
               # source filtering to include non-standard files during the build.
               # See
@@ -85,6 +89,7 @@
 
           devShells.default = craneLib.devShell {
             inputsFrom = [
+              # Disable this when you first generate Cargo.lock
               config.packages.default
             ];
 
@@ -100,7 +105,12 @@
           };
 
           treefmt = {
-            projectRootFile = "Cargo.toml";
+            projectRootFile = "flake.nix";
+            settings.excludes = [
+              ".direnv/*"
+              "target/*"
+              # "node_modules/*"
+            ];
             programs = {
               actionlint.enable = true;
               nixfmt.enable = true;
