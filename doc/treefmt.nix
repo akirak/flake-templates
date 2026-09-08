@@ -38,5 +38,5 @@
   };
 
   # GitHub Actions
-  programs.actionlint.enable = true;
+  programs.zizmor.enable = true;
 }
