@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2024-2025 Akira Komamura
+# SPDX-FileCopyrightText: 2024-2026 Akira Komamura
 # SPDX-License-Identifier: MIT
 {
   projectRootFile = "treefmt.nix";
