@@ -30,7 +30,7 @@
               pkgs.${beamVersion}.rebar3
               pkgs.nodejs
               pkgs.corepack
-              pkgs.typescript-go
+              pkgs.typescript
             ]
             ++ lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.inotify-tools
             ++ (lib.optionals pkgs.stdenv.hostPlatform.isDarwin (
