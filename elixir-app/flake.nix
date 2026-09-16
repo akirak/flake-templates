@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: Unlicense
 {
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "nixpkgs-unstable";
     # systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
     # Use process-compose to manage background processes during development

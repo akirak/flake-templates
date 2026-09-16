@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: Unlicense
 {
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "nixpkgs-unstable";
     # systems.url = "github:nix-systems/default";
   };
 
@@ -30,7 +30,7 @@
               pkgs.${beamVersion}.rebar3
               pkgs.nodejs
               pkgs.corepack
-              pkgs.typescript-go
+              pkgs.typescript
             ]
             ++ lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.inotify-tools
             ++ (lib.optionals pkgs.stdenv.hostPlatform.isDarwin (
