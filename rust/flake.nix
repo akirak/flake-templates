@@ -96,7 +96,7 @@
             packages = [
               pkgs.rust-analyzer-unwrapped
               # If your repository is a polyglot project, add other dependencies
-              # such as corepack, typescript-go, etc.
+              # such as corepack, typescript, etc.
             ];
 
             RUST_SRC_PATH = "${

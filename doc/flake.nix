@@ -30,7 +30,7 @@
             packages = [
               pkgs.nodejs
               pkgs.corepack
-              pkgs.typescript-go
+              pkgs.typescript
             ];
           };
         }
