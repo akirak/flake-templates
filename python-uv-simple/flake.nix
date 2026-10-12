@@ -21,7 +21,7 @@
             buildInputs = [
               pkgs.python3
               pkgs.uv
-              pkgs.basedpyright
+              pkgs.pyrefly
             ];
           };
         }
