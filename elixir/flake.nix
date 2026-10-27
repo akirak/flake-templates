@@ -26,12 +26,15 @@
                 (
                   final: _:
                   let
-                    beamPackages = final.${beamVersion};
-                    erlang = beamPackages.erlang;
-                    elixir = beamPackages.${elixirVersion};
+                    beamPackages = final.${beamVersion}.overrideScope (
+                      _: prev: {
+                        elixir = prev.${elixirVersion};
+                      }
+                    );
                   in
                   {
-                    inherit erlang elixir beamPackages;
+                    inherit (beamPackages) erlang elixir;
+                    inherit beamPackages;
                   }
                 )
               ];
