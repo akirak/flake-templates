@@ -65,7 +65,7 @@
 
           # Add dependencies to develop your application using Mix.
           devShells.default = pkgs.mkShell {
-            buildInputs = [
+            packages = [
               pkgs.erlang
               pkgs.elixir
               # You are likely to need Node.js if you develop a Phoenix

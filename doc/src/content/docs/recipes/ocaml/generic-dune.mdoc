@@ -235,7 +235,7 @@ To run sherlodoc, follow this instruction.
            system: pkgs: {
              default = pkgs.mkShell {
                inputsFrom = [ self.packages.${system}.default ];
-               buildInputs = (
+               packages = (
                  with pkgs.ocamlPackages;
                  [
                    ocaml-lsp

@@ -35,7 +35,7 @@
       devShells = eachSystem (
         _system: pkgs: {
           default = pkgs.mkShell ({
-            buildInputs = [
+            packages = [
               pkgs.zig
               pkgs.zls
               # You can add `just` to invoke `zig run`, `zig build-exe`, etc

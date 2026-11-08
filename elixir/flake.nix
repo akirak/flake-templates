@@ -49,7 +49,7 @@
       devShells = eachSystem (
         _system: pkgs: {
           default = pkgs.mkShell {
-            buildInputs = [
+            packages = [
               pkgs.erlang
               pkgs.elixir
               pkgs.beamPackages.expert

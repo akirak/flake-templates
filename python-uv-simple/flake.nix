@@ -18,7 +18,7 @@
       devShells = eachSystem (
         _system: pkgs: {
           default = pkgs.mkShell {
-            buildInputs = [
+            packages = [
               pkgs.python3
               pkgs.uv
               pkgs.pyrefly

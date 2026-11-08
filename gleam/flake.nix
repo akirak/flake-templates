@@ -24,7 +24,7 @@
       devShells = eachSystem (
         _system: pkgs: {
           default = pkgs.mkShell {
-            buildInputs = [
+            packages = [
               pkgs.gleam
               pkgs.${beamVersion}.erlang
               pkgs.${beamVersion}.rebar3
