@@ -34,17 +34,14 @@
 
       devShells = eachSystem (
         _system: pkgs: {
-          default = pkgs.mkShell (
-            with pkgs;
-            {
-              buildInputs = [
-                zig
-                zls
-                # You can add `just` to invoke `zig run`, `zig build-exe`, etc
-                # with specific arguments.
-              ];
-            }
-          );
+          default = pkgs.mkShell ({
+            buildInputs = [
+              pkgs.zig
+              pkgs.zls
+              # You can add `just` to invoke `zig run`, `zig build-exe`, etc
+              # with specific arguments.
+            ];
+          });
         }
       );
 
