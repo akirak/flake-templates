@@ -94,7 +94,7 @@ project. Below are some links:
     {
       devShells = eachSystem (_system: pkgs: {
         default = pkgs.mkShell {
-          buildInputs = [
+          packages = [
             ...
 
             # Use corepack to install npm/pnpm/yarn as specified in package.json
@@ -114,7 +114,7 @@ field of the default shell, depending on the package manager of your choice.
    ```diff lang="nix" title="flake.nix"
          devShells = eachSystem (_system: pkgs: {
            default = pkgs.mkShell {
-             buildInputs = [
+             packages = [
                pkgs.nodejs
                # Comment out one of these
    -           # pkgs.bun

@@ -65,34 +65,30 @@
 
           # Add dependencies to develop your application using Mix.
           devShells.default = pkgs.mkShell {
-            buildInputs =
-              with pkgs;
-              (
-                [
-                  erlang
-                  elixir
-                  # You are likely to need Node.js if you develop a Phoenix
-                  # application.
-                  nodejs
+            packages = [
+              pkgs.erlang
+              pkgs.elixir
+              # You are likely to need Node.js if you develop a Phoenix
+              # application.
+              pkgs.nodejs
 
-                  # Select a language server for Elixir.
-                  beamPackages.expert
+              # Select a language server for Elixir.
+              pkgs.beamPackages.expert
 
-                  # I once added Hex via a Nix development shell, but now I install
-                  # and upgrade it using Mix. Hex installed using Nix can cause an
-                  # issue if you manage Elixir dependencies using Mix.
-                ]
-                # Add a dependency for a file watcher if you develop a Phoenix
-                # application.
-                ++ lib.optional stdenv.hostPlatform.isLinux inotify-tools
-                ++ (lib.optionals stdenv.hostPlatform.isDarwin (
-                  with darwin.apple_sdk.frameworks;
-                  [
-                    CoreFoundation
-                    CoreServices
-                  ]
-                ))
-              );
+              # I once added Hex via a Nix development shell, but now I install
+              # and upgrade it using Mix. Hex installed using Nix can cause an
+              # issue if you manage Elixir dependencies using Mix.
+            ]
+            # Add a dependency for a file watcher if you develop a Phoenix
+            # application.
+            ++ lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.inotify-tools
+            ++ (lib.optionals pkgs.stdenv.hostPlatform.isDarwin (
+              with pkgs.darwin.apple_sdk.frameworks;
+              [
+                CoreFoundation
+                CoreServices
+              ]
+            ));
           };
 
           # You can define background processes in Nix using

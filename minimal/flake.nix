@@ -24,7 +24,7 @@
       devShells = eachSystem (
         _system: pkgs: {
           default = pkgs.mkShell {
-            buildInputs = with pkgs; [
+            packages = [
               # Add development dependencies here
             ];
           };

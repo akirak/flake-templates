@@ -30,7 +30,9 @@
     in
     {
       packages = eachSystem (
-        _system: pkgs: with pkgs; {
+        _system:
+        pkgs@{ ocamlPackages, ... }:
+        {
           default = ocamlPackages.buildDunePackage {
             pname = throw "Name your OCaml package";
             version = throw "Version your OCaml package";
@@ -42,21 +44,21 @@
             #   ocamlPackages.dream
             # ];
 
-            buildInputs = with ocamlPackages; [ ocaml-syntax-shims ];
+            buildInputs = [ ocamlPackages.ocaml-syntax-shims ];
 
             propagatedBuildInputs = with ocamlPackages; [
               # Add OCaml dependencies required for your project
 
               # Jane Street
-              base
-              core
-              core_unix
+              ocamlPackages.base
+              ocamlPackages.core
+              ocamlPackages.core_unix
 
               # Some common dependencies
-              # eio
-              # eio_main
-              # yojson
-              # ppx_yojson_conv
+              # ocamlPackages.eio
+              # ocamlPackages.eio_main
+              # ocamlPackages.yojson
+              # ocamlPackages.ppx_yojson_conv
             ];
           };
         }
