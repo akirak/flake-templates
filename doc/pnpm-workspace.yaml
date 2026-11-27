@@ -7,3 +7,9 @@ packages:
 overrides:
   yaml: ^2.8.3
   esbuild: 0.28.1
+  # Keep @emnapi/core and @emnapi/runtime on the same stable major. pnpm's
+  # automatic peer installation can otherwise pair core 1.x with the
+  # prerelease runtime 2.x, which fails Astro's check step with
+  # "this.bridge.setLastError is not a function".
+  '@emnapi/core': 1.11.3
+  '@emnapi/runtime': 1.11.3
